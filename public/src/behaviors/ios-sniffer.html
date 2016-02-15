@@ -1,0 +1,33 @@
+<script>
+
+  var Behaviors = Behaviors || {};
+
+  Behaviors.ios_sniffer = (function () {
+    var ios = false;
+
+    var ios_devices = [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ];
+
+    while (ios_devices.length) {
+      if (navigator.platform === ios_devices.pop()) { 
+        ios = true; 
+      }
+    }
+
+    return Object.freeze({
+      properties: {
+        is_IOS: {
+          type: Boolean,
+          value: ios,
+          readOnly: true 
+        }
+      }
+    });
+  }());
+</script>

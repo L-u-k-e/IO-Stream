@@ -1,0 +1,163 @@
+/**
+ * Author: Lucas Parzych
+ * Email:  parzycl1@sunyit.edu
+ * Description:
+ *  This element acts as the top-most mediator. 
+ *  (Google "mediator pattern" if that term confuses you) 
+ * 
+ *  It contains the app header and the router.
+ *
+ *
+ *  The design for this application was inspired by Youtube :) 
+ *
+ */
+
+
+
+
+
+<!-- Third Party Imports-->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icons/av-icons.html">
+
+<link rel="import" href="/bower_components/paper-search/paper-search-panel.html">
+
+
+<!-- Custom Imports -->
+<link rel="import" href="../styles/shared-styles.html">
+
+
+
+
+
+
+
+
+
+
+
+<dom-module id="class-x">
+
+
+  <template>
+  
+    <style>
+      /* Content needs to be laid out vertically with the header above the rest of the content */
+      app-header-layout {
+        @apply(--layout-fit);
+        @apply(--layout-vertical); 
+      }
+
+      /* Primary view container needs to stretch to fill the space available to it */
+      app-drawer-layout {
+        height: 100vh;
+        background-color: #345;
+      }
+
+      /* Drawer content needs to clear space for the header. */
+      app-drawer {
+        /* The app-drawer is actually:; position:fixed; top:-120px; 
+         * The header is 64px, so we need 184 to clear it. 
+         */
+        --app-drawer-content-container: {
+          padding-top: 184px;
+        };
+      }
+
+      app-header {
+       background-color: var(--primary-color);
+       color: rgba(0,0,0,0.6);
+       text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+
+       @apply(--paper-font-title);
+      }
+
+      /* Left header content needs to align with the sidebar.
+       * Sidebar width is 256, but there is 16px of padding to the left
+       * of this element, thus width: 240px;
+       */
+      #left {
+        width: 240px;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+      }
+
+      #left div {
+        @apply(--layout-flex);
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+      }
+      #icon {
+        padding-left: 20px;
+      }
+    </style>
+
+
+
+
+
+
+  <app-header-layout>
+
+
+    <app-header fixed shadow>
+      <app-toolbar>
+        <div id="left">
+          <paper-icon-button icon="menu" id="drawer_toggler"></paper-icon-button>
+          <div>
+            <span> ClassX </span>
+            <iron-icon id="icon" icon="av:subscriptions"></iron-icon>
+          </div>
+        </div>
+        <paper-search></paper-search>
+      </app-toolbar>
+    </app-header>
+
+    <app-drawer-layout>
+      <app-drawer id="drawer">
+        
+      </app-drawer>
+      <div id="main">
+        <!-- Main Content Here -->
+      </div>
+    </app-drawer-layout>
+
+
+  </app-header-layout>
+
+
+
+
+  </template>
+
+
+
+
+
+
+  <script>
+    Polymer({
+      is: 'class-x',
+
+      listeners: {
+        'drawer_toggler.tap': '_toggle_drawer'
+      },
+
+      _toggle_drawer: function (event, detail) {
+        this.$.drawer.toggle();
+      }
+    });
+  </script>
+
+
+</dom-module>

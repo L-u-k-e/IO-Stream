@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+	<title>ClassX - SUNY Polytechnic</title>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Pacifico|Lato|Roboto' rel='stylesheet' type='text/css'>
+
+    <!-- Normalize.css -->
+    <link href='src/styles/normalize.css' rel='stylesheet' type='text/css'> 
+
+    <!-- Main styles -->
+    <link href='src/styles/main.css' rel='stylesheet' type='text/css'> 
+
+    <!-- Inline styles for the splash screen -->
+    <style>
+      body.loading #splash {
+        opacity: 1;
+      }
+      #splash {
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        transition: opacity 300ms cubic-bezier(0,0,0.2,1);
+        opacity: 0;
+        will-change: opacity;
+        z-index: 1;
+
+        color: rgba(0,0,0,0.6);
+        text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+        font-size: 42px;
+        font-family: Roboto;
+        background-color: #1976D2;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      #splash div > div {
+        font-size: 24px;
+      }
+    </style> 
+
+    <!-- Lodash -->
+    <script src="bower_components/lodash/dist/lodash.min.js"></script>
+
+    <!-- Web Components Polyfills -->
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+    <!-- App Container -->
+    <link rel="import" id="bundle" href="src/elements/class-x.html" async>
+
+  </head>
+  <body class="loading">
+    <!-- Display splash screen while imports load -->
+    <div id="splash">
+      <div>
+        <span>ClassX</span>
+        <div> By Students. For Students. </div>
+      </div>
+    </div> 
+
+    <!-- Instantiate the main application -->
+    <class-x></class-x>
+
+    <!-- Remove splash screen when class-x is ready -->
+    <script>
+        (function () {
+          var onImportLoaded = function (event) {
+            var splash = document.body.querySelector('#splash');
+            document.body.classList.remove('loading');
+            window.setTimeout(function () {
+              document.body.removeChild(splash);
+            }, 300);
+          };
+
+          // Go if the async elements import loaded quickly. Otherwise wait for it.
+          // crbug.com/504944 - readyState never goes to complete until Chrome 46.
+          // crbug.com/505279 - Resource Timing API is not available until Chrome 46.
+          var bundle = document.querySelector('#bundle');
+          if (bundle.import && bundle.import.readyState === 'complete') {
+            onImportLoaded();
+          } else {
+            bundle.addEventListener('load', onImportLoaded);
+          }
+        }());
+    </script>
+  </body>
+</html>

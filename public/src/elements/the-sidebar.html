@@ -1,0 +1,124 @@
+/**
+ * Author: Lucas Parzych
+ * Email:  parzycl1@sunyit.edu
+ * Description:
+ *  This is the sidebar.
+ *  Communication with the mediator is done via data binding.
+ *  
+ *  The data binding is two way, so this element is responsible for both informing the mediator 
+ *  when the selected menu item changes and also for changing the selected menu item when the 
+ *  mediator deems appropriate. 
+ */
+
+
+
+
+
+<!-- Third Party Imports -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+
+<!-- Custom Imports -->
+<link rel="import" href="../styles/shared-styles.html">
+
+
+
+
+
+
+
+
+
+
+
+<dom-module id="the-sidebar">
+
+
+  <template>
+
+    <style>
+      :host {
+        display: block;
+        @apply(--layout-fit);
+        @apply(--layout-vertical);
+      }
+
+      paper-menu {
+            background-color: #034;
+        padding-top:0px;
+        text-align: center
+        @apply(--layout-flex-2);
+      }
+
+      #external_content {
+        @apply(--layout-flex);
+        padding: 10px;
+        position: relative;
+      }
+
+      paper-item {
+        display: block;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        width: 100%;
+        text-align: left;
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #000;
+      }
+
+      paper-item:focus, 
+      paper-item:after, 
+      paper-item:before {
+        background: #fff !important;
+        background-color: #fff !important;
+        color: var(--dark-accent-color);
+      }
+
+      paper-item:not(#menu-header):hover {
+        color: var(--dark-accent-color);
+      }
+
+      #menu-header {
+        border-top-color: rgba(0,0,0,0);
+        /*border-bottom: 1px solid rgba(0,0,0, 0.14);*/
+        font-size: 1.4em;
+        font-family: 'Pacifico';
+        font-weight: 300;
+        height: 64px;
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+
+
+    <paper-menu>
+      <paper-item id="menu-header">
+        <span> ClassX </span>
+      </paper-item>
+      <paper-item>View All Courses</paper-item>
+      <paper-item>My Previous Semesters</paper-item>
+      <paper-item>Courses By Professor</paper-item>
+      <paper-item>Current Semester</paper-item>
+      <paper-item>New Videos</paper-item>
+    </paper-menu>
+
+  </template>
+
+
+
+
+
+
+  <script>
+    Polymer({
+      is: 'the-sidebar'
+    });
+  </script>
+
+
+</dom-module>

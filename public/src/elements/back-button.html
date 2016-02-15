@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<dom-module id="back-button">
+  <template>
+    <style>
+      #home {
+        visibility: hidden;
+      }
+      #home[data-visible] {
+        visibility: visible;
+      }
+    </style>
+    <paper-icon-button  icon="arrow-back" id="home" on-tap="_pop"
+                        data-visible$="[[!_isEmpty(_history.splices)]]" >
+    </paper-icon-button> 
+  </template>
+  <script>
+    Polymer({
+      is: 'back-button',
+
+      properties: {
+        _history: {
+          type: Array,
+          value: []
+        }
+      },
+
+      // Return true if nothing's on the history stack.
+      _isEmpty: function (history_change_record) {
+        return this._history.length === 0;
+      },
+
+      // Pop from the history stack and send it up to the mediator.
+      _pop: function (event) {
+        var detail = this.pop('_history');
+        this.fire('navigation-pop-request', detail);
+      },
+
+      // Push an item on to the history stack.
+      remember: function (history_item) {
+        this.push('_history', history_item);
+      }
+    });
+  </script>
+</dom-module>

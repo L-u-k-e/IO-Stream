@@ -1,0 +1,74 @@
+/**
+ * Author: Lucas Parzych
+ * Email:  parzycl1@sunyit.edu
+ * Description:
+ *  This is the header (title bar).
+ *  
+ *  It contains the title and a search bar. 
+ */
+
+
+
+
+
+<!-- Third Party Imports -->
+<link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+
+
+<!-- Custom Imports -->
+<link rel="import" href="../styles/shared-styles.html">
+
+
+
+
+
+
+
+
+
+
+
+<dom-module id="the-header">
+
+
+  <template>
+
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    
+
+
+
+
+
+    <app-header fixed shadow>
+      <app-toolbar class="top">
+        <div class="left_buttons">
+          <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+          <back-button id="back_nav"></back-button>
+        </div>
+        <div id="title">Board Package</div>
+      </app-toolbar>
+    </app-header>
+
+
+  </template>
+
+
+
+
+
+
+  <script>
+    Polymer({
+      is: 'the-header'
+    });
+  </script>
+
+
+</dom-module>
