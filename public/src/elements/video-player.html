@@ -28,7 +28,6 @@
 
 
 
-
 			.slider_container {
 				height: 100%;
 				@apply(--layout-horizontal);
@@ -261,14 +260,26 @@
 
 
 			_pan_video: function (event, detail) {
-				var style = this.$.video.style;
-				if (detail.state == 'end') {
-					this.x_offset = parseFloat(style.left, 10);
-					this.y_offset = parseFloat(style.top, 10);
-				} else {
-					style.left = this.x_offset + detail.dx  + 'px';
-					style.top  = this.y_offset + detail.dy  + 'px';
-				} 
+				var self = this;
+				var video = self.$.video;
+				var style = video.style;
+				var normal_dimensions = {};
+				var scaled_dimensions = video.getBoundingClientRect();
+
+				var map = [['left', 'width', 'x'], ['top', 'height', 'y']];
+				_.each(map, function (vec) {
+					var vec = {css: vec[0], dim: vec[1], axis: vec[2]};
+					normal_dimensions[vec.dim] = video[_.camelCase('offset '+vec.dim)];
+					
+					var suggested_val = self[vec.axis+'_offset'] + detail['d'+vec.axis]; 
+					var bound = (scaled_dimensions[vec.dim] - normal_dimensions[vec.dim])/2;
+
+					if (detail.state == 'end') {
+						self[vec.axis+'_offset'] = parseFloat(style[vec.css], 10);
+					} else {
+						style[vec.css] = _.clamp(suggested_val, -bound, bound) + 'px';
+					}
+				});
 			},
 
 
