@@ -18,6 +18,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/av-icons.html">
 
 
 <!-- Custom Imports -->
@@ -41,70 +43,31 @@
     <style>
       :host {
         display: block;
-        @apply(--layout-fit);
-        @apply(--layout-vertical);
       }
 
-      paper-menu {
-            background-color: #034;
-        padding-top:0px;
-        text-align: center
-        @apply(--layout-flex-2);
-      }
-
-      #external_content {
-        @apply(--layout-flex);
-        padding: 10px;
-        position: relative;
-      }
 
       paper-item {
-        display: block;
-        padding: 10px;
-        font-size: 14px;
-        font-weight: bold;
-        width: 100%;
-        text-align: left;
-        box-sizing: border-box;
         cursor: pointer;
-        transition: all 0.3s ease;
-        color: #000;
       }
 
-      paper-item:focus, 
-      paper-item:after, 
-      paper-item:before {
-        background: #fff !important;
-        background-color: #fff !important;
-        color: var(--dark-accent-color);
+      paper-item span {
+        transition: 0.3s ease;
       }
 
-      paper-item:not(#menu-header):hover {
-        color: var(--dark-accent-color);
-      }
-
-      #menu-header {
-        border-top-color: rgba(0,0,0,0);
-        /*border-bottom: 1px solid rgba(0,0,0, 0.14);*/
-        font-size: 1.4em;
-        font-family: 'Pacifico';
-        font-weight: 300;
-        height: 64px;
-        display: flex;
-        justify-content: center;
+      paper-item iron-icon {
+        margin-right: 20px;
+        color: #444;
       }
     </style>
 
 
     <paper-menu>
-      <paper-item id="menu-header">
-        <span> ClassX </span>
-      </paper-item>
-      <paper-item>View All Courses</paper-item>
-      <paper-item>My Previous Semesters</paper-item>
-      <paper-item>Courses By Professor</paper-item>
-      <paper-item>Current Semester</paper-item>
-      <paper-item>New Videos</paper-item>
+      <template is="dom-repeat" items="[[_menu_info]]">
+        <paper-item>
+          <iron-icon icon="[[item.icon]]"></iron-icon>
+          <span>[[item.text]]</span>
+        </paper-item>
+      </template>
     </paper-menu>
 
   </template>
@@ -116,7 +79,16 @@
 
   <script>
     Polymer({
-      is: 'the-sidebar'
+      is: 'the-sidebar',
+      ready: function () {
+        this._menu_info = [
+          {icon: 'explore',           text: 'View All Courses'     },
+          {icon: 'reply-all',         text: 'My Previous Semesters'},
+          {icon: 'today',             text: 'My Current Semester'  },
+          {icon: 'record-voice-over', text: 'Courses By Professor' },
+          {icon: 'av:fiber-new',      text: 'New Videos'           },
+        ];
+      }
     });
   </script>
 
