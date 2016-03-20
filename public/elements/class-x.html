@@ -15,6 +15,7 @@
 <!-- Third Party Imports-->
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
 
 <link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
@@ -29,6 +30,8 @@
 <link rel="import" href="/elements/lecture-component.html">
 
 <link rel="import" href="/styles/shared-styles.html">
+
+<link rel="import" href="/behaviors/app-router.html">
 
 
 
@@ -98,8 +101,9 @@
            <the-sidebar></the-sidebar>
         </app-drawer>
         
-        <div id="main">
+        <iron-pages selected="[[view]]" id="main">
           <lecture-component video="/sample/buck_bunny.mp4" title="Lecture About Bunnies!"></lecture-component> 
+          <upload-video></upload-video>
         </div>
       </app-drawer-layout>
 
@@ -119,6 +123,8 @@
   <script>
     Polymer({
       is: 'class-x',
+
+      behaviors: [Behaviors.app_router],
 
       listeners: {
         'drawer-toggle-request': '_toggle_drawer'

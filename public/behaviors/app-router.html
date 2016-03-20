@@ -1,0 +1,33 @@
+<script src="/bower_components/page/page.js"></script>
+<script>
+
+  var Behaviors = Behaviors || {};
+
+  Behaviors.app_router = (function () {
+    
+    var setup_routes = function () {
+        // Setup some basic routing
+        page('/', () => {
+          page.redirect('/watch');
+        });
+
+        page('/watch', () => {
+          this.view = 0;
+        });
+
+        page('/upload', () => {
+          this.view = 1;
+        });
+
+        page({
+          hashbang: true
+        });
+    };
+
+    return Object.freeze({
+      ready: setup_routes
+    });
+
+  }());
+
+</script>
