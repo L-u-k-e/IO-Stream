@@ -1,6 +1,6 @@
 var db = require('../config/db_config.js');
 
-console.log('hi from model');
+
 exports.get_all = function (req, res, next) {
 	db.any('select * from course')
 	.then(function (data) {
