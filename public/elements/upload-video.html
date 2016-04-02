@@ -1,0 +1,35 @@
+<link rel="import" href="/bower_components/vaadin-upload/vaadin-upload.html">
+<link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+
+<dom-module id="upload-video">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			vaadin-upload {
+				width: 700px;
+			}
+
+			paper-menu {
+				width: 100%;
+			}
+		</style>
+		<paper-dropdown-menu label="select a class" vertical-align="top" horizontal-align="right">
+		  <paper-menu class="dropdown-content">
+		    <paper-item>Croissant</paper-item>
+		    <paper-item>Donut</paper-item>
+		    <paper-item>Financier</paper-item>
+		    <paper-item>Madeleine</paper-item>
+		  </paper-menu>
+		</paper-dropdown-menu>
+		<vaadin-upload nomultiple accept="video" target="api/videos"></vaadin-upload>
+	</template>
+	<script>
+		Polymer({
+			is: 'upload-video'
+		});
+	</script>
+</dom-module>
