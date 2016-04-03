@@ -4,7 +4,7 @@
 
   Behaviors.api_requestor = (function () {
    
-
+/*
     var parser = new DOMParser();
     var extractResult = function (packet) {
       var response = parser.parseFromString(packet, "text/xml");
@@ -33,11 +33,31 @@
       xhr.open('POST', 'serverAPI.cfc?method='+spec.method);
       xhr.send(data);
     };
+*/
 
+    var make_api_request = function (spec) {
+      var data = spec.data;
+      var api = 'api/' + spec.resource;
+      var context = spec.context || window;
 
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () { 
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          var response = xhr.response;
+          try { response = JSON.parse(xhr.response); }
+          catch (syntaxError) {}
 
+          if (spec.callback) {
+            spec.callback.call(context, response);
+          }
+        }
+      };
 
+      xhr.open(spec.verb, api);
+      xhr.send(data);
+    };
 
+/*
 
 
     var getData = function (spec) {
@@ -89,15 +109,13 @@
     };
 
 
-
+*/
 
 
 
 
     return Object.freeze({
-      makeAPIRequest: makeAPIRequest,
-      getData: getData,
-      getFilePath: getFilePath
+      make_api_request: make_api_request,
     });
 
   }());

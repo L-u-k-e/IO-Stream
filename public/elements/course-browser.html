@@ -1,0 +1,61 @@
+<!--
+
+-->
+
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/behaviors/api-requestor.html">
+<link rel="import" href="/behaviors/cascaded-animation.html">
+<link rel="import" href="grid-view.html">
+
+<dom-module id="course-browser">
+	<template>
+		<style>
+			:host {
+				display: block;
+
+			}
+			paper-card span {
+				display: block;
+			}
+		</style>
+		<grid-view>
+			<template is="dom-repeat" items="[[items]]">
+				<paper-card cascaded heading="[[item.title]]">
+					<span>[[item.user_uid]]</span>
+					<span>[[item.description]]</span>
+					<span>[[item.semester]]</span>
+					<span>[[item.year]]</span>
+					<span>[[item.subject]]</span>
+				</paper-card>
+			</template>
+		</grid-view>
+	</template>
+	<script>
+		Polymer({
+			is: 'course-browser',
+
+			behaviors: [Behaviors.api_requestor, Behaviors.cascaded_animation ],
+
+			properties: {
+				items: {
+					type: Array,
+					value: []
+				}
+			},
+			
+			ready: function () {
+				this.make_api_request({
+					verb: 'GET', 
+					resource: 'courses', 
+					context: this, 
+					callback: function (res) {
+						console.log(this);
+						this.items = res.data;
+						console.log(this.items);
+					}
+				});
+			},
+
+		});
+	</script>
+</dom-module>

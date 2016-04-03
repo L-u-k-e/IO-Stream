@@ -21,7 +21,6 @@
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/iron-icons/av-icons.html">
 
-
 <!-- Custom Imports -->
 <link rel="import" href="/styles/shared-styles.html">
 
@@ -47,6 +46,9 @@
 
 
       paper-item {
+        --paper-item-focused: {
+          color: var(--primary-color);
+        };
         cursor: pointer;
       }
 
@@ -61,9 +63,9 @@
     </style>
 
 
-    <paper-menu>
+    <paper-menu id="menu" selected="[[selected]]" attr-for-selected="data-page" on-iron-activate="_navigate">
       <template is="dom-repeat" items="[[_menu_info]]">
-        <paper-item>
+        <paper-item data-page="[[item.page]]">
           <iron-icon icon="[[item.icon]]"></iron-icon>
           <span>[[item.text]]</span>
         </paper-item>
@@ -80,15 +82,31 @@
   <script>
     Polymer({
       is: 'the-sidebar',
+
+      properties: {
+        selected: {
+          type: 'string',
+          value: '',
+        }
+      },
+
       ready: function () {
         this._menu_info = [
-          {icon: 'explore',           text: 'View All Courses'     },
-          {icon: 'reply-all',         text: 'My Previous Semesters'},
-          {icon: 'today',             text: 'My Current Semester'  },
-          {icon: 'record-voice-over', text: 'Courses By Professor' },
-          {icon: 'av:fiber-new',      text: 'New Videos'           },
+          {icon: 'explore',           text: 'View All Courses'     , page: 'courses' },
+        /*  {icon: 'reply-all',         text: 'My Previous Semesters', page: 'courses' },
+          {icon: 'today',             text: 'My Current Semester'  , page: 'courses' },
+          {icon: 'record-voice-over', text: 'Courses By Professor' , page: 'courses' },*/
+          {icon: 'av:fiber-new',      text: 'New Videos'           , page: 'watch'   }
         ];
+      },
+
+
+      _navigate: function (event, detail) {
+        var url = '/' + detail.selected;
+        this.fire('navigation-request', {url: url});
       }
+
+
     });
   </script>
 

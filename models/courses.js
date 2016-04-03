@@ -9,6 +9,7 @@ exports.get_all = function (req, res, next) {
 			data: data,
 			message: 'Retrieved all courses'
 		});
+		next();
 	})
 	.catch(function (err) {
 		return next(err);

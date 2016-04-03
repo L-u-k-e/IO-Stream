@@ -6,17 +6,30 @@
   Behaviors.app_router = (function () {
     
     var setup_routes = function () {
+        var self = this;
+
         // Setup some basic routing
-        page('/', () => {
+        page('/', function () {
           page.redirect('/watch');
         });
 
-        page('/watch', () => {
-          this.view = 0;
+        page('/watch', function () {
+          var set_view = function () { self.page = 'watch'; }
+          if (!Polymer.isInstance(self.$.video_browser)) { 
+            Polymer.Base.importHref('/elements/upload-video.html', set_view);
+          } else { set_view(); }
         });
 
-        page('/upload', () => {
-          this.view = 1;
+        page('/upload', function () {
+          self.view = 2;
+        });
+
+        page('/courses', function () {
+          console.log('invoked handler');
+          var set_view = function () { self.page = 'courses'; }
+          if (!Polymer.isInstance(self.$.course_browser)) { 
+            Polymer.Base.importHref('/elements/course-browser.html', set_view);
+          } else { set_view(); }
         });
 
         page({
@@ -24,8 +37,19 @@
         });
     };
 
+
+    var navigate = function (event, detail) {
+      page.redirect(detail.url);
+    };
+
+    var listeners = {
+      'navigation-request': '_navigate'
+    };
+
     return Object.freeze({
-      ready: setup_routes
+      ready: setup_routes,
+      listeners: listeners,
+      _navigate: navigate
     });
 
   }());

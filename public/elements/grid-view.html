@@ -1,0 +1,79 @@
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="grid-view">
+
+  <style>
+
+    :host {
+      display: block;
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+      max-width: 1264px;
+      margin: 0 auto;
+      padding: 8px;
+    }
+
+    :host > ::content > * {
+      @apply(--layout-flex-none);
+      width: 300px;
+      margin: 8px;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 1299px) {
+      :host {
+        max-width: 948px;
+      }
+    }
+
+    @media (max-width: 983px) {
+      :host {
+        max-width: 632px;
+      }
+    }
+
+    @media (max-width: 667px) {
+      :host {
+        max-width: 616px;
+        padding: 4px;
+      }
+
+      :host > ::content > * {
+        margin: 4px;
+      }
+    }
+
+    @media (max-width: 643px) {
+      :host {
+        max-width: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      :host > ::content > * {
+        width: 100%;
+        margin: 0;
+      }
+    }
+
+  </style>
+
+  <template>
+
+    <content></content>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'grid-view'
+
+    });
+
+  </script>
+
+</dom-module>

@@ -21,17 +21,13 @@
 <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
 
-<link rel="import" href="/bower-components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 
 
 <!-- Custom Imports -->
 <link rel="import" href="/elements/the-header.html">
 <link rel="import" href="/elements/the-sidebar.html">
-<link rel="import" href="/elements/lecture-component.html">
-<link rel="import" href="/elements/upload-video.html">
-
 <link rel="import" href="/styles/shared-styles.html">
-
 <link rel="import" href="/behaviors/app-router.html">
 
 
@@ -44,7 +40,7 @@
 
 
 
-<dom-module id="class-x">
+<dom-module id="io-stream">
 
 
   <template>
@@ -75,14 +71,14 @@
       }
 
       /* Main container should fill it's parent's space */
-      #main {
+      /*#main {
         @apply(--layout-fit);
       	@apply(--layout-vertical);
       	@apply(--layout-center-center);
-      }
+      }*/
 
-      lecture-component {
-      	max-width: 60%;
+      iron-pages > * {
+        @apply(--layout-fit);
       }
 
     </style>
@@ -99,12 +95,12 @@
       <app-drawer-layout fullbleed responsive-width="1250px">
 
         <app-drawer id="drawer">
-           <the-sidebar></the-sidebar>
+           <the-sidebar selected="[[page]]"></the-sidebar>
         </app-drawer>
         
-        <iron-pages selected="[[view]]" id="main">
-          <lecture-component video="/videos/buck_bunny.mp4" title="Lecture About Bunnies!"></lecture-component> 
-          <upload-video></upload-video>
+        <iron-pages selected="[[page]]" attr-for-selected="data-page">
+          <course-browser id="course_browser" data-page="courses">   </course-browser>
+          <upload-video   id="video_browser"  data-page="watch">     </upload-video>
         </div>
       </app-drawer-layout>
 
@@ -123,7 +119,7 @@
 
   <script>
     Polymer({
-      is: 'class-x',
+      is: 'io-stream',
 
       behaviors: [Behaviors.app_router],
 
@@ -133,7 +129,8 @@
 
       _toggle_drawer: function (event, detail) {
         this.$.drawer.toggle();
-      }
+      },
+
     });
   </script>
 
