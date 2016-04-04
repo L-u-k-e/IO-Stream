@@ -1,0 +1,24 @@
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+
+<dom-module id="course-creator">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<h2> Create Course </h2>
+		<paper-input label="title"></paper-input>
+		<paper-textarea label="description"></paper-textarea>
+		<paper-input label="Course Number" allowed-pattern="[0-9]"></paper-input>
+		<paper-input label="Year" allowed-pattern="[0-9]"></paper-input>
+	</template>
+	<script>
+		Polymer({
+			is: 'course-creator'
+		});
+	</script>
+</dom-module>

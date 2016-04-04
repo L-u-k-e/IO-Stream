@@ -32,6 +32,13 @@
           } else { set_view(); }
         });
 
+        page('/courses/create', function () {
+          var set_view = function () { self.page = 'course creator'; }
+          if (!Polymer.isInstance(self.$.course_creator)) { 
+            Polymer.Base.importHref('/elements/course-creator.html', set_view);
+          } else { set_view(); }
+        });
+
         page();
     };
 
