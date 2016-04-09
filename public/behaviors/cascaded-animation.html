@@ -59,17 +59,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     attached: function() {
       this.style.opacity = 0;
       this._updateCascadedNodes();
-      console.log(this.nodes);
+      this._attached = true;
     },
 
     _showingChanged: function(showing) {
       this._updateCascadedNodes();
-      console.log(showing);
       if (showing) {
-        this.async(function() {
-          this.style.opacity = 1;
-        }, 100);
-        this.playAnimation('entry');
+        //This may be invoked before stuff set up if we're being lazy loaded
+        var wait_time = this._attached ? 0 : 100;
+        this.async(function () { this.style.opacity = 1; }, wait_time + 100);
+        this.async(function () { this.playAnimation('entry'); }, wait_time);
       } else {
         this.style.opacity = 0;
       }
