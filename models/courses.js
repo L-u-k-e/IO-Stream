@@ -1,5 +1,5 @@
 var db = require('../config/db_config.js');
-
+var generate_uuid = require('../helpers/uuid.js');
 
 exports.get_all = function (req, res, next) {
 	db.any('select * from course')
@@ -32,6 +32,23 @@ exports.get = function (req, res, next) {
 };
 
 exports.create = function (req, res, next) {
+	var uuid = generate_uuid(true);
+	req.body.uuid = uuid;
+	req.body.instructor = 'parzycl1';
+	console.log(req.body);
+	db.none('insert into course (id, semester, year, subject, title, description, user_uid)' + 
+		'values($(uuid), $(semester), $(year), $(subject), $(title), $(description), $(instructor) )', req.body)
+	.then(function (data) {
+		res.status(200).json({
+			status: 'success',
+			data: data,
+			message: 'Created a new course'
+		});
+	})
+	.catch(function (err) {
+		console.log(err);
+		return next(err);
+	});
 
 };
 

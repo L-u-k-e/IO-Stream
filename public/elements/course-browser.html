@@ -3,6 +3,8 @@
 -->
 
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/cascaded-animation.html">
 <link rel="import" href="grid-view.html">
@@ -14,18 +16,44 @@
 				display: block;
 
 			}
-			paper-card span {
-				display: block;
+			paper-card {
+				padding: 15px;
+				cursor: pointer;
 			}
+			#right {
+				position: absolute;
+				top: 8px; right: 8px; bottom: 8px;
+				@apply(--layout-vertical);
+				@apply(--layout-justified);
+
+				font-size: 10px;
+				color: #333;
+				text-align: right;
+			}
+
+
+
 		</style>
 		<grid-view>
 			<template is="dom-repeat" items="[[items]]">
 				<paper-card cascaded heading="[[item.title]]">
-					<span>[[item.user_uid]]</span>
+				<paper-ripple></paper-ripple>
+					
 					<span>[[item.description]]</span>
-					<span>[[item.semester]]</span>
-					<span>[[item.year]]</span>
-					<span>[[item.subject]]</span>
+
+
+					<div id="right">
+						<div>
+							<div><span>[[item.subject]]</span></div>
+							<div>
+								<span>[[item.semester]]</span>
+								<span>[[item.year]]</span>
+							</div>
+						</div>
+						<div>
+							<span>[[item.user_uid]]</span>
+						</div>
+					</div>
 				</paper-card>
 			</template>
 		</grid-view>

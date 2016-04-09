@@ -59,9 +59,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     attached: function() {
       this.style.opacity = 0;
       this._updateCascadedNodes();
+      console.log(this.nodes);
     },
 
     _showingChanged: function(showing) {
+      this._updateCascadedNodes();
+      console.log(showing);
       if (showing) {
         this.async(function() {
           this.style.opacity = 1;
@@ -80,7 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   };
 
-  Behaviors.cascade_animation = [
+  Behaviors.cascaded_animation = [
     Polymer.NeonAnimatableBehavior,
     Polymer.NeonAnimationRunnerBehavior,
     Behaviors.cascaded_animation_impl    

@@ -1,24 +1,109 @@
 
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-form/iron-form.html">
 
 <dom-module id="course-creator">
 	<template>
 		<style>
 			:host {
 				display: block;
+				position: relative;
+				@apply(--layout-fit);
+				@apply(--layout-horizontal);
+				@apply(--layout-center-center);
 			}
+			#form_container {
+				width: 60%;				
+			}
+			paper-step {
+				padding: 20px;
+			}
+			#action_buttons {
+				width: 100%;
+				padding-top: 20px;
+				@apply(--layout-horizontal);
+				@apply(--layout-end-justified);
+			}
+			#action_buttons paper-button {
+				color: var(--primary-color);
+				--paper-button-ink-color: var(--accent-color);
+			}
+			#small_widths {
+				position: relative;
+				width: 100%;
+				@apply(--layout-horizontal);
+				@apply(--layout-justified);
+			}
+
+
 		</style>
-		<h2> Create Course </h2>
-		<paper-input label="title"></paper-input>
-		<paper-textarea label="description"></paper-textarea>
-		<paper-input label="Course Number" allowed-pattern="[0-9]"></paper-input>
-		<paper-input label="Year" allowed-pattern="[0-9]"></paper-input>
+		<div id="form_container">
+			<h2> Create a New Course </h2>
+	  	<form is="iron-form" id="form" method="post" action="/api/courses">
+		  	
+		  	<paper-input required name="title" label="Title"></paper-input>
+		  	
+		  	<paper-textarea char-counter max-length="1000" rows=3 name="description" label="Description" Placeholder="A little about this course..."></paper-textarea>
+		  	
+		  	<div id="small_widths">
+		  		<paper-dropdown-menu required label="Semester" id="semester">
+					  <paper-listbox class="dropdown-content">
+					    <paper-item>Fall</paper-item>
+					    <paper-item>Winter</paper-item>
+					    <paper-item>Spring</paper-item>
+					    <paper-item>Summer</paper-item>
+					  </paper-listbox>
+					</paper-dropdown-menu>
+					<paper-input required name="year" label="Year" allowed-pattern="[0-9]" value="{{year}}"></paper-input>
+					<paper-input required name="subject" label="Subject"></paper-input>
+					<paper-input required name="crse" label="Course Number" allowed-pattern="[0-9]"></paper-input>
+				</div>
+				
+				<div id="action_buttons">
+					<paper-button  on-tap="_clear">CLEAR</paper-button>
+					<paper-button  on-tap="_submit">SUBMIT</paper-button>
+				</div>
+
+			</form>
+		</div>
 	</template>
 	<script>
 		Polymer({
-			is: 'course-creator'
+			is: 'course-creator',
+			properties: {
+				year: {
+					type: Number, 
+					value: moment().year()
+				}
+			},
+			
+			listeners: {
+				'iron-form-presubmit': '_augment_form'
+			},
+
+
+			_augment_form: function (event, detail) {
+				/*paper-drop-downs don't expose their item's values (yet), so we need to dig them up and add them into the body. */
+				var body = this.$.form.request.body;
+				body.semester = this.$.semester.selectedItemLabel;
+				console.log(body)
+			},
+
+			_clear: function (event, detail) {
+				console.log(this);
+				this.$.form.reset();
+			},
+			
+			_submit: function (event, detail) {
+				this.$.form.submit();
+			}
 		});
 	</script>
 </dom-module>

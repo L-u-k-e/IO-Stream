@@ -33,17 +33,22 @@ app.use('*', function(req, res) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.json({error: err});
+    res.status( err.code || 500 )
+    .json({
+      status: 'error',
+      message: err.message
+    });
   });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.json({error: err});
+  res.status(err.status || 500)
+  .json({
+    status: 'error',
+    message: err.message
+  });
 });
-
 
 module.exports = app;

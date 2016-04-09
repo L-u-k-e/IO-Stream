@@ -25,4 +25,5 @@ model.exports = function (router) {
 module.exports = function (router) {
 	router.get('/api/courses', courses.get_all);
 	router.get('/api/courses/:id', courses.get)
+	router.post('/api/courses', courses.create);
 };

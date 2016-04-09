@@ -29,7 +29,8 @@
     "fullscreen-enabled": "L-u-k-e/fullscreen-enabled#^0.5.0",
     "video-player": "L-u-k-e/video-player#^0.2.0",
     "page": "visionmedia/page.js#^1.7.1",
-    "vaadin-upload": "^1.0.0-alpha2"
+    "vaadin-upload": "^1.0.0-alpha2",
+    "moment": "^2.12.0"
   },
   "resolutions": {
     "lodash": "^4.6.1"

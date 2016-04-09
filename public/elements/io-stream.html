@@ -30,7 +30,9 @@
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/behaviors/app-router.html">
 
-
+<link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
 
 
 
@@ -84,11 +86,12 @@
     </style>
 
 
-
-
     <app-header-layout has-scrolling-region>
 
       <app-header fixed shadow>
+
+  
+
         <the-header></the-header>
       </app-header>
 
@@ -98,7 +101,7 @@
            <the-sidebar selected="[[page]]"></the-sidebar>
         </app-drawer>
         
-        <iron-pages selected="[[page]]" attr-for-selected="data-page">
+        <iron-pages selected="[[page]]" attr-for-selected="data-page" selected-attribute="showing">
           <course-browser id="course_browser" data-page="courses"></course-browser>
           <upload-video id="video_browser" data-page="watch"></upload-video>
           <course-creator id="course-creator" data-page="course creator"></course-creator>
@@ -107,7 +110,6 @@
 
 
     </app-header-layout>
-
 
 
 
