@@ -10,6 +10,10 @@ var connection_config = {
 var db = pg(connection_config);
 
 
-exports.create = function (spec) {
-	/* user_id, title,, duration, */
+exports.get_all = function (req, res, next) {
+
+};
+
+exports.create = function (req, res, next) {
+	console.log(req.query);
 };

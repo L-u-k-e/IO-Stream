@@ -65,7 +65,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     _showingChanged: function(showing) {
       this._updateCascadedNodes();
       if (showing) {
-        //This may be invoked before stuff set up if we're being lazy loaded
+        //This may be invoked before stuff is fully set up if we're being lazy loaded
         var wait_time = this._attached ? 0 : 100;
         this.async(function () { this.style.opacity = 1; }, wait_time + 100);
         this.async(function () { this.playAnimation('entry'); }, wait_time);
@@ -77,7 +77,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     _updateCascadedNodes: function() {
       var nodes = Polymer.dom(this.root).querySelectorAll(this.selector);
       var entry = this.animationConfig['entry'];
-      entry[0].nodes = entry[1].nodes = Array.prototype.slice.call(nodes);
+      var nodes = Array.prototype.slice.call(nodes);
+      entry[0].nodes = nodes;
+      entry[1].nodes = nodes; 
     }
 
   };

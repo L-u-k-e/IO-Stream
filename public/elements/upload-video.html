@@ -1,7 +1,13 @@
-<link rel="import" href="/bower_components/vaadin-upload/vaadin-upload.html">
-<link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="/bower_components/paper-menu/paper-menu.html">
-<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icons/av-icons.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/styles/shared-styles.html">
+<link rel="import" href="/elements/loading-box.html">
 
 <dom-module id="upload-video">
 	<template>
@@ -9,27 +15,91 @@
 			:host {
 				display: block;
 			}
-			vaadin-upload {
-				width: 700px;
-			}
-
-			paper-menu {
+			paper-card {
 				width: 100%;
+				max-width: 800px;
+				height: 100%;
+				max-height: 250px;
+				padding: 15px;
+				@apply(--layout-vertical);
+			}
+			#drop_area {
+				@apply(--layout-flex);
+				border: 1px dashed #333;
+
+				@apply(--layout-horizontal);
+				@apply(--layout-center-center);
+			}
+			#action_buttons {
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+				margin-top: 10px;
+				color: var(--primary-color);
+			}
+			#progress {
+				@apply(--layout-flex);
+			}
+			paper-button {
+				--paper-button-ink-color: var(--accent-color);
+			}
+			paper-icon-button {
+				color: #333;
+				--paper-icon-button-ink-color: var(--accent-color);
 			}
 		</style>
-		<paper-dropdown-menu label="select a class" vertical-align="top" horizontal-align="right">
-		  <paper-menu class="dropdown-content">
-		    <paper-item>Croissant</paper-item>
-		    <paper-item>Donut</paper-item>
-		    <paper-item>Financier</paper-item>
-		    <paper-item>Madeleine</paper-item>
-		  </paper-menu>
-		</paper-dropdown-menu>
-		<vaadin-upload nomultiple accept="video" target="api/videos"></vaadin-upload>
+		<paper-card>
+			<div id="drop_area">
+				<div hidden="[[uploading]]">
+					<iron-icon icon="file-upload"></iron-icon>
+					<span>Drag & Drop a Video File</span>
+				</div>
+				<loading-box active="[[uploading]]"></loading-box>
+			</div>
+			<div id="action_buttons">
+				<paper-progress id="progress"></paper-progress>
+				<paper-icon-button hidden="[[!uploading]]" icon="av:pause"></paper-icon-button>
+				<paper-button id="browse_button">
+					<iron-icon icon="folder-open"></iron-icon>
+					<span>BROWSE</span>
+				</paper-button>
+			</div>
+		</paper-card>
 	</template>
 	<script>
 		Polymer({
-			is: 'upload-video'
+			is: 'upload-video',
+			properties: {
+				uploading: {
+					type: Boolean,
+					value: false
+				}
+			},
+			ready: function () {
+				this.flow = new Flow({
+					target: '/api/videos',
+					query: {status_request: true}
+				});
+
+				this.flow.assignBrowse(this.$.browse_button);
+				this.flow.assignDrop(this.$.drop_area);
+
+				var self = this;
+
+				/* A file is about to be added to the upload queue, we can return false to stop it. */
+				this.flow.on('fileAdded', function(file, event){
+			    if (self.uploading) { return false; }
+			    self.uploading = true;
+				});
+				
+				/* 1+ files were just added to the upload queue */
+				this.flow.on('filesSubmitted', function(file_array, event){
+			    self.flow.upload();
+				});
+				
+				this.flow.on('fileError', function(file, message){
+				    console.log(file, message);
+				});
+			}
 		});
 	</script>
 </dom-module>
