@@ -15,5 +15,6 @@ exports.get_all = function (req, res, next) {
 };
 
 exports.create = function (req, res, next) {
-	console.log(req.query);
+	console.log('im totally making somethign right now....');
+	next();
 };
