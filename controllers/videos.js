@@ -12,6 +12,28 @@ var upload = multer({dest: staging_directory});
 
 
 
+
+
+
+
+var fetch_uuid = function (req, res, next) {
+	var file_name = 
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var skim_for_status_req = function (req, res, next) {
 	var arg = req.query.status_request ? undefined : 'route';
 	next(arg);
@@ -106,8 +128,7 @@ var check_completion_status = function (req, res, next) {
 	  	else if (exists) {
 	    	current_chunk ++;
 	      see_if_chunks_exist();
-	    } else {
-	    	// we're missing at least one chunk. 
+	    } else { 
 	    	res.sendStatus(202);
 	    } 
     });
@@ -166,23 +187,28 @@ var send_completion_notice = function (req, res, next) {
 
 module.exports = function (router) {
 
-	/* chunk status request */
+	/* Reserve a new uuid */
+	router.get('api/video-ids', 
+		fetch_uuid, 
+		reserve_uuid
+	);
+
+	/* Chunk status request */
 	router.get('/api/videos', 
 		skim_for_status_req, //next('route') if this isn't a chunk status request 
 		validate_params, 
 		get_chunk_status
 	);
 
-	/* multiple video request */
+	/* Multiple video request */
 	router.get('api/videos', function (req, res) { res.sendStatus(200); });	
 
-	/* video upload request */
+	/* Video upload request */
 	router.post('/api/videos', 
 		upload.single('file'), 
 		validate_params, 
 		rename_uploaded_chunk,
 		check_completion_status,
-		get_new_uuid,
 		merge_chunks,
 		videos.create,
 		send_completion_notice

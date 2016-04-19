@@ -86,14 +86,29 @@
 				var self = this;
 
 				/* A file is about to be added to the upload queue, we can return false to stop it. */
-				this.flow.on('fileAdded', function(file, event){
+				this.flow.on('fileAdded', function (file, event) {
 			    if (self.uploading) { return false; }
 			    self.uploading = true;
 				});
 				
 				/* 1+ files were just added to the upload queue */
-				this.flow.on('filesSubmitted', function(file_array, event){
-			    self.flow.upload();
+				this.flow.on('filesSubmitted', function (file_array, event) {
+			  
+			  	/* Before we start uploading, we need to get a UUID. The server will 
+			  	 * check to see if this upload was started earlier and either give us 
+			  	 * the existing one or reserve a new one for us. */
+			  	this.make_api_request({
+						verb: 'GET',
+			  		resource: 'video-ids',
+			  		query: { file_id: file_array[0].uniqueIdentifier },
+			  		context: this,
+			  		callback: function (result) {
+			  			if (result.status == 200 && result.body.uuid) {
+			  				self.uploading = true;
+			  				self.flow.upload();
+			  			}
+			  		}
+			  	});
 				});
 				
 				this.flow.on('fileError', function(file, message){

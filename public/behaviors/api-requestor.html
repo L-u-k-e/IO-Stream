@@ -36,10 +36,17 @@
 */
 
     var make_api_request = function (spec) {
-      var data = spec.data;
-      var api = 'api/' + spec.resource;
-      var context = spec.context || window;
+      var body = spec.body;
+      var api = 'api/' + spec.resource;    
+      
+      var query = '?';
+      query += _(query).map( function (v, k) {
+        return encodeURIComponent(k) + '=' encodeURIComponent(v);
+      }).join('&').value();
+      
+      var url = api + query;
 
+      var context = spec.context || window;
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function () { 
         if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -53,8 +60,8 @@
         }
       };
 
-      xhr.open(spec.verb, api);
-      xhr.send(data);
+      xhr.open(spec.verb, url);
+      xhr.send(body);
     };
 
 /*

@@ -14,7 +14,25 @@ exports.get_all = function (req, res, next) {
 
 };
 
-exports.create = function (req, res, next) {
-	console.log('im totally making somethign right now....');
+exports.create_new_video = function (req, res, next) {
+	var uuid = generate_uuid(true);
+	req.body.uuid = uuid;
+	req.body.instructor = 'parzycl1';
+	console.log(req.body);
+	db.none('insert into course (id, semester, year, subject, title, description, user_uid)' + 
+		'values($(uuid), $(semester), $(year), $(subject), $(title), $(description), $(instructor) )', req.body)
+	.then(function (data) {
+		res.status(200).json({
+			status: 'success',
+			data: data,
+			message: 'Created a new course'
+		});
+	})
+	.catch(function (err) {
+		console.log(err);
+		return next(err);
+	});
+
+};
 	next();
 };
