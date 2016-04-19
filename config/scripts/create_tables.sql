@@ -8,12 +8,12 @@
 
  
 DROP TABLE upload_in_progress;
-DROP TABLE subject;
-DROP TABLE semester;
 DROP TABLE favorite;
 DROP TABLE subscription;
 DROP TABLE video;
 DROP TABLE course;
+DROP TABLE subject;
+DROP TABLE semester;
 DROP TABLE person;
 
 
@@ -22,11 +22,9 @@ DROP TABLE person;
 
 
 CREATE TABLE person (
-    id          varchar(50)   NOT NULL,
+    id          varchar(50)   PRIMARY KEY,
     faculty     boolean       NOT NULL,
-    super_user  boolean       NOT NULL,
-
-    CONSTRAINT person_pk PRIMARY KEY (id)
+    super_user  boolean       NOT NULL
 );
 
 
@@ -34,10 +32,8 @@ CREATE TABLE person (
 
 
 CREATE TABLE subject (
-    id     SERIAL          NOT NULL, 
-    title  varchar(100)    NOT NULL,
-
-    CONSTRAINT subject_pk PRIMARY KEY (id)
+    id     SERIAL          PRIMARY KEY, 
+    title  varchar(100)    NOT NULL
 );
 
 
@@ -45,10 +41,8 @@ CREATE TABLE subject (
 
 
 CREATE TABLE semester (
-    id     SERIAL       NOT NULL, 
-    title  varchar(10)  NOT NULL,
-
-    CONSTRAINT semester_pk PRIMARY KEY (id)
+    id     SERIAL       PRIMARY KEY, 
+    title  varchar(10)  NOT NULL
 );
 
 
@@ -56,16 +50,14 @@ CREATE TABLE semester (
 
 
 CREATE TABLE course (
-    id             char(11)       NOT NULL,
+    id             char(11)       PRIMARY KEY,
     semester_id    int            NOT NULL,
     year           int            NOT NULL,
     subject_id     int            NOT NULL,
     title          varchar(250)   NOT NULL,
     description    varchar(1000)  NULL,
     date_created   date           NOT NULL     DEFAULT CURRENT_DATE,
-    person_id      varchar(50)    NOT NULL,
-    
-    CONSTRAINT course_pk PRIMARY KEY (id)
+    person_id      varchar(50)    NOT NULL
 );
 
 
@@ -95,13 +87,13 @@ ALTER TABLE course ADD CONSTRAINT course_subject
 
 
 CREATE TABLE video (
-    id             char(11)        NOT NULL,
+    id             char(11)        PRIMARY KEY,
     duration       decimal(255,2)  NOT NULL,
     date_uploaded  timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
     date_modified  timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
     course_id      char(11)        NOT NULL,
-    
-    CONSTRAINT video_pk PRIMARY KEY (id)
+    title          varchar(100)    NOT NULL,
+    description    varchar(500)    NULL
 );
 
 
@@ -117,11 +109,9 @@ ALTER TABLE video ADD CONSTRAINT video_course
 
 
 CREATE TABLE favorite (
-    id          bigserial     NOT NULL,
+    id          bigserial     PRIMARY KEY,
     video_id    char(11)      NOT NULL,
-    person_id   varchar(50)   NOT NULL,
-
-    CONSTRAINT favorite_pk PRIMARY KEY (id)
+    person_id   varchar(50)   NOT NULL
 );
 
 
@@ -144,11 +134,9 @@ ALTER TABLE favorite ADD CONSTRAINT favorite_video
 
 
 CREATE TABLE subscription (
-    id          bigserial    NOT NULL,
+    id          bigserial    PRIMARY KEY,
     person_id   varchar(50)  NOT NULL,
-    course_id   char(11)     NOT NULL,
-    
-    CONSTRAINT subscription_pk PRIMARY KEY (id)
+    course_id   char(11)     NOT NULL
 );
 
 
@@ -173,9 +161,7 @@ ALTER TABLE subscription ADD CONSTRAINT subscription_person
 
 CREATE TABLE upload_in_progress (
     video_id   char(11)       NOT NULL,
-    file_id    varchar(250)   NOT NULL,
-
-    CONSTRAINT upload_in_progress_pk PRIMARY KEY (file_id)
+    file_id    varchar(250)   PRIMARY KEY
 );
 
 ALTER TABLE upload_in_progress ADD CONSTRAINT upload_video 

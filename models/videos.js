@@ -14,12 +14,8 @@ exports.get_all = function (req, res, next) {
 
 };
 
-exports.create_new_video = function (req, res, next) {
-	var uuid = generate_uuid(true);
-	req.body.uuid = uuid;
-	req.body.instructor = 'parzycl1';
-	console.log(req.body);
-	db.none('insert into course (id, semester, year, subject, title, description, user_uid)' + 
+exports.create = function (req, res, next) {
+	db.none('insert into video (id, course_id, title, description, user_uid)' + 
 		'values($(uuid), $(semester), $(year), $(subject), $(title), $(description), $(instructor) )', req.body)
 	.then(function (data) {
 		res.status(200).json({

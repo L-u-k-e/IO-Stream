@@ -6,7 +6,8 @@
  */
 
 
-INSERT INTO subject
+INSERT INTO subject 
+	(title) 
 VALUES
 	('Anthropology'),
 	('Art'),
@@ -69,6 +70,7 @@ VALUES
 
 
 INSERT INTO semester
+	(title)
 VALUES
 	('Fall'),
 	('Winter'),
