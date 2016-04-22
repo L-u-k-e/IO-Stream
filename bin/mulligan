@@ -16,9 +16,9 @@ if [ "$1" != "-f" ] ; then
 	exit 0;
 fi
 
-psql -h localhost -U postgres -d io_stream -a -f config/scripts/create_tables.sql
-psql -h localhost -U postgres -d io_stream -a -f config/scripts/seed_tables.sql
+psql -h localhost -U postgres -d io_stream -a -f config/scripts/create-tables.sql
+psql -h localhost -U postgres -d io_stream -a -f config/scripts/seed-tables.sql
 
 if [ "$2" = "--fuzz" ] ; then
-	node config/scripts/fuzz_tables.js
+	node config/scripts/fuzz-tables.js
 fi

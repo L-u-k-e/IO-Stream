@@ -1,4 +1,5 @@
 var videos = require('../models/videos.js');
+var uploads_in_progress = require('../models/uploads-in-progress.js')
 var generate_uuid = require('../helpers/uuid.js');
 var _ = require('lodash');
 var path = require('path');

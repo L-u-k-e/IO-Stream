@@ -73,7 +73,7 @@ var get_ids_from = function (table, cb) {
 
 
 
-/*************************************** SEEDERS ***************************************/
+/*************************************** FUZZERS ***************************************/
 
 var seed_users = function (next) {
   console.log('seeding users ...');
@@ -122,7 +122,7 @@ var seed_courses = function (next) {
 
 
 var seed_videos = function (next) {
-	console.log('seeding courses...');
+	console.log('seeding videos...');
 
 	_.times(50, function (i) {
 		videos.push({
