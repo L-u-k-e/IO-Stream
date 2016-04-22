@@ -38,13 +38,15 @@
     var make_api_request = function (spec) {
       var body = spec.body;
       var api = 'api/' + spec.resource;    
-      
-      var query = '?';
-      query += _(query).map( function (v, k) {
-        return encodeURIComponent(k) + '=' encodeURIComponent(v);
-      }).join('&').value();
-      
-      var url = api + query;
+      var url = api;
+
+      if (spec.query && spec.query.length) {
+        url += '?' + spec.query.map(function (v, k) {
+          var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(v);
+          return encoded;
+        }).join('&');
+      }
+
 
       var context = spec.context || window;
       var xhr = new XMLHttpRequest();

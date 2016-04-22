@@ -15,12 +15,30 @@ var upload = multer({dest: staging_directory});
 
 
 
-
+/* 
+ * Check for a UUID corresponding to the provided file ID in the 
+ * upload_in_progress table. Return it if found, otherwise next(), so we can
+ * reserve a new one.
+ */ 
 var fetch_uuid = function (req, res, next) {
-	var file_name = 
+	console.log(req);
+	res.sendStatus(200); 
 };
 
 
+/* 
+ * Request a new UUID for the provided file ID.
+ */
+var reserve_uuid = function (req, res, next) {
+
+};
+
+/*
+ * Return a newly generated UUID to the client.
+ */
+var send_uuid = function (req, res, next) {
+
+}
 
 
 
@@ -31,9 +49,10 @@ var fetch_uuid = function (req, res, next) {
 
 
 
-
-
-
+/*
+ * Check to see if the incoming GET is a chunk status request.
+ * Abort the current route if it is found not to be.
+ */
 var skim_for_status_req = function (req, res, next) {
 	var arg = req.query.status_request ? undefined : 'route';
 	next(arg);
