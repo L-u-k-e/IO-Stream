@@ -4,37 +4,6 @@
 
   Behaviors.api_requestor = (function () {
    
-/*
-    var parser = new DOMParser();
-    var extractResult = function (packet) {
-      var response = parser.parseFromString(packet, "text/xml");
-      var string = response.querySelector('string').textContent;
-      var result = '';
-
-      try { result = JSON.parse(string); } 
-      catch (syntaxError) { result = string; }
-      return result;
-    };
-    
-    var makeAPIRequest = function (spec) {
-      var data = new FormData();
-      var xhr = new XMLHttpRequest();
-
-      //Need to send something in the body or IE wont put in a leading boundary.
-      spec.data = spec.data || { something: true };
-      _.each(spec.data, function(v, k) { data.append(k, v) });  
-      
-      xhr.onreadystatechange = function () { 
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-          spec.callback.call((spec.context || window), extractResult(xhr.response));             
-        }
-      };
-
-      xhr.open('POST', 'serverAPI.cfc?method='+spec.method);
-      xhr.send(data);
-    };
-*/
-
     var encode_resource_path = function (path) {
       var resource_path = '';
       
@@ -57,12 +26,12 @@
     var encode_query_string = function (obj)  {
       if (!obj) return '';
       
-      var query_string = obj.map(function (v, k) {
+      var query_string = _.map(obj, function (v, k) {
         var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(v);
         return encoded;
       }).join('&');
       
-      return query_string;
+      return '?' + query_string;
     };
 
 

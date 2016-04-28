@@ -78,8 +78,7 @@
 			},
 			ready: function () {
 				this.flow = new Flow({
-					target: '/api/videos',
-					query: {status_request: true}
+					target: '/api/video-chunks'
 				});
 
 				this.flow.assignBrowse(this.$.browse_button);
@@ -103,8 +102,8 @@
 			  	self.make_api_request({
 						verb: 'GET',
 			  		resource: ['upload-tokens', file_id],
-			  		context: this,
 			  		callback: function (result) {
+			  			console.log(result.body);
 			  			if (result.body.data.video_id) {
 			  				self.uploading = true;
 			  				self.flow.opts.query.video_id = result.body.data.video_id;
@@ -115,8 +114,18 @@
 				});
 				
 
+				/* One all of the chunks have finished uploading, we can send a request to finalzie the upload (merge the chunks) */
 				this.flow.on('complete', function () {
-					console.log('done');
+					var total_chunks = self.flow.files[0].chunks.length;
+					self.make_api_request({
+						verb: 'POST',
+			  		resource: 'videos',
+			  		query: {video_id: self.flow.opts.query.video_id, flowTotalChunks: total_chunks},
+			  		callback: function (result) {
+			  			console.log(result.body);
+			  			
+			  		}
+			  	});			
 				});
 
 

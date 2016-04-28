@@ -7,18 +7,17 @@ var generate_uuid = require('../helpers/uuid.js');
 
 
 exports.get = function (spec) {
-	var params = {
+	var promise = orm.select({
 		db: db, 
 		table: 'upload_token',
 		qrm: 'one',
-		columns: ['video_id'],
+		columns: ['video_id', 'file_id'],
 		where: {
 			items: spec,
 			delimiter: 'AND'
 		}
-	};
-	var query = orm.select(params);
-	return query
+	});
+	return promise;
 };
 
 
