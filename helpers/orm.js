@@ -1,10 +1,5 @@
 var _   = require('lodash');
 var pgp = require('pg-promise');
-var db = require('../config/db_config.js')
-
-
-
-
 
 
 
@@ -46,12 +41,12 @@ var insert = function (spec) {
 
 
 var select = function (spec) {
-  var query = pgp.as.format('SELECT ($1^) FROM ($2^) WHERE ($3^)', [
+  var query = pgp.as.format('SELECT ($1^) FROM $2~ WHERE ($3^)', [
     list(spec.columns),
     spec.table,
     equals(spec.where),
   ]);
-  return spec.db.any(query);
+  return spec.db[spec.qrm || 'any'](query);
 };
 
 

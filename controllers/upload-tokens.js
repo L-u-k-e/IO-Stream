@@ -16,7 +16,7 @@ var sanitize_file_id = function (req, res, next) {
 /* Search for an existing video ID mapped to a file ID */
 var lookup_upload_token = function (req, res, next) {
 	var key = { file_id: req.file_id };
-	upload_tokens.lookup(key)
+	upload_tokens.get(key)
 	.then(function (token) { send_video_id({res: res, status: 200, id: token.video_id}); })
 	.catch(function (err) { next(); });
 };
@@ -25,14 +25,13 @@ var lookup_upload_token = function (req, res, next) {
 var reserve_upload_token = function (req, res, next) {
 	var key = { file_id: req.file_id };
 	upload_tokens.create(key)
-	.then(function (token) { console.log(token); send_video_id({res: res, status: 201, id: token.video_id}) })
+	.then(function (token) { send_video_id({res: res, status: 201, id: token.video_id}) })
 	.catch(function (err) { next(err); });
 };
 
 /* Send a video ID back to the client */
 var send_video_id = function (spec) {
 	var new_token = (spec.status == 201);
-	console.log(spec);
 	spec.res.status(spec.status).json({
 		message: new_token ? 'Created a new upload token' : 'Retrieved an existing upload token',
 		data: {

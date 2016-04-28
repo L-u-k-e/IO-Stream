@@ -6,10 +6,11 @@ var generate_uuid = require('../helpers/uuid.js');
 
 
 
-exports.lookup = function (spec) {
+exports.get = function (spec) {
 	var params = {
 		db: db, 
 		table: 'upload_token',
+		qrm: 'one',
 		columns: ['video_id'],
 		where: {
 			items: spec,
@@ -25,7 +26,6 @@ exports.lookup = function (spec) {
 
 
 exports.create = function (spec) {
-
 	var video_id  = generate_uuid(true); 
 	var file_id   = spec.file_id;
 	var course_id = 'Ck6yvy9SE2I';
@@ -38,19 +38,4 @@ exports.create = function (spec) {
 		});
 	});
   return promise;
-
-
-	/*
-	.then(function () {
-		req.found_file = true;
-		req.new_token = true;
-		req.video_id = video_id;
-		next();
-	})
-	.catch(function (err) {
-		console.log(err);
-		next(err);
-	});
-	*/
-
 };
