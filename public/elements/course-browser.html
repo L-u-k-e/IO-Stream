@@ -76,9 +76,9 @@
 					verb: 'GET', 
 					resource: 'courses', 
 					context: this, 
-					callback: function (res) {
+					callback: function (result) {
 						console.log(this);
-						this.items = res.data;
+						this.items = result.body.data;
 						console.log(this.items);
 					}
 				});

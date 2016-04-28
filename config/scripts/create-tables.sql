@@ -6,8 +6,7 @@
  *    CAREFUL NOW!
  */
 
- 
-DROP TABLE upload_in_progress;
+DROP TABLE upload_token;
 DROP TABLE favorite;
 DROP TABLE subscription;
 DROP TABLE video;
@@ -88,11 +87,11 @@ ALTER TABLE course ADD CONSTRAINT course_subject
 
 CREATE TABLE video (
     id             char(11)        PRIMARY KEY,
-    duration       decimal(255,2)  NOT NULL,
-    date_uploaded  timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
+    duration       decimal(255,2)  NULL,
+    date_uploaded  timestamp       NULL,
     date_modified  timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
     course_id      char(11)        NOT NULL,
-    title          varchar(100)    NOT NULL,
+    title          varchar(100)    NULL,
     description    varchar(500)    NULL
 );
 
@@ -159,12 +158,12 @@ ALTER TABLE subscription ADD CONSTRAINT subscription_person
 
 
 
-CREATE TABLE upload_in_progress (
+CREATE TABLE upload_token (
     video_id   char(11)       NOT NULL,
     file_id    varchar(250)   PRIMARY KEY
 );
 
-ALTER TABLE upload_in_progress ADD CONSTRAINT upload_video 
+ALTER TABLE upload_token ADD CONSTRAINT upload_video 
     FOREIGN KEY (video_id)
     REFERENCES video (id)
     NOT DEFERRABLE 

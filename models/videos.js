@@ -1,32 +1,34 @@
-var promise = require('bluebird');
-var pg = require('pg-promise')({promiseLib: promise});
-var connection_config = { 
-	host: 'localhost',	
-	port: '5432',
-	user: 'www', 
-	password: '123456', 
-	database: 'io_stream' 
-};
-var db = pg(connection_config);
-
+var db = require('../config/db_config.js');
+var orm = require('../helpers/orm.js');
 
 exports.get_all = function (req, res, next) {
 
 };
-
+/*
 exports.create = function (req, res, next) {
-	db.none('insert into video (id, course_id, title, description, user_uid)' + 
-		'values($(uuid), $(semester), $(year), $(subject), $(title), $(description), $(instructor) )', req.body)
+  orm.insert(db, 'video', req.sql)
 	.then(function (data) {
-		res.status(200).json({
-			status: 'success',
-			data: data,
-			message: 'Created a new course'
-		});
+		req.query_result = data;
+		next();
 	})
 	.catch(function (err) {
-		console.log(err);
 		return next(err);
 	});
 
+};*/
+
+exports.update = function (req, res, next) {
+	orm.update(db, 'video', req.sql.set, req.sql.where)
+	.then(function () { next(); })
+	.catch(function(err) { next(err); })
+}
+
+
+exports.create = function (values) {
+	var promise = orm.insert( {
+		db:    db, 
+		table: 'video',
+		values: values
+	});
+	return promise;
 };

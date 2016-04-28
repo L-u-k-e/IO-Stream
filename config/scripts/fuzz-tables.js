@@ -126,11 +126,12 @@ var seed_videos = function (next) {
 
 	_.times(50, function (i) {
 		videos.push({
-			id:          generate_uuid(true),
-			duration:   (Math.random()*1000+1).toFixed(2), 
-			course_id:   _.sample(courses).id,
-			title:       faker.company.catchPhrase(),
-			description: faker.lorem[_.sample(['sentence', 'paragraph'])]
+			id:            generate_uuid(true),
+			duration:      (Math.random()*1000+1).toFixed(2),
+			date_uploaded: faker.date.past(),
+			course_id:     _.sample(courses).id,
+			title:         faker.company.catchPhrase(),
+			description:   faker.lorem[_.sample(['sentence', 'paragraph'])]
 		});
 	});
 

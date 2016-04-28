@@ -8,6 +8,7 @@
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/elements/loading-box.html">
+<link rel="import" href="/behaviors/api-requestor.html">
 
 <dom-module id="upload-video">
 	<template>
@@ -68,6 +69,7 @@
 	<script>
 		Polymer({
 			is: 'upload-video',
+			behaviors: [Behaviors.api_requestor],
 			properties: {
 				uploading: {
 					type: Boolean,
@@ -97,22 +99,29 @@
 			  	/* Before we start uploading, we need to get a UUID. The server will 
 			  	 * check to see if this upload was started earlier and either give us 
 			  	 * the existing one or reserve a new one for us. */
-			  	this.make_api_request({
+			  	var file_id = file_array[0].uniqueIdentifier;
+			  	self.make_api_request({
 						verb: 'GET',
-			  		resource: 'video-ids',
-			  		query: { file_id: file_array[0].uniqueIdentifier },
+			  		resource: ['upload-tokens', file_id],
 			  		context: this,
 			  		callback: function (result) {
-			  			if (result.status == 200 && result.body.uuid) {
+			  			if (result.body.data.video_id) {
 			  				self.uploading = true;
+			  				self.flow.opts.query.video_id = result.body.data.video_id;
 			  				self.flow.upload();
 			  			}
 			  		}
 			  	});
 				});
 				
+
+				this.flow.on('complete', function () {
+					console.log('done');
+				});
+
+
 				this.flow.on('fileError', function(file, message){
-				    console.log(file, message);
+				  console.log(file, message);
 				});
 			}
 		});

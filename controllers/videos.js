@@ -1,5 +1,4 @@
 var videos = require('../models/videos.js');
-var uploads_in_progress = require('../models/uploads-in-progress.js')
 var generate_uuid = require('../helpers/uuid.js');
 var _ = require('lodash');
 var path = require('path');
@@ -16,30 +15,10 @@ var upload = multer({dest: staging_directory});
 
 
 
-/* 
- * Check for a UUID corresponding to the provided file ID in the 
- * upload_in_progress table. Return it if found, otherwise next(), so we can
- * reserve a new one.
- */ 
-var fetch_uuid = function (req, res, next) {
-	console.log(req);
-	res.sendStatus(200); 
-};
 
 
-/* 
- * Request a new UUID for the provided file ID.
- */
-var reserve_uuid = function (req, res, next) {
 
-};
 
-/*
- * Return a newly generated UUID to the client.
- */
-var send_uuid = function (req, res, next) {
-
-}
 
 
 
@@ -61,65 +40,9 @@ var skim_for_status_req = function (req, res, next) {
 
 
 
-/* Make sure the requests quack like file chunks. Also, rename the relevant properties so they're less pedantic. */
-var validate_params = function (req, res, next) {
-  var fields = req[(req.method == 'GET' ? 'query' : 'body')];
-	var error = undefined;
-/*
-	_.each(['flowChunkSize', 'flowTotalSize', 'flowTotalChunks'], function (k) {
-		if (!fields[k]) { error = 'Parameter: ' + k + ' must be a positive integer (and is a required field).'; }
-	});
-
-	if (_.isEmpty(fields.flowIdentifier)) { 
-		'Parameter: ' + k + ' must be a non-null string (and is a required field).'
-	}
-
-	if (fields.flowCurrentChunkSize) {
-		//make sure incoming chunks are the right size. 
-		if (fields.flowChunkNumber < fields.flowTotalChunks && fields.flowCurrentChunkSize !== fields.flowChunkSize) {
-			error = 'Actual chunk size and reported chunk size do not match.';
-		} else if (fields.flowTotalChunks > 1 
-			&& fields.flowChunkNumber == fields.flowTotalChunks 
-			&& fields.flowCurrentChunkSize != ((fields.flowTotalSize % fields.chunkSize) + parseInt(chunkSize))))
-	}
-
-	next(error);
-	*/
-	req.chunk_number  = fields.flowChunkNumber;  // The index of the chunk in the current upload. First chunk is 1.
-	req.total_chunks  = fields.flowTotalChunks;  // The total number of chunks.
-	req.chunk_size    = fields.flowChunkSize;    // The general chunk size. 
-	req.file_size     = fields.flowTotalSize;    // The total file size.
-	req.file_id       = fields.flowIdentifier;   // A unique identifier for the file contained in the request.
-	req.file_name     = fields.flowFilename;     // The original file name (since a bug in Firefox results in the file name not being transmitted in chunk multipart posts).
-  req.relative_path = fields.flowRelativePath; // The file's relative path when selecting a directory (defaults to file name in all browsers except Chrome).
-
-	next();
-};
 
 
 
-
-/*   
-	Check to see if a file corresponding to chunk information exists.  
-	This would indicate that an upload is partially completed, allowing the
-	client to confidently resume uploading at the first chunk that this 
-	endpoint reports is non-existant.
-*/ 
-var get_chunk_status = function (req, res) {
- 	var file_name = get_chunk_file_name(req.chunk_number, req.file_id);
- 	fs.exists(file_name, function (exists) {
- 		var status = exists ? 200 : 204;
- 		res.sendStatus(status);
- 	});
-};
-
-
-
-var get_chunk_file_name = function (chunk_number, chunk_id) {
-  chunk_id = sanitize_chunk_id(chunk_id);
-  var file_name = path.resolve('videos', 'staging', chunk_id + '.' + chunk_number);
-  return file_name;
-};
 
 
 
@@ -179,15 +102,22 @@ var merge_chunks = (function () {
   		read_stream.pipe(args.write_stream, {end: false});
      	read_stream.on('end', function () {
      		//once we're done with the chunk we can delete it and move on to the next one.
-     		fs.unlink(file_name);
+     		console.log('deleting ' + file_name);
+     		fs.unlink(file_name, function (error) {
+     			console.log(error);
+     		});
       	args.chunk_number += 1;
       	pipe_chunks(args);
      	}); 
+     	read_stream.on('error', function (error) {
+     		console.log(error);
+     	});
     }  
   };
 
   return function (req, res, next) {
-		var out = path.resolve('videos', req.uuid);
+  	console.log('\n\n\nMERGING\n\n\n');
+		var out = path.resolve('videos', req.video_id);
 		var write_stream = fs.createWriteStream(out);
   	pipe_chunks({
   		write_stream: write_stream,
@@ -200,41 +130,48 @@ var merge_chunks = (function () {
 }());
 
 
+
+/* Record the current date so it can be updated in the table row. */
+var record_upload_date = function (req, res, next) {
+	var now = new Date();
+	req.sql = { date_uploaded: now };
+	console.log(req.sql);
+	next();
+}; 
+
+
+
+
+
 var send_completion_notice = function (req, res, next) {
 	res.status(201).json({uuid: req.uuid});
 };
 
 
+var get_upload_token = function (req, res, next) {
+	var key = { file_id: req.query.video_id };
+	uploads.lookup(key)
+	.then(function (token) {
+		if (_.isEmpty(token)) {
+			res.sendStatus(400);
+		} else {
+			req.file_id = token.file_id;
+			next();
+		}
+	})
+
+};
+
+
 module.exports = function (router) {
-
-	/* Reserve a new uuid */
-	router.get('api/video-ids', 
-		fetch_uuid, 
-		reserve_uuid
-	);
-
-	/* Chunk status request */
-	router.get('/api/videos', 
-		skim_for_status_req, //next('route') if this isn't a chunk status request 
-		validate_params, 
-		get_chunk_status
-	);
-
-	/* Multiple video request */
-	router.get('api/videos', function (req, res) { res.sendStatus(200); });	
 
 	/* Video upload request */
 	router.post('/api/videos', 
-		upload.single('file'), 
-		validate_params, 
-		rename_uploaded_chunk,
-		check_completion_status,
+		get_upload_token,
 		merge_chunks,
-		videos.create,
+		record_upload_date,
+		videos.update,
 		send_completion_notice
 	);
-
-	/*video meta-data edit*/
-	//router.patch()
 
 };

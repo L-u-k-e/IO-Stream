@@ -35,25 +35,50 @@
     };
 */
 
-    var make_api_request = function (spec) {
-      var body = spec.body;
-      var api = 'api/' + spec.resource;    
-      var url = api;
+    var encode_resource_path = function (path) {
+      var resource_path = '';
+      
+      if (!path) return '';
 
-      if (spec.query && spec.query.length) {
-        url += '?' + spec.query.map(function (v, k) {
-          var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(v);
-          return encoded;
-        }).join('&');
+      if (_.isString(path)) {
+        resource_path = encodeURIComponent(path);
+        return resource_path; 
       }
 
+      path = path.map(function (sub_resource) {
+        var encoded = encodeURIComponent(sub_resource);
+        return encoded;
+      }).join('/');
+
+      return path;
+    };
+
+
+    var encode_query_string = function (obj)  {
+      if (!obj) return '';
+      
+      var query_string = obj.map(function (v, k) {
+        var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(v);
+        return encoded;
+      }).join('&');
+      
+      return query_string;
+    };
+
+
+    var make_api_request = function (spec) {
+      
+      var body  = spec.body;
+      var resource_path = 'api/' + encode_resource_path(spec.resource);    
+      var query_string = encode_query_string(spec.query);
+      var full_url = resource_path + query_string;
 
       var context = spec.context || window;
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function () { 
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          var response = xhr.response;
-          try { response = JSON.parse(xhr.response); }
+          var response = {status: xhr.status, body: xhr.response};
+          try { response.body = JSON.parse(xhr.response); }
           catch (syntaxError) {}
 
           if (spec.callback) {
@@ -62,7 +87,7 @@
         }
       };
 
-      xhr.open(spec.verb, url);
+      xhr.open(spec.verb, full_url);
       xhr.send(body);
     };
 
