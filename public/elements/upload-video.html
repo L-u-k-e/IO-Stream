@@ -114,7 +114,7 @@
 				});
 				
 
-				/* One all of the chunks have finished uploading, we can send a request to finalzie the upload (merge the chunks) */
+				/* One all of the chunks have finished uploading, we can send a request to finalize the upload (merge the chunks) */
 				this.flow.on('complete', function () {
 					var total_chunks = self.flow.files[0].chunks.length;
 					self.make_api_request({
@@ -123,7 +123,6 @@
 			  		query: {video_id: self.flow.opts.query.video_id, flowTotalChunks: total_chunks},
 			  		callback: function (result) {
 			  			console.log(result.body);
-			  			
 			  		}
 			  	});			
 				});

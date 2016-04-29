@@ -4,23 +4,16 @@ var orm = require('../helpers/orm.js');
 exports.get_all = function (req, res, next) {
 
 };
-/*
-exports.create = function (req, res, next) {
-  orm.insert(db, 'video', req.sql)
-	.then(function (data) {
-		req.query_result = data;
-		next();
-	})
-	.catch(function (err) {
-		return next(err);
+
+
+exports.update = function (args) {
+	var promise = orm.update({
+		db:    db, 
+		table: 'video', 
+		set:   args.set, 
+		where: args.where
 	});
-
-};*/
-
-exports.update = function (req, res, next) {
-	orm.update(db, 'video', req.sql.set, req.sql.where)
-	.then(function () { next(); })
-	.catch(function(err) { next(err); })
+	return promise;
 }
 
 

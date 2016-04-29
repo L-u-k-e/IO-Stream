@@ -8,14 +8,14 @@ var pgp = require('pg-promise');
 
 
 /* Generate formatted and escaped sequences of foo=bar [delim] ... */
-var equals = function (spec) {
+var equals = function (args) {
   var self = {};
   self.formatDBType = function () {
-    var props = Object.keys(spec.items);
+    var props = Object.keys(args.items);
     var s = props.map(function (k) {
         return k + '=$(' + k + ')';
     });
-    return pgp.as.format(s.join(' ' + spec.delimiter + ' '), spec.items);
+    return pgp.as.format(s.join(' ' + args.delimiter + ' '), args.items);
   }
   return self;
 };
@@ -29,36 +29,36 @@ var list = function (items) {
 
 
 
-var insert = function (spec) {
-  var keys = _.keys(spec.values);
+var insert = function (args) {
+  var keys = _.keys(args.values);
   var query = pgp.as.format('INSERT INTO $1~($2^) VALUES($3^) RETURNING *', [
-    spec.table,
+    args.table,
     list(keys),
     keys.map(function (k) { return '$(' + k + ')'; }).join(', ')
   ]);
-  return spec.db.one(query, spec.values);
+  return args.db.one(query, args.values);
 }
 
 
-var select = function (spec) {
+var select = function (args) {
   var query = pgp.as.format('SELECT $1^ FROM $2~ WHERE ($3^)', [
-    list(spec.columns),
-    spec.table,
-    equals(spec.where),
+    list(args.columns),
+    args.table,
+    equals(args.where),
   ]);
-  return spec.db[spec.qrm || 'any'](query);
+  return args.db[args.qrm || 'any'](query);
 };
 
 
 
 /*Generate an update query provided a table name, a values object and a set of mutually dependent conditions. */
-var update = function (db, table, set, where) {
-  var query = pgp.as.format('UPDATE $1~ SET $2^ WHERE ($3^)', [
-    table,
-    set_values(set, ','),
-    set_values(where, 'AND')
+var update = function (args) {
+  var query = pgp.as.format('UPDATE $1~ SET $2^ WHERE ($3^) RETURNING *', [
+    args.table,
+    equals({items:args.set, delimiter: ','}),
+    equals({items:args.where, delimiter: 'AND'})
   ]);
-  return db.none(query);
+  return args.db.one(query);
 };
 
 

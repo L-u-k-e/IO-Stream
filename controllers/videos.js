@@ -107,14 +107,11 @@ var merge_chunks = (function () {
 
 	var pipe_chunks = function (args) {
   	args.chunk_number = args.chunk_number || 1;
-  	console.log(args.total_chunks);
   	if (args.chunk_number > args.total_chunks) { 
-  		console.log('done');
   		args.write_stream.end();
   		args.next(); 
   	} else {
   		var file_name = get_chunk_file_name(args.chunk_number, args.file_id);
-  		console.log(file_name);
   		var read_stream = fs.createReadStream(file_name);
   		read_stream.pipe(args.write_stream, {end: false});
      	read_stream.on('end', function () {
@@ -142,12 +139,15 @@ var merge_chunks = (function () {
 
 
 
-/* Record the current date so it can be updated in the table row. */
-var record_upload_date = function (req, res, next) {
+/* Update the row in the video table with the upload date */
+var stamp_upload_time = function (req, res, next) {
 	var now = new Date();
-	req.sql = { date_uploaded: now };
-	console.log(req.sql);
-	//next(err);
+	var args = {where: {id: req.video_id}, set: {date_uploaded: now }};
+	videos.update(args)
+	.then(function (data) {
+		req.new_video_row = data;
+		next();
+	});
 }; 
 
 
@@ -155,7 +155,7 @@ var record_upload_date = function (req, res, next) {
 
 /* Send notice of merge completion to the client */
 var send_merge_completion_notice = function (req, res, next) {
-	res.status(201).json({uuid: req.uuid});
+	res.status(201).json(req.new_video_row);
 };
 
 
@@ -182,8 +182,7 @@ module.exports = function (router) {
 		normalize_params,
 		get_upload_token,
 		merge_chunks,
-		record_upload_date,
-		videos.update,
+		stamp_upload_time,
 		send_merge_completion_notice
 	);
 
