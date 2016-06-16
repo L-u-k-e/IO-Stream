@@ -16,7 +16,7 @@
         page('/watch', function () {
           var set_view = function () { self.page = 'watch'; }
           if (!Polymer.isInstance(self.$.video_browser)) { 
-            Polymer.Base.importHref('/elements/upload-video.html', set_view);
+            Polymer.Base.importHref('/elements/file-uploader.html', set_view);
           } else { set_view(); }
         });
 

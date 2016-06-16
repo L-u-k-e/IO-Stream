@@ -1,3 +1,14 @@
+/*
+ * Author: Lucas Parzych
+ * Email:  parzycl1@sunyit.edu
+ * 
+ * Description:
+ *  As the file name implies, this module exposes a set of helper functions 
+ *  which provide object-relational mapping to make it easier for models to  
+ *  access the database.
+ *
+ */
+
 var _   = require('lodash');
 var pgp = require('pg-promise');
 
@@ -9,12 +20,14 @@ var pgp = require('pg-promise');
 
 /* Generate formatted and escaped sequences of foo=bar [delim] ... */
 var equals = function (args) {
+  if (!args) { return ''; }
   var self = {};
   self.formatDBType = function () {
     var props = Object.keys(args.items);
     var s = props.map(function (k) {
         return k + '=$(' + k + ')';
     });
+
     return pgp.as.format(s.join(' ' + args.delimiter + ' '), args.items);
   }
   return self;
@@ -23,8 +36,11 @@ var equals = function (args) {
 
 
 var list = function (items) {
- var names = items.map(function (c) { return pgp.as.name(c); }).join(', ');
- return names;
+  if (!items) { return ''; }
+  console.log(items);
+  var names = items.map(function (c) { return pgp.as.name(c); }).join(', ');
+  console.log(names);
+  return names;
 };
 
 
@@ -41,11 +57,15 @@ var insert = function (args) {
 
 
 var select = function (args) {
-  var query = pgp.as.format('SELECT $1^ FROM $2~ WHERE ($3^)', [
-    list(args.columns),
+  var query = pgp.as.format('SELECT $1^ FROM $2~ WHERE ($3^) ORDER BY $4^ LIMIT $5 OFFSET $6', [
+    list(args.columns) || '*',
     args.table,
-    equals(args.where),
+    equals({items: args.where || {true:true}, delimiter: 'AND'}),
+    list(args.order),
+    args.limit || 'ALL',
+    args.offset || 0
   ]);
+  console.log(query);
   return args.db[args.qrm || 'any'](query);
 };
 

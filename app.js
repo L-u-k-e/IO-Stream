@@ -6,7 +6,9 @@ var cookie_parser = require('cookie-parser');
 var body_parser = require('body-parser');
 var helmet = require('helmet');
 
+var query_parser = require('./helpers/query_parser.js');
 var controllers = require('./controllers/index.js');
+
 
 var app = express();
 
@@ -23,6 +25,7 @@ app.use(body_parser.urlencoded({ extended: false }));
 app.use(cookie_parser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(query_parser);
 app.use('/', controllers);
 
 app.use('*', function(req, res) {

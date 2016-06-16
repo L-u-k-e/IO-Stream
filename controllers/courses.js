@@ -20,10 +20,23 @@ model.exports = function (router) {
 	});
 };*/
 
-
+var get_many = function (req, res, next) {
+	console.log(req.query);
+	courses.get_many(req.query)
+	.then(function (data) {
+		res.status(200).json({
+			message: 'Retrieved some courses.',
+			data: data
+		});
+	})
+	.catch (function (err) {
+		console.log(err);
+	});
+};
 
 module.exports = function (router) {
-	router.get('/api/courses', courses.get_all);
-	router.get('/api/courses/:id', courses.get)
-	router.post('/api/courses', courses.create);
+	router.get('/api/courses', get_many);
+	/*router.get('/api/courses/:id', get_one)
+	router.post('/api/courses', create);
+	*/
 };

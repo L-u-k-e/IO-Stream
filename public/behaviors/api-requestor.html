@@ -23,11 +23,12 @@
     };
 
 
+
     var encode_query_string = function (obj)  {
       if (!obj) return '';
       
       var query_string = _.map(obj, function (v, k) {
-        var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(v);
+        var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(JSON.stringify(v));
         return encoded;
       }).join('&');
       

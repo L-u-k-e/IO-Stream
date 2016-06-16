@@ -1,5 +1,21 @@
 var db = require('../config/db_config.js');
+var orm = require('../helpers/orm.js');
 var generate_uuid = require('../helpers/uuid.js');
+var table = 'course';
+
+exports.get_many = function (args) {
+	var promise = orm.select({
+		db:     db, 
+		table:  table,  
+		where:  args.where,
+		order:  args.order,
+		limit:  args.limit,
+		offset: args.offset,
+		group:  args.group
+	});
+	return promise;
+};
+
 
 exports.get_all = function (req, res, next) {
 	db.any('select * from course')

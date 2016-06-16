@@ -1,9 +1,7 @@
-<!--
-
--->
 
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/cascaded-animation.html">
@@ -20,6 +18,9 @@
 				padding: 15px;
 				cursor: pointer;
 			}
+			paper-ripple {
+				color: var(--primary-color);
+			}
 			#right {
 				position: absolute;
 				top: 8px; right: 8px; bottom: 8px;
@@ -30,18 +31,22 @@
 				color: #333;
 				text-align: right;
 			}
+			#more_button_container {
+				@apply(--layout-horizontal);
+				@apply(--layout-center-center);
+				margin: 15px 0;
+			}
 
-
+			#more_button {
+				--paper-button-ink-color: var(--primary-color);
+			}
 
 		</style>
 		<grid-view>
 			<template is="dom-repeat" items="[[items]]">
 				<paper-card cascaded heading="[[item.title]]">
-				<paper-ripple></paper-ripple>
-					
+					<paper-ripple></paper-ripple>
 					<span>[[item.description]]</span>
-
-
 					<div id="right">
 						<div>
 							<div><span>[[item.subject]]</span></div>
@@ -51,12 +56,15 @@
 							</div>
 						</div>
 						<div>
-							<span>[[item.user_uid]]</span>
+							<span>[[item.person_id]]</span>
 						</div>
 					</div>
 				</paper-card>
 			</template>
 		</grid-view>
+		<div id="more_button_container">
+			<paper-button raised id="more_button" on-tap="_load_more_courses">Older</paper-button>
+		</div>
 	</template>
 	<script>
 		Polymer({
@@ -68,22 +76,31 @@
 				items: {
 					type: Array,
 					value: []
+				},
+				batchSize: {
+					type: Number, 
+					value: 15
+				},
+				offset: {
+					type: Number,
+					value: 0
 				}
 			},
-			
-			ready: function () {
+
+			_load_more_courses: function (event, detail) {
 				this.make_api_request({
 					verb: 'GET', 
-					resource: 'courses', 
+					resource: 'courses',
+					query:  {limit: this.batchSize, offset: this.offset, order: ['year']},
 					context: this, 
 					callback: function (result) {
-						console.log(this);
-						this.items = result.body.data;
-						console.log(this.items);
+						this.items = _.concat(this.items, result.body.data);
+						this.offset += this.limit;
 					}
 				});
 			},
-
+			
+			ready: this._load_more_courses
 		});
 	</script>
 </dom-module>
