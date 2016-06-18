@@ -35,7 +35,7 @@ var get_some = function (req, res, next) {
 };
 
 module.exports = function (router) {
-	router.get('/api/courses', get_many);
+	router.get('/api/courses', get_some);
 	/*router.get('/api/courses/:id', get_one)
 	router.post('/api/courses', create);
 	*/
