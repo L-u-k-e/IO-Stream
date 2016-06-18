@@ -20,7 +20,7 @@ model.exports = function (router) {
 	});
 };*/
 
-var get_many = function (req, res, next) {
+var get_some = function (req, res, next) {
 	console.log(req.query);
 	courses.get_many(req.query)
 	.then(function (data) {

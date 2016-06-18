@@ -3,7 +3,7 @@ var orm = require('../helpers/orm.js');
 var generate_uuid = require('../helpers/uuid.js');
 var table = 'course';
 
-exports.get_many = function (args) {
+exports.get_some = function (args) {
 	var promise = orm.select({
 		db:     db, 
 		table:  table,  

@@ -59,6 +59,7 @@ var get_chunk_file_name = function (chunk_number, chunk_id) {
 /* Check to see if a chunk already exists.*/ 
 var get_chunk_status = function (req, res) {
  	var file_name = get_chunk_file_name(req.chunk_number, req.file_id);
+ 	console.log(file_name);
  	fs.exists(file_name, function (exists) {
  		var status = exists ? 200 : 204;
  		console.log(status);
