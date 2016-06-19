@@ -37,8 +37,7 @@ var equals = function (args) {
 
 var list = function (items) {
   if (!items) return ''; 
-  var names = items.map(function (c) { return pgp.as.name(c); }).join(', ');
-  return names;
+  return items.map(pgp.as.name).join();
 };
 
 
