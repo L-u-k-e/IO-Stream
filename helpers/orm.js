@@ -77,7 +77,6 @@ var select = function (args) {
 
 
 
-/*Generate an update query provided a table name, a values object and a set of mutually dependent conditions. */
 var update = function (args) {
 	var query = pgp.as.format('UPDATE $1~ SET $2^ WHERE ($3) RETURNING *', [
 		args.table,
