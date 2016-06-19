@@ -1,10 +1,10 @@
 <!--
-  Author: Lucas Parzych
-  Email:  parzycl1@sunyit.edu
-  Description:
-   This element acts as the top-most mediator. 
-   (Google "mediator pattern" if that term confuses you) 
-  
+	Author: Lucas Parzych
+	Email:  parzycl1@sunyit.edu
+	Description:
+	 This element acts as the top-most mediator. 
+	 (Google "mediator pattern" if that term confuses you) 
+	
  The design for this application was inspired in part by Youtube :) 
 -->
 
@@ -45,97 +45,97 @@
 <dom-module id="io-stream">
 
 
-  <template>
-  
-    <style>
-      /* Content needs to be laid out vertically with the header above the rest of the content */
-      app-header-layout {
-        @apply(--layout-fit);
-        @apply(--layout-vertical); 
-        background-color: var(--paper-grey-100);
-      }
+	<template>
+	
+		<style>
+			/* Content needs to be laid out vertically with the header above the rest of the content */
+			app-header-layout {
+				@apply(--layout-fit);
+				@apply(--layout-vertical); 
+				background-color: var(--paper-grey-100);
+			}
 
-      /* Drawer needs to clear space for the header. */
-       #drawer {
-        /* The app-drawer is actually: position:fixed; top:-120px; 
-         * The header is 64px, so we need 184 to clear it. 
-         */
-        --app-drawer-content-container: {
-          padding-top: 184px;
-          @apply(--shadow-elevation-3dp);
-        };
-      }
+			/* Drawer needs to clear space for the header. */
+			 #drawer {
+				/* The app-drawer is actually: position:fixed; top:-120px; 
+				 * The header is 64px, so we need 184 to clear it. 
+				 */
+				--app-drawer-content-container: {
+					padding-top: 184px;
+					@apply(--shadow-elevation-3dp);
+				};
+			}
 
-      /* The header should be on top of everything. */
-      the-header {
-        position: relative;
-        z-index: 100;
-      }
+			/* The header should be on top of everything. */
+			the-header {
+				position: relative;
+				z-index: 100;
+			}
 
-      /* Main container should fill it's parent's space */
-      /*#main {
-        @apply(--layout-fit);
-      	@apply(--layout-vertical);
-      	@apply(--layout-center-center);
-      }*/
+			/* Main container should fill it's parent's space */
+			/*#main {
+				@apply(--layout-fit);
+				@apply(--layout-vertical);
+				@apply(--layout-center-center);
+			}*/
 
-      iron-pages > * {
-        @apply(--layout-fit);
-      }
+			iron-pages > * {
+				@apply(--layout-fit);
+			}
 
-    </style>
-
-
-    <app-header-layout has-scrolling-region>
-
-      <app-header fixed shadow>
-
-  
-
-        <the-header></the-header>
-      </app-header>
-
-      <app-drawer-layout fullbleed responsive-width="1250px">
-
-        <app-drawer id="drawer">
-           <the-sidebar selected="[[page]]"></the-sidebar>
-        </app-drawer>
-        
-        <iron-pages selected="[[page]]" attr-for-selected="data-page" selected-attribute="showing">
-          <course-browser id="course_browser" data-page="courses"></course-browser>
-          <file-uploader id="video_browser" data-page="watch"></file-uploader>
-          <course-creator id="course-creator" data-page="course creator"></course-creator>
-        </div>
-      </app-drawer-layout>
+		</style>
 
 
-    </app-header-layout>
+		<app-header-layout has-scrolling-region>
+
+			<app-header fixed shadow>
+
+	
+
+				<the-header></the-header>
+			</app-header>
+
+			<app-drawer-layout fullbleed responsive-width="1250px">
+
+				<app-drawer id="drawer">
+					 <the-sidebar selected="[[page]]"></the-sidebar>
+				</app-drawer>
+				
+				<iron-pages selected="[[page]]" attr-for-selected="data-page" selected-attribute="showing">
+					<course-browser id="course_browser" data-page="courses"></course-browser>
+					<file-uploader id="video_browser" data-page="watch"></file-uploader>
+					<course-creator id="course-creator" data-page="course creator"></course-creator>
+				</div>
+			</app-drawer-layout>
+
+
+		</app-header-layout>
 
 
 
-  </template>
-
-
+	</template>
 
 
 
 
-  <script>
-    Polymer({
-      is: 'io-stream',
 
-      behaviors: [Behaviors.app_router],
 
-      listeners: {
-        'drawer-toggle-request': '_toggle_drawer'
-      },
+	<script>
+		Polymer({
+			is: 'io-stream',
 
-      _toggle_drawer: function (event, detail) {
-        this.$.drawer.toggle();
-      },
+			behaviors: [Behaviors.app_router],
 
-    });
-  </script>
+			listeners: {
+				'drawer-toggle-request': '_toggle_drawer'
+			},
+
+			_toggle_drawer: function (event, detail) {
+				this.$.drawer.toggle();
+			},
+
+		});
+	</script>
 
 
 </dom-module>

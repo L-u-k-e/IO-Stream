@@ -1,62 +1,62 @@
 <script src="/bower_components/page/page.js"></script>
 <script>
 
-  var Behaviors = Behaviors || {};
+	var Behaviors = Behaviors || {};
 
-  Behaviors.app_router = (function () {
-    
-    var setup_routes = function () {
-        var self = this;
+	Behaviors.app_router = (function () {
+		
+		var setup_routes = function () {
+				var self = this;
 
-        // Setup some basic routing
-        page('/', function () {
-          page.redirect('/courses');
-        });
+				// Setup some basic routing
+				page('/', function () {
+					page.redirect('/courses');
+				});
 
-        page('/watch', function () {
-          var set_view = function () { self.page = 'watch'; }
-          if (!Polymer.isInstance(self.$.video_browser)) { 
-            Polymer.Base.importHref('/elements/file-uploader.html', set_view);
-          } else { set_view(); }
-        });
+				page('/watch', function () {
+					var set_view = function () { self.page = 'watch'; }
+					if (!Polymer.isInstance(self.$.video_browser)) { 
+						Polymer.Base.importHref('/elements/file-uploader.html', set_view);
+					} else { set_view(); }
+				});
 
-        page('/upload', function () {
-          self.view = 2;
-        });
+				page('/upload', function () {
+					self.view = 2;
+				});
 
-        page('/courses', function () {
-          console.log('invoked handler');
-          var set_view = function () { self.page = 'courses'; }
-          if (!Polymer.isInstance(self.$.course_browser)) { 
-            Polymer.Base.importHref('/elements/course-browser.html', set_view);
-          } else { set_view(); }
-        });
+				page('/courses', function () {
+					console.log('invoked handler');
+					var set_view = function () { self.page = 'courses'; }
+					if (!Polymer.isInstance(self.$.course_browser)) { 
+						Polymer.Base.importHref('/elements/course-browser.html', set_view);
+					} else { set_view(); }
+				});
 
-        page('/courses/create', function () {
-          var set_view = function () { self.page = 'course creator'; }
-          if (!Polymer.isInstance(self.$.course_creator)) { 
-            Polymer.Base.importHref('/elements/course-creator.html', set_view);
-          } else { set_view(); }
-        });
+				page('/courses/create', function () {
+					var set_view = function () { self.page = 'course creator'; }
+					if (!Polymer.isInstance(self.$.course_creator)) { 
+						Polymer.Base.importHref('/elements/course-creator.html', set_view);
+					} else { set_view(); }
+				});
 
-        page();
-    };
+				page();
+		};
 
 
-    var navigate = function (event, detail) {
-      page.redirect(detail.url);
-    };
+		var navigate = function (event, detail) {
+			page.redirect(detail.url);
+		};
 
-    var listeners = {
-      'navigation-request': '_navigate'
-    };
+		var listeners = {
+			'navigation-request': '_navigate'
+		};
 
-    return Object.freeze({
-      ready: setup_routes,
-      listeners: listeners,
-      _navigate: navigate
-    });
+		return Object.freeze({
+			ready: setup_routes,
+			listeners: listeners,
+			_navigate: navigate
+		});
 
-  }());
+	}());
 
 </script>

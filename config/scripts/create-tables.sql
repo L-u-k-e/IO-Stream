@@ -21,9 +21,9 @@ DROP TABLE person;
 
 
 CREATE TABLE person (
-    id          varchar(50)   PRIMARY KEY,
-    faculty     boolean       NOT NULL,
-    super_user  boolean       NOT NULL
+	id          varchar(50)   PRIMARY KEY,
+	faculty     boolean       NOT NULL,
+	super_user  boolean       NOT NULL
 );
 
 
@@ -31,8 +31,8 @@ CREATE TABLE person (
 
 
 CREATE TABLE subject (
-    id     SERIAL          PRIMARY KEY, 
-    title  varchar(100)    NOT NULL
+	id     SERIAL          PRIMARY KEY, 
+	title  varchar(100)    NOT NULL
 );
 
 
@@ -40,8 +40,8 @@ CREATE TABLE subject (
 
 
 CREATE TABLE semester (
-    id     SERIAL       PRIMARY KEY, 
-    title  varchar(10)  NOT NULL
+	id     SERIAL       PRIMARY KEY, 
+	title  varchar(10)  NOT NULL
 );
 
 
@@ -49,36 +49,36 @@ CREATE TABLE semester (
 
 
 CREATE TABLE course (
-    id             char(11)       PRIMARY KEY,
-    semester_id    int            NOT NULL,
-    year           int            NOT NULL,
-    subject_id     int            NOT NULL,
-    title          varchar(250)   NOT NULL,
-    description    varchar(1000)  NULL,
-    date_created   date           NOT NULL     DEFAULT CURRENT_DATE,
-    person_id      varchar(50)    NOT NULL
+	id             char(11)       PRIMARY KEY,
+	semester_id    int            NOT NULL,
+	year           int            NOT NULL,
+	subject_id     int            NOT NULL,
+	title          varchar(250)   NOT NULL,
+	description    varchar(1000)  NULL,
+	date_created   date           NOT NULL     DEFAULT CURRENT_DATE,
+	person_id      varchar(50)    NOT NULL
 );
 
 
 ALTER TABLE course ADD CONSTRAINT course_person 
-    FOREIGN KEY (person_id)
-    REFERENCES person (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (person_id)
+	REFERENCES person (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 ALTER TABLE course ADD CONSTRAINT course_semester 
-    FOREIGN KEY (semester_id)
-    REFERENCES semester (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (semester_id)
+	REFERENCES semester (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 ALTER TABLE course ADD CONSTRAINT course_subject 
-    FOREIGN KEY (subject_id)
-    REFERENCES subject (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (subject_id)
+	REFERENCES subject (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 
@@ -86,21 +86,21 @@ ALTER TABLE course ADD CONSTRAINT course_subject
 
 
 CREATE TABLE video (
-    id             char(11)        PRIMARY KEY,
-    duration       decimal(255,2)  NULL,
-    date_uploaded  timestamp       NULL,
-    date_modified  timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
-    course_id      char(11)        NOT NULL,
-    title          varchar(100)    NULL,
-    description    varchar(500)    NULL
+	id             char(11)        PRIMARY KEY,
+	duration       decimal(255,2)  NULL,
+	date_uploaded  timestamp       NULL,
+	date_modified  timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
+	course_id      char(11)        NOT NULL,
+	title          varchar(100)    NULL,
+	description    varchar(500)    NULL
 );
 
 
 ALTER TABLE video ADD CONSTRAINT video_course 
-    FOREIGN KEY (course_id)
-    REFERENCES course (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (course_id)
+	REFERENCES course (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 
@@ -108,24 +108,24 @@ ALTER TABLE video ADD CONSTRAINT video_course
 
 
 CREATE TABLE favorite (
-    id          bigserial     PRIMARY KEY,
-    video_id    char(11)      NOT NULL,
-    person_id   varchar(50)   NOT NULL
+	id          bigserial     PRIMARY KEY,
+	video_id    char(11)      NOT NULL,
+	person_id   varchar(50)   NOT NULL
 );
 
 
 ALTER TABLE favorite ADD CONSTRAINT favorite_person 
-    FOREIGN KEY (person_id)
-    REFERENCES person (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (person_id)
+	REFERENCES person (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 ALTER TABLE favorite ADD CONSTRAINT favorite_video 
-    FOREIGN KEY (video_id)
-    REFERENCES video (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (video_id)
+	REFERENCES video (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 
@@ -133,25 +133,25 @@ ALTER TABLE favorite ADD CONSTRAINT favorite_video
 
 
 CREATE TABLE subscription (
-    id          bigserial    PRIMARY KEY,
-    person_id   varchar(50)  NOT NULL,
-    course_id   char(11)     NOT NULL
+	id          bigserial    PRIMARY KEY,
+	person_id   varchar(50)  NOT NULL,
+	course_id   char(11)     NOT NULL
 );
 
 
 ALTER TABLE subscription ADD CONSTRAINT subscription_course 
-    FOREIGN KEY (course_id)
-    REFERENCES course (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (course_id)
+	REFERENCES course (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 
 ALTER TABLE subscription ADD CONSTRAINT subscription_person 
-    FOREIGN KEY (person_id)
-    REFERENCES person (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (person_id)
+	REFERENCES person (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 
@@ -159,15 +159,15 @@ ALTER TABLE subscription ADD CONSTRAINT subscription_person
 
 
 CREATE TABLE upload_token (
-    video_id   char(11)       NOT NULL,
-    file_id    varchar(250)   PRIMARY KEY
+	video_id   char(11)       NOT NULL,
+	file_id    varchar(250)   PRIMARY KEY
 );
 
 ALTER TABLE upload_token ADD CONSTRAINT upload_video 
-    FOREIGN KEY (video_id)
-    REFERENCES video (id)
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE 
+	FOREIGN KEY (video_id)
+	REFERENCES video (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
 ;
 
 

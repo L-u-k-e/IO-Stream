@@ -1,99 +1,99 @@
 <!DOCTYPE html>
 <html> 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	 
 	<title> IO Stream - SUNY Polytechnic</title>
 
-    <!-- Google Fonts -->
-    <link href="//fonts.googleapis.com/css?family=Pacifico|Lato|Roboto" rel="stylesheet" type="text/css">
+		<!-- Google Fonts -->
+		<link href="//fonts.googleapis.com/css?family=Pacifico|Lato|Roboto" rel="stylesheet" type="text/css">
 
-    <!-- Normalize.css -->
-    <link href="/styles/normalize.css" rel="stylesheet" type="text/css"> 
+		<!-- Normalize.css -->
+		<link href="/styles/normalize.css" rel="stylesheet" type="text/css"> 
 
-    <!-- Main styles -->
-    <link href="/styles/main.css" rel="stylesheet" type="text/css"> 
+		<!-- Main styles -->
+		<link href="/styles/main.css" rel="stylesheet" type="text/css"> 
 
-    <!-- Inline styles for the splash screen -->
-    <style>
-      body.loading #splash {
-        opacity: 1;
-      }
-      #splash {
-        display: flex;
-        flex-wrap: wrap;
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        transition: opacity 300ms cubic-bezier(0,0,0.2,1);
-        opacity: 0;
-        will-change: opacity;
-        z-index: 1;
+		<!-- Inline styles for the splash screen -->
+		<style>
+			body.loading #splash {
+				opacity: 1;
+			}
+			#splash {
+				display: flex;
+				flex-wrap: wrap;
+				position: absolute;
+				top: 0; left: 0; right: 0; bottom: 0;
+				transition: opacity 300ms cubic-bezier(0,0,0.2,1);
+				opacity: 0;
+				will-change: opacity;
+				z-index: 1;
 
-        color: rgba(0,0,0,0.6);
-        text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
-        font-size: 42px;
-        font-family: Roboto;
-        background-color: #1976D2;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-      #splash div > div {
-        font-size: 24px;
-      }
-    </style> 
+				color: rgba(0,0,0,0.6);
+				text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+				font-size: 42px;
+				font-family: Roboto;
+				background-color: #1976D2;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+			}
+			#splash div > div {
+				font-size: 24px;
+			}
+		</style> 
 
-    <!-- Lodash of course-->
-    <script src="/bower_components/lodash/dist/lodash.min.js"></script>
+		<!-- Lodash of course-->
+		<script src="/bower_components/lodash/dist/lodash.min.js"></script>
 
-    <!-- Moment for date/time stuff -->
-    <script src="/bower_components/moment/min/moment.min.js"></script>
+		<!-- Moment for date/time stuff -->
+		<script src="/bower_components/moment/min/moment.min.js"></script>
 
-    <!-- Flow for resumable file uploads -->
-    <script src="/bower_components/flow.js/dist/flow.min.js"></script>
+		<!-- Flow for resumable file uploads -->
+		<script src="/bower_components/flow.js/dist/flow.min.js"></script>
 
-    <!-- Web Components Polyfills -->
-    <script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
+		<!-- Web Components Polyfills -->
+		<script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
 
-    <!-- App Container -->
-    <link rel="import" id="bundle" href="/elements/io-stream.html" async>
+		<!-- App Container -->
+		<link rel="import" id="bundle" href="/elements/io-stream.html" async>
 
-  </head>
-  <body class="loading">
-    <!-- Display splash screen while imports load -->
-    <div id="splash">
-      <div>
-        <span>IO Stream</span>
-        <div> By Students. For Students. </div>
-      </div>
-    </div> 
+	</head>
+	<body class="loading">
+		<!-- Display splash screen while imports load -->
+		<div id="splash">
+			<div>
+				<span>IO Stream</span>
+				<div> By Students. For Students. </div>
+			</div>
+		</div> 
 
-    <!-- Instantiate the main application -->
-    <io-stream></io-stream>
+		<!-- Instantiate the main application -->
+		<io-stream></io-stream>
 
-    <!-- Remove splash screen when class-x is ready -->
-    <script>
-        (function () {
-          var onImportLoaded = function (event) {
-            var splash = document.body.querySelector('#splash');
-            document.body.classList.remove('loading');
-            window.setTimeout(function () {
-              document.body.removeChild(splash);
-            }, 300);
-          };
+		<!-- Remove splash screen when class-x is ready -->
+		<script>
+				(function () {
+					var onImportLoaded = function (event) {
+						var splash = document.body.querySelector('#splash');
+						document.body.classList.remove('loading');
+						window.setTimeout(function () {
+							document.body.removeChild(splash);
+						}, 300);
+					};
 
-          // Go if the async elements import loaded quickly. Otherwise wait for it.
-          // crbug.com/504944 - readyState never goes to complete until Chrome 46.
-          // crbug.com/505279 - Resource Timing API is not available until Chrome 46.
-          var bundle = document.querySelector('#bundle');
-          if (bundle.import && bundle.import.readyState === 'complete') {
-            onImportLoaded();
-          } else {
-            bundle.addEventListener('load', onImportLoaded);
-          }
-        }());
-    </script>
-  </body>
+					// Go if the async elements import loaded quickly. Otherwise wait for it.
+					// crbug.com/504944 - readyState never goes to complete until Chrome 46.
+					// crbug.com/505279 - Resource Timing API is not available until Chrome 46.
+					var bundle = document.querySelector('#bundle');
+					if (bundle.import && bundle.import.readyState === 'complete') {
+						onImportLoaded();
+					} else {
+						bundle.addEventListener('load', onImportLoaded);
+					}
+				}());
+		</script>
+	</body>
 </html>

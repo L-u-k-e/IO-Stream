@@ -1,10 +1,10 @@
 <!--
-  Author: Lucas Parzych
-  Email:  parzycl1@sunyit.edu
-  Description:
-  This is the header (title bar).
-   
-  It contains the title and a search bar. 
+	Author: Lucas Parzych
+	Email:  parzycl1@sunyit.edu
+	Description:
+	This is the header (title bar).
+	 
+	It contains the title and a search bar. 
  -->
 
 
@@ -37,121 +37,121 @@
 <dom-module id="the-header">
 
 
-  <template>
+	<template>
 
-    <style>
-      :host {
-        display: block;
-      }
+		<style>
+			:host {
+				display: block;
+			}
 
-      app-toolbar {
-        @apply(--layout-horizontal);
-        @apply(--layout-justified);
-        background-color: var(--primary-color);
-        color: rgba(0,0,0,0.6);
-        text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
-        @apply(--paper-font-title);
-      }
-      
-
-
-
-
-      /* Left header content needs to align with the sidebar.
-       * Sidebar width is 256, but there is 16px of padding to the left
-       * of this element, thus width: 240px;
-       *
-       * The left header contains the drawer toggler and the classX branding. 
-       */
-      #left {
-        width: 240px;
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-      }
-
-      /* The ClassX branding should be centered in the remaining
-       * space of the #left div after the #drawer_toggler is placed. 
-       */
-      #left div {
-        @apply(--layout-flex);
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-      }
-
-      #logo {
-        padding-left: 5px;
-        --iron-icon-height: 30px;
-        --iron-icon-width: 30px; 
-      }
-
-      #drawer_toggler {
-        color: var(--accent-color);
-      }
-
-      /* Drawe toggler should only be visible below responsive width */
-      @media (min-width: 1251px) {
-        #drawer_toggler {
-          display: none;
-        }
-      }
-
-      /* Some elements need to disappear all togehter when space gets cramped*/
-      @media (max-width: 575px) and (min-width: 476px) {
-        #left div {
-          display: none !important;
-        }
-      }
-      @media (max-width: 850px) {
-        app-toolbar > span {
-          display: none;
-        }
-      }
-      @media (max-width: 475px) {
-        paper-search-bar {
-          display: none;
-        }
-        #left {
-          width:100%;
-        }
-      }
-
-
-
-    </style>
-    
-
-    <app-toolbar>
-      <div id="left">
-        <paper-icon-button icon="menu" id="drawer_toggler" on-tap="_request_drawer_toggle"></paper-icon-button>
-        <div>
-          <span> IO Stream </span>
-          <iron-icon id="logo" icon="hardware:developer-board"></iron-icon>
-        </div>
-      </div>
-      <span>SUNY Polytechnic</span>
-      <signin-portal></signin-portal>
-      <!--<paper-search-bar></paper-search-bar>-->
-    </app-toolbar>
-
-
-
-  </template>
+			app-toolbar {
+				@apply(--layout-horizontal);
+				@apply(--layout-justified);
+				background-color: var(--primary-color);
+				color: rgba(0,0,0,0.6);
+				text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+				@apply(--paper-font-title);
+			}
+			
 
 
 
 
+			/* Left header content needs to align with the sidebar.
+			 * Sidebar width is 256, but there is 16px of padding to the left
+			 * of this element, thus width: 240px;
+			 *
+			 * The left header contains the drawer toggler and the classX branding. 
+			 */
+			#left {
+				width: 240px;
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+			}
+
+			/* The ClassX branding should be centered in the remaining
+			 * space of the #left div after the #drawer_toggler is placed. 
+			 */
+			#left div {
+				@apply(--layout-flex);
+				@apply(--layout-horizontal);
+				@apply(--layout-center-center);
+			}
+
+			#logo {
+				padding-left: 5px;
+				--iron-icon-height: 30px;
+				--iron-icon-width: 30px; 
+			}
+
+			#drawer_toggler {
+				color: var(--accent-color);
+			}
+
+			/* Drawe toggler should only be visible below responsive width */
+			@media (min-width: 1251px) {
+				#drawer_toggler {
+					display: none;
+				}
+			}
+
+			/* Some elements need to disappear all togehter when space gets cramped*/
+			@media (max-width: 575px) and (min-width: 476px) {
+				#left div {
+					display: none !important;
+				}
+			}
+			@media (max-width: 850px) {
+				app-toolbar > span {
+					display: none;
+				}
+			}
+			@media (max-width: 475px) {
+				paper-search-bar {
+					display: none;
+				}
+				#left {
+					width:100%;
+				}
+			}
 
 
-  <script>
-    Polymer({
-      is: 'the-header',
-      
-      _request_drawer_toggle: function (event, detail) {
-        this.fire('drawer-toggle-request');
-      }
-      
-    });
-  </script>
+
+		</style>
+		
+
+		<app-toolbar>
+			<div id="left">
+				<paper-icon-button icon="menu" id="drawer_toggler" on-tap="_request_drawer_toggle"></paper-icon-button>
+				<div>
+					<span> IO Stream </span>
+					<iron-icon id="logo" icon="hardware:developer-board"></iron-icon>
+				</div>
+			</div>
+			<span>SUNY Polytechnic</span>
+			<signin-portal></signin-portal>
+			<!--<paper-search-bar></paper-search-bar>-->
+		</app-toolbar>
+
+
+
+	</template>
+
+
+
+
+
+
+	<script>
+		Polymer({
+			is: 'the-header',
+			
+			_request_drawer_toggle: function (event, detail) {
+				this.fire('drawer-toggle-request');
+			}
+			
+		});
+	</script>
 
 
 </dom-module>

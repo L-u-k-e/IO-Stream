@@ -5,11 +5,11 @@
 # RUN THIS AT YOUR OWN PERIL
 # =========================
 # Options:
-# 	-f to force execution, (There's no other way to run this. It's just here to make SURE you know what you're about to do)
-# 	--fuzz to add sample data to the database upon creation.
+#   -f to force execution, (There's no other way to run this. It's just here to make SURE you know what you're about to do)
+#   --fuzz to add sample data to the database upon creation.
 #
 # Note:
-# 	Run from project root.
+#   Run from project root.
 
 
 if [ "$1" != "-f" ] ; then

@@ -46,20 +46,20 @@
 		</style>
 		<div id="form_container">
 			<h2> Create a New Course </h2>
-	  	<form is="iron-form" id="form" method="post" action="/api/courses">
-		  	
-		  	<paper-input required name="title" label="Title"></paper-input>
-		  	
-		  	<paper-textarea char-counter max-length="1000" rows=3 name="description" label="Description" Placeholder="A little about this course..."></paper-textarea>
-		  	
-		  	<div id="small_widths">
-		  		<paper-dropdown-menu required label="Semester" id="semester">
-					  <paper-listbox class="dropdown-content">
-					    <paper-item>Fall</paper-item>
-					    <paper-item>Winter</paper-item>
-					    <paper-item>Spring</paper-item>
-					    <paper-item>Summer</paper-item>
-					  </paper-listbox>
+			<form is="iron-form" id="form" method="post" action="/api/courses">
+				
+				<paper-input required name="title" label="Title"></paper-input>
+				
+				<paper-textarea char-counter max-length="1000" rows=3 name="description" label="Description" Placeholder="A little about this course..."></paper-textarea>
+				
+				<div id="small_widths">
+					<paper-dropdown-menu required label="Semester" id="semester">
+						<paper-listbox class="dropdown-content">
+							<paper-item>Fall</paper-item>
+							<paper-item>Winter</paper-item>
+							<paper-item>Spring</paper-item>
+							<paper-item>Summer</paper-item>
+						</paper-listbox>
 					</paper-dropdown-menu>
 					<paper-input required name="year" label="Year" allowed-pattern="[0-9]" value="{{year}}"></paper-input>
 					<paper-input required name="subject" label="Subject"></paper-input>

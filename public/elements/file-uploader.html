@@ -112,40 +112,40 @@
 
 				
 				/* Before we start uploading, we need to get a UUID. The server will 
-			   * check to see if this upload was started earlier and either give us 
-			   * the existing one or reserve a new one for us. */
+				 * check to see if this upload was started earlier and either give us 
+				 * the existing one or reserve a new one for us. */
 				this.flow.on('filesSubmitted', function (file_array, event) {
 					self.uploading = true;
-			    self.filePending = true;
-			  	var file_id = file_array[0].uniqueIdentifier;
-			  	self.make_api_request({
+					self.filePending = true;
+					var file_id = file_array[0].uniqueIdentifier;
+					self.make_api_request({
 						verb: 'GET',
-			  		resource: ['upload-tokens', file_id],
-			  		callback: function (result) {
-			  			if (result.body.data.video_id) {
-			  				self.flow.opts.query.video_id = result.body.data.video_id;
-			  				self.flow.upload();
-			  			}
-			  		}
-			  	});
+						resource: ['upload-tokens', file_id],
+						callback: function (result) {
+							if (result.body.data.video_id) {
+								self.flow.opts.query.video_id = result.body.data.video_id;
+								self.flow.upload();
+							}
+						}
+					});
 				});
 				
 
 				/* One all of the chunks have finished uploading, we can send a request to finalize the upload (merge the chunks) */
 				this.flow.on('complete', function () {
 					self.$.progress.indeterminate = true;
-	  			self.$.progress.value = 0;
+					self.$.progress.value = 0;
 					var total_chunks = self.flow.files[0].chunks.length;
 					self.make_api_request({
 						verb: 'POST',
-			  		resource: 'videos',
-			  		query: {video_id: self.flow.opts.query.video_id, flowTotalChunks: total_chunks},
-			  		callback: function (result) {
-			  			self.$.progress.indeterminate = false;
-			  			self.uploading = false;
-			  			self.filePending = false;
-			  		}
-			  	});			
+						resource: 'videos',
+						query: {video_id: self.flow.opts.query.video_id, flowTotalChunks: total_chunks},
+						callback: function (result) {
+							self.$.progress.indeterminate = false;
+							self.uploading = false;
+							self.filePending = false;
+						}
+					});			
 				});
 
 				this.flow.on('progress', function () {
@@ -154,7 +154,7 @@
 				});
 
 				this.flow.on('fileError', function(file, message){
-				  console.log(file, message);
+					console.log(file, message);
 				});
 			},
 

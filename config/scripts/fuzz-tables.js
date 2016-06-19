@@ -76,7 +76,7 @@ var get_ids_from = function (table, cb) {
 /*************************************** FUZZERS ***************************************/
 
 var seed_users = function (next) {
-  console.log('seeding users ...');
+	console.log('seeding users ...');
 
 	_.times(15, function (i) {
 		users.push({
@@ -144,7 +144,7 @@ var seed_videos = function (next) {
 
 
 var seed_favorites = function (next) {
-  console.log('seeding favorites...');
+	console.log('seeding favorites...');
 
 	_.times(100, function (i) {
 		favorites.push({
@@ -162,7 +162,7 @@ var seed_favorites = function (next) {
 
 
 var seed_subscriptions = function (next) {
-  console.log('seeding subscriptions...');
+	console.log('seeding subscriptions...');
 
 	_.times(100, function (i) {
 		subscriptions.push({

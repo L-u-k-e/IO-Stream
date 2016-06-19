@@ -1,13 +1,13 @@
 <!--
-  Author: Lucas Parzych
-  Email:  parzycl1@sunyit.edu
-  Description:
-    This is the sidebar.
-    Communication with the mediator is done via data binding.
-   
-    The data binding is two way, so this element is responsible for both informing the mediator 
-    when the selected menu item changes and also for changing the selected menu item when the 
-    mediator deems appropriate. 
+	Author: Lucas Parzych
+	Email:  parzycl1@sunyit.edu
+	Description:
+		This is the sidebar.
+		Communication with the mediator is done via data binding.
+	 
+		The data binding is two way, so this element is responsible for both informing the mediator 
+		when the selected menu item changes and also for changing the selected menu item when the 
+		mediator deems appropriate. 
 -->
 
 
@@ -37,78 +37,78 @@
 <dom-module id="the-sidebar">
 
 
-  <template>
+	<template>
 
-    <style>
-      :host {
-        display: block;
-      }
-
-
-      paper-item {
-        --paper-item-focused: {
-          color: var(--primary-color);
-        };
-        cursor: pointer;
-      }
-
-      paper-item span {
-        transition: 0.3s ease;
-      }
-
-      paper-item iron-icon {
-        margin-right: 20px;
-        color: #444;
-      }
-    </style>
+		<style>
+			:host {
+				display: block;
+			}
 
 
-    <paper-menu id="menu" selected="[[selected]]" attr-for-selected="data-page" on-iron-activate="_navigate">
-      <template is="dom-repeat" items="[[_menu_info]]">
-        <paper-item data-page="[[item.page]]">
-          <iron-icon icon="[[item.icon]]"></iron-icon>
-          <span>[[item.text]]</span>
-        </paper-item>
-      </template>
-    </paper-menu>
+			paper-item {
+				--paper-item-focused: {
+					color: var(--primary-color);
+				};
+				cursor: pointer;
+			}
 
-  </template>
+			paper-item span {
+				transition: 0.3s ease;
+			}
+
+			paper-item iron-icon {
+				margin-right: 20px;
+				color: #444;
+			}
+		</style>
 
 
+		<paper-menu id="menu" selected="[[selected]]" attr-for-selected="data-page" on-iron-activate="_navigate">
+			<template is="dom-repeat" items="[[_menu_info]]">
+				<paper-item data-page="[[item.page]]">
+					<iron-icon icon="[[item.icon]]"></iron-icon>
+					<span>[[item.text]]</span>
+				</paper-item>
+			</template>
+		</paper-menu>
+
+	</template>
 
 
 
 
-  <script>
-    Polymer({
-      is: 'the-sidebar',
-
-      properties: {
-        selected: {
-          type: 'string',
-          value: '',
-        }
-      },
-
-      ready: function () {
-        this._menu_info = [
-          {icon: 'explore',           text: 'View All Courses'     , page: 'courses' },
-        /*  {icon: 'reply-all',         text: 'My Previous Semesters', page: 'courses' },
-          {icon: 'today',             text: 'My Current Semester'  , page: 'courses' },
-          {icon: 'record-voice-over', text: 'Courses By Professor' , page: 'courses' },*/
-          {icon: 'av:fiber-new',      text: 'New Videos'           , page: 'watch'   }
-        ];
-      },
 
 
-      _navigate: function (event, detail) {
-        var url = '/' + detail.selected;
-        this.fire('navigation-request', {url: url});
-      }
+	<script>
+		Polymer({
+			is: 'the-sidebar',
+
+			properties: {
+				selected: {
+					type: 'string',
+					value: '',
+				}
+			},
+
+			ready: function () {
+				this._menu_info = [
+					{icon: 'explore',           text: 'View All Courses'     , page: 'courses' },
+				/*  {icon: 'reply-all',         text: 'My Previous Semesters', page: 'courses' },
+					{icon: 'today',             text: 'My Current Semester'  , page: 'courses' },
+					{icon: 'record-voice-over', text: 'Courses By Professor' , page: 'courses' },*/
+					{icon: 'av:fiber-new',      text: 'New Videos'           , page: 'watch'   }
+				];
+			},
 
 
-    });
-  </script>
+			_navigate: function (event, detail) {
+				var url = '/' + detail.selected;
+				this.fire('navigation-request', {url: url});
+			}
+
+
+		});
+	</script>
 
 
 </dom-module>

@@ -16,78 +16,78 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="/bower_components/neon-animation/neon-animations.html">
 
 <script>
-  var Behaviors = Behaviors || {};
+	var Behaviors = Behaviors || {};
 
-  Behaviors.cascaded_animation_impl = {
+	Behaviors.cascaded_animation_impl = {
 
-    properties: {
+		properties: {
 
-      selector: {
-        value: '[cascaded]'
-      },
+			selector: {
+				value: '[cascaded]'
+			},
 
-      showing: {
-        type: Boolean,
-        observer: '_showingChanged'
-      },
+			showing: {
+				type: Boolean,
+				observer: '_showingChanged'
+			},
 
-      animationConfig: {
-        type: Object,
-        value: function() {
-          return {
-            'entry': [{
-              name: 'cascaded-animation',
-              animation: 'transform-animation',
-              transformFrom: 'translate3d(0,100%,0)',
-              transformTo: 'none',
-              timing: {
-                delay: 0
-              }
-            },{
-              name: 'cascaded-animation',
-              animation: 'fade-in-animation',
-              timing: {
-                delay: 0
-              }
-            }]
-          }
-        }
-      }
+			animationConfig: {
+				type: Object,
+				value: function() {
+					return {
+						'entry': [{
+							name: 'cascaded-animation',
+							animation: 'transform-animation',
+							transformFrom: 'translate3d(0,100%,0)',
+							transformTo: 'none',
+							timing: {
+								delay: 0
+							}
+						},{
+							name: 'cascaded-animation',
+							animation: 'fade-in-animation',
+							timing: {
+								delay: 0
+							}
+						}]
+					}
+				}
+			}
 
-    },
+		},
 
-    attached: function() {
-      this.style.opacity = 0;
-      this._updateCascadedNodes();
-      this._attached = true;
-    },
+		attached: function() {
+			this.style.opacity = 0;
+			this._updateCascadedNodes();
+			this._attached = true;
+		},
 
-    _showingChanged: function(showing) {
-      this._updateCascadedNodes();
-      if (showing) {
-        //This may be invoked before stuff is fully set up if we're being lazy loaded
-        var wait_time = this._attached ? 0 : 100;
-        this.async(function () { this.style.opacity = 1; }, wait_time + 100);
-        this.async(function () { this.playAnimation('entry'); }, wait_time);
-      } else {
-        this.style.opacity = 0;
-      }
-    },
+		_showingChanged: function(showing) {
+			this._updateCascadedNodes();
+			if (showing) {
+				//This may be invoked before stuff is fully set up if we're being lazy loaded
+				var wait_time = this._attached ? 0 : 100;
+				this.async(function () { this.style.opacity = 1; }, wait_time + 100);
+				this.async(function () { this.playAnimation('entry'); }, wait_time);
+			} else {
+				this.style.opacity = 0;
+			}
+		},
 
-    _updateCascadedNodes: function() {
-      var nodes = Polymer.dom(this.root).querySelectorAll(this.selector);
-      var entry = this.animationConfig['entry'];
-      var nodes = Array.prototype.slice.call(nodes);
-      entry[0].nodes = nodes;
-      entry[1].nodes = nodes; 
-    }
+		_updateCascadedNodes: function() {
+			var nodes = Polymer.dom(this.root).querySelectorAll(this.selector);
+			var entry = this.animationConfig['entry'];
+			var nodes = Array.prototype.slice.call(nodes);
+			entry[0].nodes = nodes;
+			entry[1].nodes = nodes; 
+		}
 
-  };
+	};
 
-  Behaviors.cascaded_animation = [
-    Polymer.NeonAnimatableBehavior,
-    Polymer.NeonAnimationRunnerBehavior,
-    Behaviors.cascaded_animation_impl    
-  ];
+	Behaviors.cascaded_animation = [
+		Polymer.NeonAnimatableBehavior,
+		Polymer.NeonAnimationRunnerBehavior,
+		Behaviors.cascaded_animation_impl    
+	];
 
 </script>

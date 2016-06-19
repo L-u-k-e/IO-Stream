@@ -1,116 +1,116 @@
 <script>
 
-  var Behaviors = Behaviors || {};
+	var Behaviors = Behaviors || {};
 
-  Behaviors.api_requestor = (function () {
-   
-    var encode_resource_path = function (path) {
-      var resource_path = '';
-      
-      if (!path) return '';
+	Behaviors.api_requestor = (function () {
+	
+		var encode_resource_path = function (path) {
+			var resource_path = '';
+			
+			if (!path) return '';
 
-      if (_.isString(path)) {
-        resource_path = encodeURIComponent(path);
-        return resource_path; 
-      }
+			if (_.isString(path)) {
+				resource_path = encodeURIComponent(path);
+				return resource_path; 
+			}
 
-      path = path.map(function (sub_resource) {
-        var encoded = encodeURIComponent(sub_resource);
-        return encoded;
-      }).join('/');
+			path = path.map(function (sub_resource) {
+				var encoded = encodeURIComponent(sub_resource);
+				return encoded;
+			}).join('/');
 
-      return path;
-    };
-
-
-
-    var encode_query_string = function (obj)  {
-      if (!obj) return '';
-      
-      var query_string = _.map(obj, function (v, k) {
-        var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(JSON.stringify(v));
-        return encoded;
-      }).join('&');
-      
-      return '?' + query_string;
-    };
+			return path;
+		};
 
 
-    var make_api_request = function (spec) {
-      
-      var body  = spec.body;
-      var resource_path = 'api/' + encode_resource_path(spec.resource);    
-      var query_string = encode_query_string(spec.query);
-      var full_url = resource_path + query_string;
 
-      var context = spec.context || window;
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () { 
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-          var response = {status: xhr.status, body: xhr.response};
-          try { response.body = JSON.parse(xhr.response); }
-          catch (syntaxError) {}
+		var encode_query_string = function (obj)  {
+			if (!obj) return '';
+			
+			var query_string = _.map(obj, function (v, k) {
+				var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(JSON.stringify(v));
+				return encoded;
+			}).join('&');
+			
+			return '?' + query_string;
+		};
 
-          if (spec.callback) {
-            spec.callback.call(context, response);
-          }
-        }
-      };
 
-      xhr.open(spec.verb, full_url);
-      xhr.send(body);
-    };
+		var make_api_request = function (spec) {
+			
+			var body  = spec.body;
+			var resource_path = 'api/' + encode_resource_path(spec.resource);    
+			var query_string = encode_query_string(spec.query);
+			var full_url = resource_path + query_string;
+
+			var context = spec.context || window;
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () { 
+				if (xhr.readyState == XMLHttpRequest.DONE) {
+					var response = {status: xhr.status, body: xhr.response};
+					try { response.body = JSON.parse(xhr.response); }
+					catch (syntaxError) {}
+
+					if (spec.callback) {
+						spec.callback.call(context, response);
+					}
+				}
+			};
+
+			xhr.open(spec.verb, full_url);
+			xhr.send(body);
+		};
 
 /*
 
 
-    var getData = function (spec) {
-      var preprocess = function (raw_data) {
-        var self = this;       
-        var data = _.map(raw_data, function (item) {
-          //downcase the key names 
-          var item = _.mapKeys(item, function (v, k) { return k.toLowerCase(); });        
-          //add a file_path property if it quacks like it should have one. 
-          if (item.file_name && item.absolute_path) {
-            item.file_path = self.getFilePath({
-              absolute: item.absolute_path,
-              year: item.calendar_year, // may be undefined, but that's okay
-              file_name: item.file_name              
-            });
-          }  
-          return item;
-        });
-        return data;
-      }; 
+		var getData = function (spec) {
+			var preprocess = function (raw_data) {
+				var self = this;       
+				var data = _.map(raw_data, function (item) {
+					//downcase the key names 
+					var item = _.mapKeys(item, function (v, k) { return k.toLowerCase(); });        
+					//add a file_path property if it quacks like it should have one. 
+					if (item.file_name && item.absolute_path) {
+						item.file_path = self.getFilePath({
+							absolute: item.absolute_path,
+							year: item.calendar_year, // may be undefined, but that's okay
+							file_name: item.file_name              
+						});
+					}  
+					return item;
+				});
+				return data;
+			}; 
 
-      //case doesnt actually matter to CF, but I like them to match anyways. 
-      var name = _.camelCase(this.baseKey);
-      makeAPIRequest({
-        method: 'get' + name + 'Data',
-        callback: function (raw_data) {
-          if (!this.onNewData) { return; }
-          var data = preprocess.call(this, raw_data);
-          this.onNewData.call(this, data); 
-        },
-        context: this
-      }); 
-    };
-
-
+			//case doesnt actually matter to CF, but I like them to match anyways. 
+			var name = _.camelCase(this.baseKey);
+			makeAPIRequest({
+				method: 'get' + name + 'Data',
+				callback: function (raw_data) {
+					if (!this.onNewData) { return; }
+					var data = preprocess.call(this, raw_data);
+					this.onNewData.call(this, data); 
+				},
+				context: this
+			}); 
+		};
 
 
 
 
-    var base = 'data';
-    var getFilePath = function (spec) {
-      var path = spec.file_name;
-      if (!+spec.absolute) {
-        var parts = [ base, _.kebabCase(this.baseKey), spec.file_name ];
-        if (spec.year) { parts.splice(2, 0, spec.year); }
-        path = _.join(parts, '/');
-      }
-      return path;
-    };
+
+
+		var base = 'data';
+		var getFilePath = function (spec) {
+			var path = spec.file_name;
+			if (!+spec.absolute) {
+				var parts = [ base, _.kebabCase(this.baseKey), spec.file_name ];
+				if (spec.year) { parts.splice(2, 0, spec.year); }
+				path = _.join(parts, '/');
+			}
+			return path;
+		};
 
 
 */
@@ -118,10 +118,10 @@
 
 
 
-    return Object.freeze({
-      make_api_request: make_api_request,
-    });
+		return Object.freeze({
+			make_api_request: make_api_request,
+		});
 
-  }());
+	}());
 
 </script>

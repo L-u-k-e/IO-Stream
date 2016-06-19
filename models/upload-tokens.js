@@ -36,5 +36,5 @@ exports.create = function (spec) {
 			values: { video_id: video_id, file_id: file_id }
 		});
 	});
-  return promise;
+	return promise;
 };

@@ -2,89 +2,89 @@
 <link rel="import" href="/styles/shared-styles.html">
 
 <dom-module id="loading-box">
-  <template>
-    <style>
-      :host {
-        display: block;
-        position: relative;
-      };
-      .hidden { display:none; }
-      .visible {  
-        width: 30px;
-        height: 30px;
-        margin: auto;
-      }
-      .visible:before {
-        content: '';
-        width: 30px;
-        height: 5px;
-        background: #000;
-        opacity: 0.1;
-        position: absolute;
-        top: 40px;
-        left: 0;
-        border-radius: 50%;
-        animation: shadow .5s linear infinite;
-      }
-      .visible:after {
-        content: '';
-        width: 30px;
-        height: 30px;
-        background: var(--primary-color);
-        animation: animate .5s linear infinite;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 3px;
-      }
-      
-      @keyframes animate {
-        17% {
-          border-bottom-right-radius: 3px;
-        }
-        25% {
-          transform: translateY(9px) rotate(22.5deg);
-        }
-        50% {
-          transform: translateY(18px) scale(1, .9) rotate(45deg);
-          border-bottom-right-radius: 30px;
-        }
-        75% {
-          transform: translateY(9px) rotate(67.5deg);
-        }
-        100% {
-          transform: translateY(0) rotate(90deg);
-        }
-      }
+	<template>
+		<style>
+			:host {
+				display: block;
+				position: relative;
+			};
+			.hidden { display:none; }
+			.visible {  
+				width: 30px;
+				height: 30px;
+				margin: auto;
+			}
+			.visible:before {
+				content: '';
+				width: 30px;
+				height: 5px;
+				background: #000;
+				opacity: 0.1;
+				position: absolute;
+				top: 40px;
+				left: 0;
+				border-radius: 50%;
+				animation: shadow .5s linear infinite;
+			}
+			.visible:after {
+				content: '';
+				width: 30px;
+				height: 30px;
+				background: var(--primary-color);
+				animation: animate .5s linear infinite;
+				position: absolute;
+				top: 0;
+				left: 0;
+				border-radius: 3px;
+			}
+			
+			@keyframes animate {
+				17% {
+					border-bottom-right-radius: 3px;
+				}
+				25% {
+					transform: translateY(9px) rotate(22.5deg);
+				}
+				50% {
+					transform: translateY(18px) scale(1, .9) rotate(45deg);
+					border-bottom-right-radius: 30px;
+				}
+				75% {
+					transform: translateY(9px) rotate(67.5deg);
+				}
+				100% {
+					transform: translateY(0) rotate(90deg);
+				}
+			}
 
-      @keyframes shadow {
-        0%, 100% {
-          transform: scale(1, 1);
-        }
-        50% {
-          transform: scale(1.2, 1);
-        }
-      }
+			@keyframes shadow {
+				0%, 100% {
+					transform: scale(1, 1);
+				}
+				50% {
+					transform: scale(1.2, 1);
+				}
+			}
 
-    </style>
-    <div class$="[[visibility]]"></div> 
-  </template>
-  <script>
-    Polymer({
-      is: 'loading-box',
-      properties: {
-        active: {
-          type: Boolean,
-          value: false
-        },
-        visibility: {
-          type: String,
-          computed: '_getVisibility(active)'
-        }
-      },
-      _getVisibility: function (bool) {
-        return bool ? 'visible' : 'hidden';
-      }
-    });
-  </script>
+		</style>
+		<div class$="[[visibility]]"></div> 
+	</template>
+	<script>
+		Polymer({
+			is: 'loading-box',
+			properties: {
+				active: {
+					type: Boolean,
+					value: false
+				},
+				visibility: {
+					type: String,
+					computed: '_getVisibility(active)'
+				}
+			},
+			_getVisibility: function (bool) {
+				return bool ? 'visible' : 'hidden';
+			}
+		});
+	</script>
 </dom-module>

@@ -26,10 +26,10 @@ var normalize_params = function (req, res, next) {
 	req.file_size     = find('flowTotalSize');    // The total file size.
 	req.file_id       = find('flowIdentifier');   // A unique identifier for the file contained in the request.
 	req.file_name     = find('flowFilename');     // The original file name (since a bug in Firefox results in the file name not being transmitted in chunk multipart posts).
-  req.relative_path = find('flowRelativePath'); // The file's relative path when selecting a directory (defaults to file name in all browsers except Chrome).
-  req.video_id      = find('video_id');         // The UUID of the video (from the upload token)
-  
-  req.file_id = sanitize_string(req.file_id);
+	req.relative_path = find('flowRelativePath'); // The file's relative path when selecting a directory (defaults to file name in all browsers except Chrome).
+	req.video_id      = find('video_id');         // The UUID of the video (from the upload token)
+	
+	req.file_id = sanitize_string(req.file_id);
 	next();
 };
 
@@ -48,8 +48,8 @@ var sanitize_string = function (string) {
 
 /* Calculate the file name of a chunk provided the file ID and the chunk's index. */
 var get_chunk_file_name = function (chunk_number, chunk_id) {
-  var file_name = path.resolve('videos', 'staging', chunk_id + '.' + chunk_number);
-  return file_name;
+	var file_name = path.resolve('videos', 'staging', chunk_id + '.' + chunk_number);
+	return file_name;
 };
 
 
@@ -57,11 +57,11 @@ var get_chunk_file_name = function (chunk_number, chunk_id) {
 
 /* Check to see if a chunk already exists.*/ 
 var get_chunk_status = function (req, res) {
- 	var file_name = get_chunk_file_name(req.chunk_number, req.file_id);
- 	fs.exists(file_name, function (exists) {
- 		var status = exists ? 200 : 204;
- 		res.sendStatus(status);
- 	});
+	var file_name = get_chunk_file_name(req.chunk_number, req.file_id);
+	fs.exists(file_name, function (exists) {
+		var status = exists ? 200 : 204;
+		res.sendStatus(status);
+	});
 };
 
 
@@ -78,7 +78,7 @@ var rename_uploaded_chunk = function (req, res, next) {
 
 /* Send a response to the client indicating that a new chunk was successfully created.  */
 var send_chunk_completion_notice = function (req, res, next) {
-  res.sendStatus(201);
+	res.sendStatus(201);
 };
 
 
@@ -103,33 +103,33 @@ var get_upload_token = function (req, res, next) {
 var merge_chunks = (function () {
 
 	var pipe_chunks = function (args) {
-  	args.chunk_number = args.chunk_number || 1;
-  	if (args.chunk_number > args.total_chunks) { 
-  		args.write_stream.end();
-  		args.next(); 
-  	} else {
-  		var file_name = get_chunk_file_name(args.chunk_number, args.file_id);
-  		var read_stream = fs.createReadStream(file_name);
-  		read_stream.pipe(args.write_stream, {end: false});
-     	read_stream.on('end', function () {
-     		//once we're done with the chunk we can delete it and move on to the next one.
-     		fs.unlink(file_name);
-      	args.chunk_number += 1;
-      	pipe_chunks(args);
-     	}); 
-    }  
-  };
+		args.chunk_number = args.chunk_number || 1;
+		if (args.chunk_number > args.total_chunks) { 
+			args.write_stream.end();
+			args.next(); 
+		} else {
+			var file_name = get_chunk_file_name(args.chunk_number, args.file_id);
+			var read_stream = fs.createReadStream(file_name);
+			read_stream.pipe(args.write_stream, {end: false});
+			read_stream.on('end', function () {
+				//once we're done with the chunk we can delete it and move on to the next one.
+				fs.unlink(file_name);
+				args.chunk_number += 1;
+				pipe_chunks(args);
+			}); 
+		}  
+	};
 
-  return function (req, res, next) {
+	return function (req, res, next) {
 		var out = path.resolve('videos', req.query.video_id);
 		var write_stream = fs.createWriteStream(out);
-  	pipe_chunks({
-  		write_stream: write_stream,
-  		file_id: req.file_id,
-  		total_chunks: req.total_chunks,
-  		next: next
-  	});
-  };
+		pipe_chunks({
+			write_stream: write_stream,
+			file_id: req.file_id,
+			total_chunks: req.total_chunks,
+			next: next
+		});
+	};
 
 }());
 

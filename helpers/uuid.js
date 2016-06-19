@@ -13,9 +13,9 @@ var b64_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567
 var b64 = require('base-x')(b64_alphabet);
 
 module.exports = function (should_encode) {
- 	// Only using 8 bytes here to keep the encoding down to 11 characters. 
- 	var buffer = new Buffer(8);
- 	var uuid = uuid_generator.v4(null, buffer);
- 	if (should_encode) { uuid = b64.encode(uuid); }
- 	return uuid;
+	// Only using 8 bytes here to keep the encoding down to 11 characters. 
+	var buffer = new Buffer(8);
+	var uuid = uuid_generator.v4(null, buffer);
+	if (should_encode) { uuid = b64.encode(uuid); }
+	return uuid;
 }
