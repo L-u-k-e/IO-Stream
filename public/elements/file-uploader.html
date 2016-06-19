@@ -150,7 +150,7 @@
 
 				this.flow.on('progress', function () {
 					self.$.progress.value = self.flow.progress() * 100;
-					self.timeRemaining = self._estimate_remaining_upload_time();
+					//self.timeRemaining = self._estimate_remaining_upload_time();
 				});
 
 				this.flow.on('fileError', function(file, message){

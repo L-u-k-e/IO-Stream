@@ -26,7 +26,7 @@ var equals = function (args) {
   self.formatDBType = function () {
     var props = Object.keys(args.items);
     var s = props.map(function (k) {
-        return k + '=$(' + k + ')';
+      return k + '=$(' + k + ')';
     });
     return pgp.as.format(s.join(' ' + args.delimiter + ' '), args.items);
   }
@@ -51,6 +51,7 @@ var insert = function (args) {
   ]);
   return args.db.one(query, args.values);
 }
+
 
 
 var select = function (args) {
@@ -78,7 +79,7 @@ var select = function (args) {
 
 /*Generate an update query provided a table name, a values object and a set of mutually dependent conditions. */
 var update = function (args) {
-  var query = pgp.as.format('UPDATE $1~ SET $2^ WHERE ($3^) RETURNING *', [
+  var query = pgp.as.format('UPDATE $1~ SET $2^ WHERE ($3) RETURNING *', [
     args.table,
     equals({items:args.set, delimiter: ','}),
     equals({items:args.where, delimiter: 'AND'})
@@ -88,13 +89,23 @@ var update = function (args) {
 
 
 
+var remove = function (args) {
+  var query = pgp.as.format('DELETE FROM $1 WHERE ($2)', [
+    args.table,
+    equals(args.where)
+  ]);
+  return args.db.none(query);
+};
+
+
 
 module.exports = {
-  select:    select,
-  insert:    insert,
-  update:    update,
   equals:    equals,
-  list:      list
+  list:      list,
+  insert:    insert,
+  select:    select,
+  update:    update,
+  remove:    remove,
 };
 
 
