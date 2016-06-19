@@ -22,12 +22,12 @@ var pgp = require('pg-promise');
 var equals = function (args) {
   if (!args) { return ''; }
   var self = {};
+  self._rawDBType = true;
   self.formatDBType = function () {
     var props = Object.keys(args.items);
     var s = props.map(function (k) {
         return k + '=$(' + k + ')';
     });
-
     return pgp.as.format(s.join(' ' + args.delimiter + ' '), args.items);
   }
   return self;
@@ -36,10 +36,8 @@ var equals = function (args) {
 
 
 var list = function (items) {
-  if (!items) { return ''; }
-  console.log(items);
+  if (!items) return ''; 
   var names = items.map(function (c) { return pgp.as.name(c); }).join(', ');
-  console.log(names);
   return names;
 };
 
@@ -57,16 +55,24 @@ var insert = function (args) {
 
 
 var select = function (args) {
-  var query = pgp.as.format('SELECT $1^ FROM $2~ WHERE ($3^) ORDER BY $4^ LIMIT $5 OFFSET $6', [
-    list(args.columns) || '*',
-    args.table,
-    equals({items: args.where || {true:true}, delimiter: 'AND'}),
-    list(args.order),
-    args.limit || 'ALL',
-    args.offset || 0
-  ]);
-  console.log(query);
-  return args.db[args.qrm || 'any'](query);
+  var template_string = 'SELECT $1^ FROM $2~';
+  var template_vars = [(list(args.columns) || '*'), args.table];
+
+  var optional_clauses = [
+    ['where',  'WHERE ($3)',  function () { return equals(args.where); }],
+    ['order',  'ORDER BY $4^', function () { return list(args.order); }],
+    ['limit',  'LIMIT $5',     function () { return args.limit; }],
+    ['offset', 'OFFSET $6',    function () { return args.offset; }]
+  ];
+  _.each(optional_clauses, function (clause) {
+    if (_.has(args, clause[0])) {
+      template_string += ' ' + clause[1];
+      template_vars.push(clause[2]());
+    }
+  });
+
+  var query = pgp.as.format(template_string, template_vars);
+  return args.db[(args.qrm || 'any')](query);
 };
 
 
