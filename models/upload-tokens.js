@@ -22,8 +22,6 @@ exports.get = function (spec) {
 
 
 
-
-
 exports.create = function (spec) {
 	var video_id  = generate_uuid(true); 
 	var file_id   = spec.file_id;
@@ -35,6 +33,17 @@ exports.create = function (spec) {
 			table:  'upload_token',
 			values: { video_id: video_id, file_id: file_id }
 		});
+	});
+	return promise;
+};
+
+
+
+exports.delete = function (spec) {
+	var promise = orm.remove({
+		db: db,
+		table: 'upload_token',
+		where: {items: {video_id: spec.video_id, file_id: spec.file_id}, delimiter: 'AND'}
 	});
 	return promise;
 };

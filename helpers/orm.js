@@ -90,11 +90,12 @@ var update = function (args) {
 
 
 var remove = function (args) {
-	var query = pgp.as.format('DELETE FROM $1 WHERE ($2)', [
+	var query = pgp.as.format('DELETE FROM $1~ WHERE ($2)', [
 		args.table,
 		equals(args.where)
 	]);
-	return args.db.none(query);
+	console.log(query);
+	return args.db.result(query);
 };
 
 
@@ -105,7 +106,7 @@ module.exports = {
 	insert:    insert,
 	select:    select,
 	update:    update,
-	remove:    remove,
+	remove:    remove
 };
 
 

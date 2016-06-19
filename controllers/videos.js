@@ -150,6 +150,17 @@ var stamp_upload_time = function (req, res, next) {
 
 
 
+/* Delete the upload token since it's no longer necessary */
+var delete_upload_token = function (req, res, next) {
+	var args = _.pick(req, ['file_id', 'video_id']);
+	upload_tokens.delete(args).then(function (result) {
+		console.log(result);
+		next();
+	});
+};
+
+
+
 /* Send notice of merge completion to the client */
 var send_merge_completion_notice = function (req, res, next) {
 	res.status(201).json(req.new_video_row);
@@ -180,6 +191,7 @@ module.exports = function (router) {
 		get_upload_token,
 		merge_chunks,
 		stamp_upload_time,
+		delete_upload_token,
 		send_merge_completion_notice
 	);
 
