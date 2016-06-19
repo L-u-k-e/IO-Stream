@@ -59,7 +59,7 @@ var select = function (args) {
 	var template_vars = [(list(args.columns) || '*'), args.table];
 
 	var optional_clauses = [
-		['where',  'WHERE ($3)',  function () { return equals(args.where); }],
+		['where',  'WHERE ($3)',   function () { return equals(args.where); }],
 		['order',  'ORDER BY $4^', function () { return list(args.order); }],
 		['limit',  'LIMIT $5',     function () { return args.limit; }],
 		['offset', 'OFFSET $6',    function () { return args.offset; }]
