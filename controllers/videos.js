@@ -14,7 +14,6 @@ var upload = multer({dest: staging_directory});
 
 /* Congregate / translate the parameters into more readable names and do some input sanitization. */
 var normalize_params = function (req, res, next) {
-
 	/* This function may be inserted into multiple routes, so we can't really be sure where the fields are */
 	var find = function (name) {
 		var field = req.query[name] || req.body[name] || req.params[name];
@@ -59,10 +58,8 @@ var get_chunk_file_name = function (chunk_number, chunk_id) {
 /* Check to see if a chunk already exists.*/ 
 var get_chunk_status = function (req, res) {
  	var file_name = get_chunk_file_name(req.chunk_number, req.file_id);
- 	console.log(file_name);
  	fs.exists(file_name, function (exists) {
  		var status = exists ? 200 : 204;
- 		console.log(status);
  		res.sendStatus(status);
  	});
 };
@@ -89,7 +86,6 @@ var send_chunk_completion_notice = function (req, res, next) {
 
 /* Get the file ID corresponding to a video ID by looking up the upload token. */
 var get_upload_token = function (req, res, next) {
-	console.log(req.video_id);
 	upload_tokens.get({video_id: req.video_id})
 	.then(function (token) {
 		req.file_id = token.file_id;
