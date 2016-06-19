@@ -94,7 +94,6 @@ var remove = function (args) {
 		args.table,
 		equals(args.where)
 	]);
-	console.log(query);
 	return args.db.result(query);
 };
 
