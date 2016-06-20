@@ -57,17 +57,19 @@ var insert = function (args) {
 var select = function (args) {
 	var template_string = 'SELECT $1^ FROM $2~';
 	var template_vars = [(list(args.columns) || '*'), args.table];
-
+	var i=3;
+	
 	var optional_clauses = [
-		['where',  'WHERE ($3)',   function () { return equals(args.where); }],
-		['order',  'ORDER BY $4^', function () { return list(args.order); }],
-		['limit',  'LIMIT $5',     function () { return args.limit; }],
-		['offset', 'OFFSET $6',    function () { return args.offset; }]
+		['where',  'WHERE ($i)',   function () { return equals(args.where); }],
+		['order',  'ORDER BY $i^', function () { return list(args.order); }],
+		['limit',  'LIMIT $i',     function () { return args.limit; }],
+		['offset', 'OFFSET $i',    function () { return args.offset; }]
 	];
 	_.each(optional_clauses, function (clause) {
-		if (_.has(args, clause[0])) {
-			template_string += ' ' + clause[1];
+		if (_.has(args, clause[0]) && args[clause[0]] != null) {
+			template_string += ' ' + clause[1].replace('$i', '$'+i);
 			template_vars.push(clause[2]());
+			i += 1;
 		}
 	});
 

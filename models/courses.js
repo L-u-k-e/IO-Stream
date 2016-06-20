@@ -13,6 +13,7 @@ exports.get_some = function (args) {
 		offset: args.offset,
 		group:  args.group
 	});
+	console.log(args.where);
 	return promise;
 };
 
@@ -51,7 +52,6 @@ exports.create = function (req, res, next) {
 	var uuid = generate_uuid(true);
 	req.body.uuid = uuid;
 	req.body.instructor = 'parzycl1';
-	console.log(req.body);
 	db.none('insert into course (id, semester, year, subject, title, description, user_uid)' + 
 		'values($(uuid), $(semester), $(year), $(subject), $(title), $(description), $(instructor) )', req.body)
 	.then(function (data) {
