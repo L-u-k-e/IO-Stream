@@ -1,3 +1,5 @@
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <dom-module id="course-viewer">
 	<template>
 		<style>
@@ -5,8 +7,14 @@
 				display: block;
 			}
 		</style>
-		
+		<iron-ajax
+			auto
+			url=""
+			handle-as="json"
+			on-response="handleResponse">
+		</iron-ajax>
 		<paper-card>
+			<h1>HELLO!!!</h1>
 		</paper-card>
 
 	</template>
@@ -18,9 +26,6 @@
 					type: Object, 
 					value: {}
 				},
-				lectures: {
-					
-				}
 			}
 		});
 	</script>
