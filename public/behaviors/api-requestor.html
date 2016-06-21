@@ -3,23 +3,16 @@
 	var Behaviors = Behaviors || {};
 
 	Behaviors.api_requestor = (function () {
-	
+		var path_root = 'api';
+
 		var encode_resource_path = function (path) {
-			var resource_path = '';
-			
-			if (!path) return '';
-
-			if (_.isString(path)) {
-				resource_path = encodeURIComponent(path);
-				return resource_path; 
-			}
-
-			path = path.map(function (sub_resource) {
+			if (_.isString(path)) path = [path];
+			path.unshift(path_root);
+			var resource_path = path.map(function (sub_resource) {
 				var encoded = encodeURIComponent(sub_resource);
 				return encoded;
 			}).join('/');
-
-			return path;
+			return resource_path;
 		};
 
 
@@ -39,7 +32,7 @@
 		var make_api_request = function (spec) {
 			
 			var body  = spec.body;
-			var resource_path = 'api/' + encode_resource_path(spec.resource);    
+			var resource_path = encode_resource_path(spec.resource);   
 			var query_string = encode_query_string(spec.query);
 			var full_url = resource_path + query_string;
 
@@ -120,6 +113,7 @@
 
 		return Object.freeze({
 			make_api_request: make_api_request,
+			encode_resource_path: encode_resource_path
 		});
 
 	}());
