@@ -25,8 +25,7 @@
 				});
 
 				page('/courses', function () {
-					console.log('invoked handler');
-					var set_view = function () { self.page = 'courses'; }
+					var set_view = function () { self.page = 'course browser'; }
 					if (!Polymer.isInstance(self.$.course_browser)) { 
 						Polymer.Base.importHref('/elements/course-browser.html', set_view);
 					} else { set_view(); }
@@ -36,6 +35,13 @@
 					var set_view = function () { self.page = 'course creator'; }
 					if (!Polymer.isInstance(self.$.course_creator)) { 
 						Polymer.Base.importHref('/elements/course-creator.html', set_view);
+					} else { set_view(); }
+				});
+
+				page('/courses/:id', function (ctx) {
+					var set_view = function () { self.page = 'course viewer'; }
+					if (!Polymer.isInstance(self.$.course_viewer)) { 
+						Polymer.Base.importHref('/elements/course-viewer.html', set_view);
 					} else { set_view(); }
 				});
 

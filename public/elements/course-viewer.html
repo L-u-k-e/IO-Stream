@@ -1,5 +1,6 @@
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/behaviors/api-requestor.html">
 <dom-module id="course-viewer">
 	<template>
 		<style>
@@ -7,11 +8,11 @@
 				display: block;
 			}
 		</style>
-		<iron-ajax
+		<iron-ajax id="get_course"
 			auto
-			url=""
+			url="[[encode_resource_path(courseID)]]"
 			handle-as="json"
-			on-response="handleResponse">
+			on-response="handle_response">
 		</iron-ajax>
 		<paper-card>
 			<h1>HELLO!!!</h1>
@@ -21,11 +22,23 @@
 	<script>
 		Polymer({
 			is: 'course-viewer',
+			behaviors: [Behaviors.api_requestor],
 			properties: {
+				courseID: {
+					type: String,
+					value: 'jabajaba'
+				},
 				course: {
 					type: Object, 
 					value: {}
 				},
+			},
+
+			handle_response: function (event, detail) {
+				console.log(this.$.get_course.url);
+				console.log(event);
+				console.log(detail);
+				console.log(detail.response);
 			}
 		});
 	</script>

@@ -1,4 +1,3 @@
-
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
@@ -44,7 +43,7 @@
 		</style>
 		<grid-view>
 			<template is="dom-repeat" items="[[items]]">
-				<paper-card cascaded heading="[[item.title]]">
+				<paper-card cascaded heading="[[item.title]]" on-tap="_fire_course_selection_notification">
 					<paper-ripple></paper-ripple>
 					<span>[[item.description]]</span>
 					<div id="right">
@@ -100,6 +99,10 @@
 				});
 			},
 			
+			_fire_course_selection_notification: function (event, detail) {
+				this.fire('navigation-request', {url: '/courses/'+event.model.item.id});
+			},
+
 			ready: this._load_more_courses
 		});
 	</script>
