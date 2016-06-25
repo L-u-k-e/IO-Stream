@@ -1,9 +1,27 @@
 var db = require('../config/db_config');
 var orm = require('../helpers/orm');
+var table = 'video';
+
 
 exports.get_all = function (req, res, next) {
 
 };
+
+
+
+exports.get_some = function (args) {
+	var promise = orm.select({
+		db:     db, 
+		table:  table,  
+		where:  args.where,
+		order:  args.order,
+		limit:  args.limit,
+		offset: args.offset,
+		group:  args.group
+	});
+	return promise;	
+}
+
 
 
 exports.update = function (args) {

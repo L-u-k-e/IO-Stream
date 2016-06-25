@@ -61,15 +61,13 @@
 			},
 
 			get_videos_endpoint: function (course_id) {
-				var base = this.encode_resource_path(['videos'])
-				var query = this.encode_query_string({course: course_id});
-				var path = base + query;
+				var path = this.encode_resource_path(['courses', course_id, 'videos']);
 				return path;
 			},
 
 			set_videos_from_response: function (event, detail) {
 				this.videos = detail.response.data;
-				console.log(videos);
+				console.log(this.videos);
 			}
 		});
 	</script>

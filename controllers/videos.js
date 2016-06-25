@@ -94,6 +94,23 @@ var send_merge_completion_notice = function (req, res, next) {
 
 
 
+/* Get some videos */
+var get_some = function (req, res, next) {
+	videos.get_some(req.query)
+	.then(function (data) {
+		res.status(200).json({
+			message: 'Retrieved some videos.',
+			data: data
+		});
+	})
+	.catch (function (err) {
+		console.log(err);
+	});
+};
+
+
+
+
 module.exports = function (router) {
 
 	/* Finalize a video upload (merge the chunks) */
