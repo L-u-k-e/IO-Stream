@@ -1,4 +1,4 @@
-var input_binding = require('../helpers/flow_binder.js')
+var input_binding = require('../helpers/flow_binder')
 var _             = require('lodash');
 var path          = require('path');
 var fs            = require('fs');

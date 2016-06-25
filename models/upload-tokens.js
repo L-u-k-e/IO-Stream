@@ -1,7 +1,7 @@
-var db = require('../config/db_config.js');
-var orm = require('../helpers/orm.js');
-var videos = require('./videos.js'); 
-var generate_uuid = require('../helpers/uuid.js');
+var db = require('../config/db_config');
+var orm = require('../helpers/orm');
+var videos = require('./videos'); 
+var generate_uuid = require('../helpers/uuid');
 
 
 

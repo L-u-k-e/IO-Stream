@@ -11,8 +11,8 @@
 
 var faker = require('faker');
 var _ = require('lodash');
-var db = require('../db_config.js');
-var generate_uuid = require('../../helpers/uuid.js');
+var db = require('../db_config');
+var generate_uuid = require('../../helpers/uuid');
 var async = require('async');
 
 

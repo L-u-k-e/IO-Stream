@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 //require('users.js')(router);
-require('./courses.js')(router);
+require('./courses')(router);
 //require('subscriptions.js')(router);
-require('./videos.js')(router);
-require('./video-chunks.js')(router);
-require('./upload-tokens.js')(router);
+require('./videos')(router);
+require('./video-chunks')(router);
+require('./upload-tokens')(router);
 
 //require('favorites.js')(router);
 

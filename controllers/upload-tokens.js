@@ -1,4 +1,4 @@
-var upload_tokens = require('../models/upload-tokens.js');
+var upload_tokens = require('../models/upload-tokens');
 
 
  /* Make sure the request quacks like it should. */

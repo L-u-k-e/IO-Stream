@@ -1,5 +1,5 @@
-var db = require('../config/db_config.js');
-var orm = require('../helpers/orm.js');
+var db = require('../config/db_config');
+var orm = require('../helpers/orm');
 
 exports.get_all = function (req, res, next) {
 

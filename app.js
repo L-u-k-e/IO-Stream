@@ -6,8 +6,8 @@ var cookie_parser = require('cookie-parser');
 var body_parser = require('body-parser');
 var helmet = require('helmet');
 
-var query_parser = require('./helpers/query_parser.js');
-var controllers = require('./controllers/index.js');
+var query_parser = require('./helpers/query_parser');
+var controllers = require('./controllers/index');
 
 
 var app = express();

@@ -1,6 +1,6 @@
-var db = require('../config/db_config.js');
-var orm = require('../helpers/orm.js');
-var generate_uuid = require('../helpers/uuid.js');
+var db = require('../config/db_config');
+var orm = require('../helpers/orm');
+var generate_uuid = require('../helpers/uuid');
 var table = 'course';
 
 exports.get_some = function (args) {

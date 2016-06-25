@@ -1,4 +1,4 @@
-var courses = require('../models/courses.js');
+var courses = require('../models/courses');
 
 /* general flow: authenticate -> controller -> send response */
 /*(var route_map = [
