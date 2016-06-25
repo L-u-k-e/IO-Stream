@@ -5,7 +5,7 @@ var router = express.Router();
 require('./courses.js')(router);
 //require('subscriptions.js')(router);
 require('./videos.js')(router);
-/*require('./video-chunks.js')(router);*/
+require('./video-chunks.js')(router);
 require('./upload-tokens.js')(router);
 
 //require('favorites.js')(router);
