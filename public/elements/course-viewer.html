@@ -10,12 +10,17 @@
 		</style>
 		<iron-ajax id="get_course"
 			auto
-			url="[[get_course(courseID)]]"
+			url="[[get_course_endpoint(courseID)]]"
 			handle-as="json"
-			on-response="handle_response">
+			on-response="set_course_from_response">
 		</iron-ajax>
-		<paper-card>
-			<h1></h1>
+
+		<paper-card heading="test">
+			<ul>
+				<li>[[course.title]]</li>
+				<li>[[course.description]]</li>
+				<li>[[course.year]]</li>
+			</ul>			
 		</paper-card>
 
 	</template>
@@ -34,17 +39,16 @@
 				},
 			},
 
-			handle_response: function (event, detail) {
-				console.log(this.$.get_course.url);
-				console.log(event);
-				console.log(detail);
-				console.log(detail.response);
-			},
-
-			get_course: function (course_id) {
+			get_course_endpoint: function (course_id) {
+				console.log('endpoint changed');
 				var path = this.encode_resource_path(['courses', course_id]);
 				return path;
-			}
+			},
+
+			set_course_from_response: function (event, detail) {
+				console.log(detail.response);
+				this.course = detail.response.data;
+			},
 		});
 	</script>
 </dom-module>

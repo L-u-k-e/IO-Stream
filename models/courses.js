@@ -17,13 +17,12 @@ exports.get_some = function (args) {
 };
 
 exports.get_one = function (args) {
-	console.log(args);
 	var promise = orm.select({
 		db: db,
 		table: table,
-		where: {items: {id: args.id}, delimiter: 'AND'}
+		where: {items: {id: args.id}, delimiter: 'AND'},
+		qrm: 'one'
 	});
-	console.log(promise);
 	return promise;
 };
 

@@ -39,11 +39,14 @@
 				});
 
 				page('/courses/:id', function (ctx) {
-					var set_view = function () { self.page = 'course viewer'; }
+					var set_view = function () { 
+						self.page = 'course viewer'; 
+						self.$.course_viewer.courseID = ctx.params.id; 
+					};
 					if (!Polymer.isInstance(self.$.course_viewer)) { 
 						Polymer.Base.importHref('/elements/course-viewer.html', set_view);
-						self.$.course_viewer.courseID = ctx.params.id; 
 					} else { set_view(); }
+					
 				});
 
 				page();
