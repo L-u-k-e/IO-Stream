@@ -195,4 +195,8 @@ module.exports = function (router) {
 		send_merge_completion_notice
 	);
 
+	/* Get a set of videos */
+	router.get()
+
+
 };

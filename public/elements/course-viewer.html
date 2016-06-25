@@ -8,12 +8,19 @@
 				display: block;
 			}
 		</style>
-		<iron-ajax id="get_course"
+		<iron-ajax
 			auto
 			url="[[get_course_endpoint(courseID)]]"
 			handle-as="json"
 			on-response="set_course_from_response">
 		</iron-ajax>
+
+		<iron-ajax
+		 	auto
+		 	url="[[get_videos_endpoint(courseID)]]"
+		 	handle-as="json"
+		 	on-response="set_videos_from_response"></iron-ajax>
+
 
 		<paper-card heading="test">
 			<ul>
@@ -22,6 +29,7 @@
 				<li>[[course.year]]</li>
 			</ul>			
 		</paper-card>
+
 
 	</template>
 	<script>
@@ -37,18 +45,32 @@
 					type: Object, 
 					value: {}
 				},
+				videos: {
+					type: Array,
+					value: []
+				}
 			},
 
 			get_course_endpoint: function (course_id) {
-				console.log('endpoint changed');
 				var path = this.encode_resource_path(['courses', course_id]);
 				return path;
 			},
 
 			set_course_from_response: function (event, detail) {
-				console.log(detail.response);
 				this.course = detail.response.data;
 			},
+
+			get_videos_endpoint: function (course_id) {
+				var base = this.encode_resource_path(['videos'])
+				var query = this.encode_query_string({course: course_id});
+				var path = base + query;
+				return path;
+			},
+
+			set_videos_from_response: function (event, detail) {
+				this.videos = detail.response.data;
+				console.log(videos);
+			}
 		});
 	</script>
 </dom-module>

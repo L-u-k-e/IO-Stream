@@ -20,6 +20,8 @@
 <link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="/bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html">
+
 
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 
@@ -85,13 +87,11 @@
 
 		</style>
 
+		<app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
 
 		<app-header-layout has-scrolling-region>
 
 			<app-header fixed shadow>
-
-	
-
 				<the-header></the-header>
 			</app-header>
 
@@ -103,7 +103,7 @@
 				
 				<iron-pages selected="[[page]]" attr-for-selected="data-page" selected-attribute="showing">
 					<course-browser id="course_browser" data-page="course browser"></course-browser>
-					<course-viewer id="course_viewer" data-page="course viewer"
+					<course-viewer id="course_viewer" data-page="course viewer">
 					<file-uploader id="video_browser" data-page="watch"></file-uploader>
 					<course-creator id="course-creator" data-page="course creator"></course-creator>
 				</div>
