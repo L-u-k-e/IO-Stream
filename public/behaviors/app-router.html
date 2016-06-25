@@ -42,6 +42,7 @@
 					var set_view = function () { self.page = 'course viewer'; }
 					if (!Polymer.isInstance(self.$.course_viewer)) { 
 						Polymer.Base.importHref('/elements/course-viewer.html', set_view);
+						self.$.course_viewer.courseID = ctx.params.id; 
 					} else { set_view(); }
 				});
 

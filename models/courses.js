@@ -13,11 +13,21 @@ exports.get_some = function (args) {
 		offset: args.offset,
 		group:  args.group
 	});
-	console.log(args.where);
 	return promise;
 };
 
+exports.get_one = function (args) {
+	console.log(args);
+	var promise = orm.select({
+		db: db,
+		table: table,
+		where: {items: {id: args.id}, delimiter: 'AND'}
+	});
+	console.log(promise);
+	return promise;
+};
 
+/*
 exports.get_all = function (req, res, next) {
 	db.any('select * from course')
 	.then(function (data) {
@@ -67,7 +77,7 @@ exports.create = function (req, res, next) {
 	});
 
 };
-
+*/
 exports.update = function (req, res, next) {
 
 };

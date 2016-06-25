@@ -10,12 +10,12 @@
 		</style>
 		<iron-ajax id="get_course"
 			auto
-			url="[[encode_resource_path(courseID)]]"
+			url="[[get_course(courseID)]]"
 			handle-as="json"
 			on-response="handle_response">
 		</iron-ajax>
 		<paper-card>
-			<h1>HELLO!!!</h1>
+			<h1></h1>
 		</paper-card>
 
 	</template>
@@ -26,7 +26,7 @@
 			properties: {
 				courseID: {
 					type: String,
-					value: 'jabajaba'
+					value: undefined
 				},
 				course: {
 					type: Object, 
@@ -39,6 +39,11 @@
 				console.log(event);
 				console.log(detail);
 				console.log(detail.response);
+			},
+
+			get_course: function (course_id) {
+				var path = this.encode_resource_path(['courses', course_id]);
+				return path;
 			}
 		});
 	</script>

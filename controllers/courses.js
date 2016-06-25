@@ -34,9 +34,21 @@ var get_some = function (req, res, next) {
 	});
 };
 
+
+var get_one = function (req, res, next) {
+	courses.get_one({id: req.params.id})
+	.then(function (data) {
+		res.status(200).json({
+			message: 'Retrieved one course.',
+			data: data
+		});
+	}).catch (function (err) {
+		console.log(err);
+	});
+};
+
 module.exports = function (router) {
 	router.get('/api/courses', get_some);
-	/*router.get('/api/courses/:id', get_one)
-	router.post('/api/courses', create);
-	*/
+	router.get('/api/courses/:id', get_one)
+	/*router.post('/api/courses', create);*/
 };
