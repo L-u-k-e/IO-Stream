@@ -22,14 +22,22 @@
 		 	on-response="set_videos_from_response"></iron-ajax>
 
 
-		<paper-card heading="test">
+		<paper-card heading="[[course.title]]">
 			<ul>
-				<li>[[course.title]]</li>
 				<li>[[course.description]]</li>
 				<li>[[course.year]]</li>
 			</ul>			
 		</paper-card>
 
+		<template is="dom-repeat" items="[[videos]]">
+			<paper-card heading="[[item.title]]">
+			<ul>
+				<li><img src="[[item.thumbnail_src]]"></img></li>
+				<li>[[item.description]]</li>
+				<li>[[item.duration]]</li>
+			</ul>
+			</paper-card>
+		</template>
 
 	</template>
 	<script>
@@ -66,7 +74,7 @@
 			},
 
 			set_videos_from_response: function (event, detail) {
-				this.videos = detail.response.data;
+				this.videos = _.concat([], detail.response.data);
 				console.log(this.videos);
 			}
 		});

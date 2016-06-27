@@ -92,7 +92,9 @@ CREATE TABLE video (
 	date_modified  timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
 	course_id      char(11)        NOT NULL,
 	title          varchar(100)    NULL,
-	description    varchar(500)    NULL
+	description    varchar(500)    NULL,
+	src            varchar(1000)   NULL,
+	thumbnail_src  varchar(1000)   NULL
 );
 
 

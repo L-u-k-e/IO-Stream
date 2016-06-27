@@ -17,6 +17,7 @@ if [ "$1" != "-f" ] ; then
 fi
 
 psql -h localhost -U postgres -d io_stream -a -f config/scripts/create-tables.sql
+psql -h localhost -U postgres -d io_stream -a -f config/scripts/grant-privs.sql
 psql -h localhost -U postgres -d io_stream -a -f config/scripts/seed-tables.sql
 
 if [ "$2" = "--fuzz" ] ; then

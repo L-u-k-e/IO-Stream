@@ -9,13 +9,13 @@
  */
 
 
-var faker = require('faker');
-var _ = require('lodash');
-var db = require('../db_config');
+var faker         = require('faker');
+var _             = require('lodash');
+var db            = require('../db_config');
 var generate_uuid = require('../../helpers/uuid');
-var async = require('async');
-
-
+var async         = require('async');
+var fs            = require('fs-extra');
+var path          = require('path');
 
 var users = [];
 var videos = [];
@@ -124,14 +124,39 @@ var seed_courses = function (next) {
 var seed_videos = function (next) {
 	console.log('seeding videos...');
 
+	var videos_path = path.resolve('videos');
+	var samples_dir = path.join(videos_path, 'samples');
+	var video_samples_dir = path.join(samples_dir, 'videos');
+	var thumbs_samples_dir = path.join(samples_dir, 'thumbnails');
+	var video_names = fs.readdirSync(video_samples_dir);
+	var thumb_names = fs.readdirSync(thumbs_samples_dir);
+	
+	_.each(fs.readdirSync(videos_path), function (item) {
+		if (!_.includes(['samples', 'staging'], item)) {
+			fs.removeSync(path.join(videos_path, item));
+		}
+	});
+
+
 	_.times(50, function (i) {
+		var uuid = generate_uuid(true);
+		var video_file_src = path.join(video_samples_dir, _.sample(video_names));
+		var thumb_file_src = path.join(thumbs_samples_dir, _.sample(thumb_names));
+		var uuid_dir = path.join(videos_path, uuid);
+		var video_file_dest = path.join(uuid_dir, uuid + path.extname(video_file_src));
+		var thumb_file_dest = path.join(uuid_dir, 'thumb' + path.extname(thumb_file_src));
+		fs.mkdirSync(uuid_dir);
+		fs.copySync(video_file_src, video_file_dest);
+		fs.copySync(thumb_file_src, thumb_file_dest);
 		videos.push({
-			id:            generate_uuid(true),
+			id:            uuid,
 			duration:      (Math.random()*1000+1).toFixed(2),
 			date_uploaded: faker.date.past(),
 			course_id:     _.sample(courses).id,
 			title:         faker.company.catchPhrase(),
-			description:   faker.lorem[_.sample(['sentence', 'paragraph'])]
+			description:   faker.lorem[_.sample(['sentence', 'paragraph'])],
+			thumbnail_src: thumb_file_dest,
+			src:           video_file_dest
 		});
 	});
 
