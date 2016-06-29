@@ -4,7 +4,7 @@ var path          = require('path');
 var fs            = require('fs');
 var multer        = require('multer');
 
-var staging_directory = path.resolve('videos', 'staging');
+var staging_directory = path.resolve('public', 'videos', 'staging');
 var upload = multer({dest: staging_directory});
 
 

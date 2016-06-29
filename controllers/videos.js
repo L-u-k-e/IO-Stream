@@ -47,7 +47,7 @@ var merge_chunks = (function () {
 	};
 
 	return function (req, res, next) {
-		var out = path.resolve('videos', req.query.video_id);
+		var out = path.resolve('public', 'videos', req.query.video_id);
 		var write_stream = fs.createWriteStream(out);
 		pipe_chunks({
 			write_stream: write_stream,

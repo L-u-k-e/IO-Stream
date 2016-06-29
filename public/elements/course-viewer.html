@@ -74,6 +74,7 @@
 			},
 
 			set_videos_from_response: function (event, detail) {
+				console.log(detail.response)
 				this.videos = _.concat([], detail.response.data);
 				console.log(this.videos);
 			}

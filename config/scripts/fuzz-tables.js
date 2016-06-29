@@ -124,7 +124,7 @@ var seed_courses = function (next) {
 var seed_videos = function (next) {
 	console.log('seeding videos...');
 
-	var videos_path = path.resolve('videos');
+	var videos_path = path.join('public', 'videos');
 	var samples_dir = path.join(videos_path, 'samples');
 	var video_samples_dir = path.join(samples_dir, 'videos');
 	var thumbs_samples_dir = path.join(samples_dir, 'thumbnails');
@@ -155,8 +155,8 @@ var seed_videos = function (next) {
 			course_id:     _.sample(courses).id,
 			title:         faker.company.catchPhrase(),
 			description:   faker.lorem[_.sample(['sentence', 'paragraph'])],
-			thumbnail_src: thumb_file_dest,
-			src:           video_file_dest
+			thumbnail_src: thumb_file_dest.replace('public',''),
+			src:           video_file_dest.replace('public','')
 		});
 	});
 
