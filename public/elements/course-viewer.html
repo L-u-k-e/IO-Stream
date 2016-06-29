@@ -1,13 +1,61 @@
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="/elements/api-elements.html">
 <link rel="import" href="/behaviors/api-requestor.html">
+<link rel="import" href="/behaviors/cascaded-animation.html">
+<link rel="import" href="/styles/shared-styles.html">
 <dom-module id="course-viewer">
 	<template>
 		<style>
 			:host {
 				display: block;
+				position: relative;
 			}
+			app-header-layout {
+				@apply(--layout-fit);
+			}
+
+			#header {
+				/*background: linear-gradient(270deg, #3fa188, #3f75a1);*/
+				background: linear-gradient(270deg, var(--accent-color), var(--primary-color));
+				background-size: 400% 400%;
+				-webkit-animation: gradientAnimation 21s ease infinite;
+				-moz-animation: gradientAnimation 21s ease infinite;
+				animation: gradientAnimation 21s ease infinite;
+			}
+
+			.video-card {
+				width: 250px;
+				height: 250px;
+				position: relative;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				margin: 10px;
+			}
+
+			@-webkit-keyframes gradientAnimation {
+				0%{background-position:0% 50%}
+				50%{background-position:100% 50%}
+				100%{background-position:0% 50%}
+			}
+			@-moz-keyframes gradientAnimation {
+				0%{background-position:0% 50%}
+				50%{background-position:100% 50%}
+				100%{background-position:0% 50%}
+			}
+			@keyframes gradientAnimation { 
+				0%{background-position:0% 50%}
+				50%{background-position:100% 50%}
+				100%{background-position:0% 50%}
+			}
+			
 		</style>
+
 		<iron-ajax
 			auto
 			url="[[get_course_endpoint(courseID)]]"
@@ -21,29 +69,42 @@
 		 	handle-as="json"
 		 	on-response="set_videos_from_response"></iron-ajax>
 
+		<app-header-layout id=container>
 
-		<paper-card heading="[[course.title]]">
-			<ul>
-				<li>[[course.description]]</li>
-				<li>[[course.year]]</li>
-			</ul>			
-		</paper-card>
+		  <div id="header">
+		  	<app-toolbar></app-toolbar>
+		    <app-toolbar>
+		      <div title>[[course.title]]</div>
+		    </app-toolbar>
+		    <app-toolbar></app-toolbar>
+		  </div>
 
-		<template is="dom-repeat" items="[[videos]]">
-			<paper-card heading="[[item.title]]">
-			<ul>
-				<li><img src="[[item.thumbnail_src]]"></img></li>
-				<li>[[item.description]]</li>
-				<li>[[item.duration]]</li>
-			</ul>
-			</paper-card>
-		</template>
+		  <grid-view>	   
+				<template is="dom-repeat" items="[[videos]]">
+					<paper-card 
+						cascaded
+						heading="[[item.title]]" 
+						class="video-card"
+						image="[[item.thumbnail_src]]"
+					>
+						<div>
+							<span>[[item.description]]</span>
+						</div>
+					</paper-card>
+				</template>
+		  </grid-view>
+
+
+
+		</app-header-layout>
+
+
 
 	</template>
 	<script>
 		Polymer({
 			is: 'course-viewer',
-			behaviors: [Behaviors.api_requestor],
+			behaviors: [Behaviors.api_requestor,  Behaviors.cascaded_animation],
 			properties: {
 				courseID: {
 					type: String,
