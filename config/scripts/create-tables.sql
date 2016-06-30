@@ -11,6 +11,7 @@ DROP TABLE favorite;
 DROP TABLE subscription;
 DROP TABLE video;
 DROP TABLE course;
+DROP TABLE topic;
 DROP TABLE subject;
 DROP TABLE semester;
 DROP TABLE person;
@@ -48,33 +49,15 @@ CREATE TABLE semester (
 
 
 
-CREATE TABLE course (
+CREATE TABLE topic (
 	id             char(11)       PRIMARY KEY,
-	semester_id    int            NOT NULL,
-	year           int            NOT NULL,
 	subject_id     int            NOT NULL,
 	title          varchar(250)   NOT NULL,
 	description    varchar(1000)  NULL,
-	date_created   date           NOT NULL     DEFAULT CURRENT_DATE,
-	person_id      varchar(50)    NOT NULL
+	date_created   date           NOT NULL     DEFAULT CURRENT_DATE
 );
 
-
-ALTER TABLE course ADD CONSTRAINT course_person 
-	FOREIGN KEY (person_id)
-	REFERENCES person (id)
-	NOT DEFERRABLE 
-	INITIALLY IMMEDIATE 
-;
-
-ALTER TABLE course ADD CONSTRAINT course_semester 
-	FOREIGN KEY (semester_id)
-	REFERENCES semester (id)
-	NOT DEFERRABLE 
-	INITIALLY IMMEDIATE 
-;
-
-ALTER TABLE course ADD CONSTRAINT course_subject 
+ALTER TABLE topic ADD CONSTRAINT topic_subject 
 	FOREIGN KEY (subject_id)
 	REFERENCES subject (id)
 	NOT DEFERRABLE 
@@ -85,16 +68,50 @@ ALTER TABLE course ADD CONSTRAINT course_subject
 
 
 
+CREATE TABLE course (
+	id             char(11)       PRIMARY KEY,
+	topic_id       CHAR(11)       NOT NULL,
+	semester_id    int            NOT NULL,
+	year           int            NOT NULL,
+	section        CHAR(1)        NULL,
+	person_id      varchar(50)    NOT NULL
+);
+
+ALTER TABLE course ADD CONSTRAINT course_topic
+	FOREIGN KEY (topic_id)
+	REFERENCES topic (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
+;
+
+ALTER TABLE course ADD CONSTRAINT course_person 
+	FOREIGN KEY (person_id)
+	REFERENCES person (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
+;
+
+ALTER TABLE course ADD CONSTRAINT topic_semester 
+	FOREIGN KEY (semester_id)
+	REFERENCES semester (id)
+	NOT DEFERRABLE 
+	INITIALLY IMMEDIATE 
+;
+
+
+
+
+
 CREATE TABLE video (
-	id             char(11)        PRIMARY KEY,
-	duration       decimal(255,2)  NULL,
-	date_uploaded  timestamp       NULL,
-	date_modified  timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
-	course_id      char(11)        NOT NULL,
-	title          varchar(100)    NULL,
-	description    varchar(500)    NULL,
-	src            varchar(1000)   NULL,
-	thumbnail_src  varchar(1000)   NULL
+	id                 char(11)        PRIMARY KEY,
+	duration           decimal(255,2)  NULL,
+	date_uploaded      timestamp       NULL,
+	date_modified      timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
+	course_id  char(11)        NOT NULL,
+	title              varchar(100)    NULL,
+	description        varchar(500)    NULL,
+	src                varchar(1000)   NULL,
+	thumbnail_src      varchar(1000)   NULL
 );
 
 
@@ -141,7 +158,7 @@ CREATE TABLE subscription (
 );
 
 
-ALTER TABLE subscription ADD CONSTRAINT subscription_course 
+ALTER TABLE subscription ADD CONSTRAINT subscription_course
 	FOREIGN KEY (course_id)
 	REFERENCES course (id)
 	NOT DEFERRABLE 

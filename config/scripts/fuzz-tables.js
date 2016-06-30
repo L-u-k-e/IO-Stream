@@ -22,6 +22,7 @@ var videos = [];
 var courses = [];
 var favorites = [];
 var subscriptions = [];
+var topics = [];
 var uploads_in_prog = [];
 
 
@@ -93,26 +94,48 @@ var seed_users = function (next) {
 
 
 
+var seed_topics = function (next) {
+	console.log('seeding topics...');
+
+	var insert_topics = function (err, data) {
+		_.times(25, function (i) {
+			topics.push({
+				id:          generate_uuid(true),
+				subject_id:  _.sample(data[0]).id,
+				title:       faker.commerce.productName(),
+				description: faker.lorem[_.sample(['sentence', 'paragraph'])]
+			});
+		});
+		insert_items('topic', topics, next);
+	};
+
+	async.series([
+		_.curry(get_ids_from)('subject'),
+	], insert_topics);
+};
+
+
+
+
+
 var seed_courses = function (next) {
 	console.log('seeding courses...');
 
 	var insert_courses = function (err, data) {
-		_.times(25, function (i) {
+		_.times(125, function (i) {
 			courses.push({
 				id:          generate_uuid(true),
-				person_id:   _.sample(users).id,
+				topic_id:    _.sample(topics).id,
+				semester_id: _.sample(data[0]).id,
 				year:        faker.random.number({ min: 2000, max: new Date().getFullYear() }),
-				subject_id:  _.sample(data[0]).id,
-				semester_id: _.sample(data[1]).id,
-				title:       faker.commerce.productName(),
-				description: faker.lorem[_.sample(['sentence', 'paragraph'])]
+				section:     _.sample([null, 'A']),
+				person_id:   _.sample(users).id
 			});
 		});
 		insert_items('course', courses, next);
 	};
 
 	async.series([
-		_.curry(get_ids_from)('subject'),
 		_.curry(get_ids_from)('semester')
 	], insert_courses);
 };
@@ -206,6 +229,7 @@ var seed_subscriptions = function (next) {
 
 async.series([
 	seed_users,
+	seed_topics,
 	seed_courses,
 	seed_videos,
 	seed_favorites,
