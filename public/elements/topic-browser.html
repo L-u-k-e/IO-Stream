@@ -6,7 +6,7 @@
 <link rel="import" href="/behaviors/cascaded-animation.html">
 <link rel="import" href="grid-view.html">
 
-<dom-module id="course-browser">
+<dom-module id="topic-browser">
 	<template>
 		<style>
 			:host {
@@ -43,7 +43,7 @@
 		</style>
 		<grid-view>
 			<template is="dom-repeat" items="[[items]]">
-				<paper-card cascaded heading="[[item.title]]" on-tap="_fire_course_selection_notification">
+				<paper-card cascaded heading="[[item.title]]" on-tap="_fire_topic_selection_notification">
 					<paper-ripple></paper-ripple>
 					<span>[[item.description]]</span>
 					<div id="right">
@@ -62,12 +62,12 @@
 			</template>
 		</grid-view>
 		<div id="more_button_container">
-			<paper-button raised id="more_button" on-tap="_load_more_courses">Older</paper-button>
+			<paper-button raised id="more_button" on-tap="_load_more_topics">Older</paper-button>
 		</div>
 	</template>
 	<script>
 		Polymer({
-			is: 'course-browser',
+			is: 'topic-browser',
 
 			behaviors: [Behaviors.api_requestor, Behaviors.cascaded_animation ],
 
@@ -86,11 +86,11 @@
 				}
 			},
 
-			_load_more_courses: function (event, detail) {
+			_load_more_topics: function (event, detail) {
 				this.make_api_request({
 					verb: 'GET', 
-					resource: 'courses',
-					query:  {limit: this.batchSize, offset: this.offset, order: ['year']},
+					resource: 'topics',
+					query:  {limit: this.batchSize, offset: this.offset, order: ['title']},
 					context: this, 
 					callback: function (result) {
 						this.items = _.concat(this.items, result.body.data);
@@ -99,11 +99,11 @@
 				});
 			},
 			
-			_fire_course_selection_notification: function (event, detail) {
-				this.fire('navigation-request', {url: '/courses/'+event.model.item.id});
+			_fire_topic_selection_notification: function (event, detail) {
+				this.fire('navigation-request', {url: '/topics/'+event.model.item.id});
 			},
 
-			ready: this._load_more_courses
+			ready: this._load_more_topics
 		});
 	</script>
 </dom-module>

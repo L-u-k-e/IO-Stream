@@ -9,7 +9,7 @@
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/cascaded-animation.html">
 <link rel="import" href="/styles/shared-styles.html">
-<dom-module id="course-viewer">
+<dom-module id="topic-viewer">
 	<template>
 		<style>
 			:host {
@@ -58,44 +58,20 @@
 
 		<iron-ajax
 			auto
-			url="[[get_course_endpoint(courseID)]]"
+			url="[[get_topic_endpoint(topicID)]]"
 			handle-as="json"
-			on-response="set_course_from_response">
+			on-response="set_topic_from_response">
 		</iron-ajax>
-
-		<iron-ajax
-		 	auto
-		 	url="[[get_videos_endpoint(courseID)]]"
-		 	handle-as="json"
-		 	on-response="set_videos_from_response"></iron-ajax>
 
 		<app-header-layout id=container>
 
 		  <div id="header">
 		  	<app-toolbar></app-toolbar>
 		    <app-toolbar>
-		      <div title>[[course.title]]</div>
+		      <div title>[[topic.title]]</div>
 		    </app-toolbar>
 		    <app-toolbar></app-toolbar>
 		  </div>
-
-		  <grid-view>	   
-				<template is="dom-repeat" items="[[videos]]">
-					<paper-card 
-						cascaded
-						heading="[[item.title]]" 
-						class="video-card"
-						image="[[item.thumbnail_src]]"
-					>
-						<div>
-							<span>[[item.description]]</span>
-						</div>
-					</paper-card>
-				</template>
-		  </grid-view>
-
-
-
 		</app-header-layout>
 
 
@@ -103,42 +79,27 @@
 	</template>
 	<script>
 		Polymer({
-			is: 'course-viewer',
+			is: 'topic-viewer',
 			behaviors: [Behaviors.api_requestor,  Behaviors.cascaded_animation],
 			properties: {
-				courseID: {
+				topicID: {
 					type: String,
 					value: undefined
 				},
-				course: {
+				topic: {
 					type: Object, 
 					value: {}
 				},
-				videos: {
-					type: Array,
-					value: []
-				}
 			},
 
-			get_course_endpoint: function (course_id) {
-				var path = this.encode_resource_path(['courses', course_id]);
+			get_topic_endpoint: function (topic_id) {
+				var path = this.encode_resource_path(['topics', topic_id]);
 				return path;
 			},
 
-			set_course_from_response: function (event, detail) {
-				this.course = detail.response.data;
+			set_topic_from_response: function (event, detail) {
+				this.topic = detail.response.data;
 			},
-
-			get_videos_endpoint: function (course_id) {
-				var path = this.encode_resource_path(['courses', course_id, 'videos']);
-				return path;
-			},
-
-			set_videos_from_response: function (event, detail) {
-				console.log(detail.response)
-				this.videos = _.concat([], detail.response.data);
-				console.log(this.videos);
-			}
 		});
 	</script>
 </dom-module>
