@@ -4,6 +4,7 @@
 <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="/elements/api-elements.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/cascaded-animation.html">
@@ -21,6 +22,7 @@
 
 			#header {
 				background: var(--paper-teal-100);
+				/*@apply(--shadow-elevation-2dp);*/
 			}
 
 			.video-card {
@@ -47,17 +49,18 @@
 		    </app-toolbar>
 		    <app-toolbar></app-toolbar>
 		  </div>
-
-		  <template is="dom-repeat" items="[[courses]]">
-				<paper-card heading="[[item.person_id]]">
-					<div class="card-content">
-						<div>
-							<span>[[item.semester_id]]</span>
-							<span>[[item.year]]</span>
+		  <grid-view>
+				<template is="dom-repeat" items="[[courses]]">
+					<paper-card heading="[[item.person_id]]">
+						<div class="card-content">
+							<div>
+								<span>[[item.semester_id]]</span>
+								<span>[[item.year]]</span>
+							</div>
 						</div>
-					</div>
-				</paper-card>	
-			</template>
+					</paper-card>	
+				</template>
+			</grid-view>
 
 
 		</app-header-layout>
