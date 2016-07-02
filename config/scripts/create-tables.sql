@@ -24,8 +24,10 @@ DROP TABLE person;
 CREATE TABLE person (
 	id          varchar(50)   PRIMARY KEY,
 	faculty     boolean       NOT NULL,
-	super_user  boolean       NOT NULL
-);
+	super_user  boolean       NOT NULL,
+	first_name  varchar(100)  NOT NULL,
+	last_name   varchar(100)  NOT NULL
+); 
 
 
 

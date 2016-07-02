@@ -83,7 +83,9 @@ var seed_users = function (next) {
 		users.push({
 			id:         faker.internet.userName(),
 			faculty:    (i <= 5 || i > 10),
-			super_user: (i <= 5)
+			super_user: (i <= 5),
+			first_name: faker.name.firstName(),
+			last_name:  faker.name.lastName()
 		});
 	});
 
