@@ -89,7 +89,7 @@
 				this.make_api_request({
 					verb: 'GET',
 					resource: 'courses',
-					query: { where: { items: {topic_id: new_topic_id}, delimiter: 'AND'}  },
+					query: { where: { topic_id: new_topic_id } },
 					context: this,
 					callback: function (result) { this.courses = result.body.data; }
 				});

@@ -21,14 +21,16 @@ var pgp = require('pg-promise');
 /* Generate formatted and escaped sequences of foo=bar [delim] ... */
 var equals = function (args) {
 	if (!args) { return ''; }
+	var delimiter = (args.delimiter || 'AND');
+	var items = (args.items || args);
 	var self = {};
 	self._rawDBType = true;
 	self.formatDBType = function () {
-		var props = Object.keys(args.items);
+		var props = Object.keys(items);
 		var s = props.map(function (k) {
 			return k + '=$(' + k + ')';
 		});
-		return pgp.as.format(s.join(' ' + args.delimiter + ' '), args.items);
+		return pgp.as.format(s.join(' ' + delimiter + ' '), items);
 	}
 	return self;
 };
