@@ -1,5 +1,4 @@
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
-<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
@@ -21,12 +20,7 @@
 			}
 
 			#header {
-				/*background: linear-gradient(270deg, #3fa188, #3f75a1);*/
-				background: linear-gradient(270deg, var(--accent-color), var(--primary-color));
-				background-size: 400% 400%;
-				-webkit-animation: gradientAnimation 21s ease infinite;
-				-moz-animation: gradientAnimation 21s ease infinite;
-				animation: gradientAnimation 21s ease infinite;
+				background: var(--paper-amber-a100);
 			}
 
 			.video-card {
@@ -37,31 +31,11 @@
 				overflow: hidden;
 				margin: 10px;
 			}
-
-			@-webkit-keyframes gradientAnimation {
-				0%{background-position:0% 50%}
-				50%{background-position:100% 50%}
-				100%{background-position:0% 50%}
-			}
-			@-moz-keyframes gradientAnimation {
-				0%{background-position:0% 50%}
-				50%{background-position:100% 50%}
-				100%{background-position:0% 50%}
-			}
-			@keyframes gradientAnimation { 
-				0%{background-position:0% 50%}
-				50%{background-position:100% 50%}
-				100%{background-position:0% 50%}
-			}
 			
-		</style>
 
-		<iron-ajax
-			auto
-			url="[[get_topic_endpoint(topicID)]]"
-			handle-as="json"
-			on-response="set_topic_from_response">
-		</iron-ajax>
+
+
+		</style>
 
 		<app-header-layout id=container>
 
@@ -72,9 +46,20 @@
 		    </app-toolbar>
 		    <app-toolbar></app-toolbar>
 		  </div>
+
+		  <template is="dom-repeat" items="[[courses]]">
+				<paper-card heading="[[item.person_id]]">
+					<div class="card-content">
+						<div>
+							<span>[[item.semester_id]]</span>
+							<span>[[item.year]]</span>
+						</div>
+					</div>
+				</paper-card>	
+			</template>
+
+
 		</app-header-layout>
-
-
 
 	</template>
 	<script>
@@ -84,7 +69,8 @@
 			properties: {
 				topicID: {
 					type: String,
-					value: undefined
+					value: undefined,
+					observer: 'get_new_data'
 				},
 				topic: {
 					type: Object, 
@@ -92,14 +78,23 @@
 				},
 			},
 
-			get_topic_endpoint: function (topic_id) {
-				var path = this.encode_resource_path(['topics', topic_id]);
-				return path;
+			get_new_data: function (new_topic_id, old_topic_id) {
+				this.make_api_request({
+					verb: 'GET', 
+					resource: ['topics', new_topic_id],
+					context: this, 
+					callback: function (result) { this.topic = result.body.data; }
+				});
+
+				this.make_api_request({
+					verb: 'GET',
+					resource: 'courses',
+					query: { where: { items: {topic_id: new_topic_id}, delimiter: 'AND'}  },
+					context: this,
+					callback: function (result) { this.courses = result.body.data; }
+				});
 			},
 
-			set_topic_from_response: function (event, detail) {
-				this.topic = detail.response.data;
-			},
 		});
 	</script>
 </dom-module>

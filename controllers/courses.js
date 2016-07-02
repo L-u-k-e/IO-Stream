@@ -21,6 +21,7 @@ model.exports = function (router) {
 };*/
 
 var get_some = function (req, res, next) {
+	console.log(req.query);
 	courses.get_some(req.query)
 	.then(function (data) {
 		res.status(200).json({
