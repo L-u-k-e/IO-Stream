@@ -4,6 +4,7 @@ var generate_uuid = require('../helpers/uuid');
 var table = 'course';
 
 exports.get_some = function (args) {
+	// raw courses
 	var promise = orm.select({
 		db:     db, 
 		table:  table,  
@@ -13,6 +14,33 @@ exports.get_some = function (args) {
 		offset: args.offset,
 		group:  args.group
 	});
+
+	//with professor details
+	promise = promise.map(function (course) {
+		return orm.select({
+			db:    db,
+			table: 'semester',
+			where: { id: course.semester_id },
+			qrm:   'one'
+		}).then(function (semester) {
+			course.semester = semester;
+			return course;
+		});
+	});
+
+	//with semester details
+	promise = promise.map(function (course) {
+		return orm.select({
+			db:    db,
+			table: 'person',
+			where: { id: course.person_id },
+			qrm:   'one'
+		}).then(function (person) {
+			course.person = person;
+			return course;
+		});
+	});
+
 	return promise;
 };
 

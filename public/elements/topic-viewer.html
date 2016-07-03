@@ -51,10 +51,10 @@
 		  </div>
 		  <grid-view>
 				<template is="dom-repeat" items="[[courses]]">
-					<paper-card heading="[[item.person_id]]">
+					<paper-card heading="[[item.person.first_name]]">
 						<div class="card-content">
 							<div>
-								<span>[[item.semester_id]]</span>
+								<span>[[item.semester.title]]</span>
 								<span>[[item.year]]</span>
 							</div>
 						</div>
