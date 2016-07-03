@@ -16,7 +16,7 @@ exports.get_some = function (args) {
 		group:  args.group
 	});
 
-	//with professor details
+	//professor details
 	promise = promise.map(function (course) {
 		return people.get({
 			inflection: 'one',
@@ -27,7 +27,7 @@ exports.get_some = function (args) {
 		});
 	});
 
-	//with semester details
+	//semester details
 	promise = promise.map(function (course) {
 		return semesters.get({
 			inflection: 'one',
