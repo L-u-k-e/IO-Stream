@@ -1,7 +1,7 @@
-var db = require('../config/db_config');
-var orm = require('../helpers/orm');
-var generate_uuid = require('../helpers/uuid');
-var table = 'course';
+var db        = require('../config/db_config');
+var orm       = require('../helpers/orm');
+var semesters = require('./semesters')
+var table     = 'course';
 
 exports.get_some = function (args) {
 	// raw courses
@@ -30,13 +30,11 @@ exports.get_some = function (args) {
 
 	//with semester details
 	promise = promise.map(function (course) {
-		return orm.select({
-			db:    db,
-			table: 'person',
-			where: { id: course.person_id },
-			qrm:   'one'
-		}).then(function (person) {
-			course.person = person;
+		return semesters.get({
+			inflection: 'one',
+			where: {id: course.semester_id}
+		}).then(function (semester) {
+			course.person = semester;
 			return course;
 		});
 	});
