@@ -1,6 +1,7 @@
 var db        = require('../config/db_config');
 var orm       = require('../helpers/orm');
-var semesters = require('./semesters')
+var semesters = require('./semesters');
+var people    = require('./people');
 var table     = 'course';
 
 exports.get_some = function (args) {
@@ -17,13 +18,11 @@ exports.get_some = function (args) {
 
 	//with professor details
 	promise = promise.map(function (course) {
-		return orm.select({
-			db:    db,
-			table: 'semester',
-			where: { id: course.semester_id },
-			qrm:   'one'
-		}).then(function (semester) {
-			course.semester = semester;
+		return people.get({
+			inflection: 'one',
+			where: {id: course.person_id}
+		}).then(function (person) {
+			course.person = person;
 			return course;
 		});
 	});
@@ -34,7 +33,7 @@ exports.get_some = function (args) {
 			inflection: 'one',
 			where: {id: course.semester_id}
 		}).then(function (semester) {
-			course.person = semester;
+			course.semester = semester;
 			return course;
 		});
 	});
