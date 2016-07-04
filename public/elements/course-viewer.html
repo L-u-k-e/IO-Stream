@@ -71,7 +71,9 @@
 			<app-toolbar></app-toolbar>
 		</div>
 
-		<course-browser course-id="[[courseId]]"></course-browser>
+		<template is="dom-repeat" items="[[videos]]">
+			<paper-card>[[item.title]]</paper-card>
+		</template>
 
 		</app-header-layout>
 

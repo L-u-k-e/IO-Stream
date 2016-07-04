@@ -100,7 +100,7 @@ var seed_topics = function (next) {
 	console.log('seeding topics...');
 
 	var insert_topics = function (err, data) {
-		_.times(25, function (i) {
+		_.times(50, function (i) {
 			topics.push({
 				id:          generate_uuid(true),
 				subject_id:  _.sample(data[0]).id,
@@ -124,7 +124,7 @@ var seed_courses = function (next) {
 	console.log('seeding courses...');
 
 	var insert_courses = function (err, data) {
-		_.times(125, function (i) {
+		_.times(250, function (i) {
 			courses.push({
 				id:          generate_uuid(true),
 				topic_id:    _.sample(topics).id,
@@ -163,7 +163,7 @@ var seed_videos = function (next) {
 	});
 
 
-	_.times(50, function (i) {
+	_.times(5000, function (i) {
 		var uuid = generate_uuid(true);
 		var video_file_src = path.join(video_samples_dir, _.sample(video_names));
 		var thumb_file_src = path.join(thumbs_samples_dir, _.sample(thumb_names));
@@ -171,8 +171,8 @@ var seed_videos = function (next) {
 		var video_file_dest = path.join(uuid_dir, uuid + path.extname(video_file_src));
 		var thumb_file_dest = path.join(uuid_dir, 'thumb' + path.extname(thumb_file_src));
 		fs.mkdirSync(uuid_dir);
-		fs.copySync(video_file_src, video_file_dest);
-		fs.copySync(thumb_file_src, thumb_file_dest);
+		fs.symlinkSync(path.resolve(video_file_src), video_file_dest);
+		fs.symlinkSync(path.resolve(thumb_file_src), thumb_file_dest);
 		videos.push({
 			id:            uuid,
 			duration:      (Math.random()*1000+1).toFixed(2),
