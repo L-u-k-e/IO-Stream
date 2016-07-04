@@ -29,22 +29,27 @@
 				/*@apply(--shadow-elevation-2dp);*/
 			}
 
+			#description {
+				@apply(--paper-font-subhead);
+				padding: 0 16px;
+			}
+
 
 
 		</style>
 
 		<app-header-layout id=container>
 
-		  <div id="header">
-		  	<app-toolbar></app-toolbar>
-		    <app-toolbar>
-		      <div title>[[topic.title]]</div>
-		      <div>[[topic.subject]]</div>
-		    </app-toolbar>
-		    <app-toolbar></app-toolbar>
-		  </div>
+		<div id="header">
+			<app-toolbar></app-toolbar>
+			<app-toolbar>
+				<div title>[[topic.title]]</div>
+				<div>[[topic.subject]]</div>
+			</app-toolbar>
+			<div id="description">[[topic.description]]</div>
+		</div>
 
-		  <course-browser topic-id="[[topicID]]"></course-browser>
+		<course-browser topic-id="[[topicID]]"></course-browser>
 
 		</app-header-layout>
 
