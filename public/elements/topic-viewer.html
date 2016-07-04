@@ -31,7 +31,10 @@
 
 			#description {
 				@apply(--paper-font-subhead);
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
 				padding: 0 16px;
+				min-height: 64px;
 				padding-bottom: 5px;
 			}
 
@@ -46,7 +49,12 @@
 				#subject-wide {
 					display: none;
 				}
-				app-toolbar {height: 48px;}
+				app-toolbar {
+					height: 48px;
+				}
+				#descripition {
+					min-height: 48px;
+				}
 			}
 
 
