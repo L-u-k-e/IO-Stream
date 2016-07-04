@@ -11,7 +11,6 @@
 		<style>
 			:host {
 				display: block;
-
 			}
 			paper-card {
 				padding: 15px;
@@ -103,7 +102,7 @@
 				this.fire('navigation-request', {url: '/topics/'+event.model.item.id});
 			},
 
-			ready: this._load_more_topics
+			attached: this._load_more_topics
 		});
 	</script>
 </dom-module>

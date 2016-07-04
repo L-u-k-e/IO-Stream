@@ -5,10 +5,14 @@
 <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="/elements/api-elements.html">
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="/bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/cascaded-animation.html">
+<link rel="import" href="/elements/course-browser.html">
 <link rel="import" href="/styles/shared-styles.html">
+
 <dom-module id="topic-viewer">
 	<template>
 		<style>
@@ -25,16 +29,6 @@
 				/*@apply(--shadow-elevation-2dp);*/
 			}
 
-			.video-card {
-				width: 300px;
-				height: 250px;
-				position: relative;
-				text-overflow: ellipsis;
-				overflow: hidden;
-				margin: 10px;
-			}
-			
-
 
 
 		</style>
@@ -49,19 +43,8 @@
 		    </app-toolbar>
 		    <app-toolbar></app-toolbar>
 		  </div>
-		  <grid-view>
-				<template is="dom-repeat" items="[[courses]]">
-					<paper-card heading="[[item.person.first_name]]">
-						<div class="card-content">
-							<div>
-								<span>[[item.semester.title]]</span>
-								<span>[[item.year]]</span>
-							</div>
-						</div>
-					</paper-card>	
-				</template>
-			</grid-view>
 
+		  <course-browser topic-id="[[topicID]]"></course-browser>
 
 		</app-header-layout>
 
@@ -89,15 +72,9 @@
 					context: this, 
 					callback: function (result) { this.topic = result.body.data; }
 				});
+			}
 
-				this.make_api_request({
-					verb: 'GET',
-					resource: 'courses',
-					query: { where: { topic_id: new_topic_id } },
-					context: this,
-					callback: function (result) { this.courses = result.body.data; }
-				});
-			},
+
 
 		});
 	</script>

@@ -1,0 +1,76 @@
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/elements/grid-view.html">
+<link rel="import" href="/behaviors/api-requestor.html">
+<link rel="import" href="/styles/shared-styles.html">
+
+<dom-module id="course-browser">
+	<template>
+	
+		<style>
+			:host {
+				display: block;
+			}
+			paper-card {
+				padding: 15px;
+				cursor: pointer;
+			}
+			paper-ripple {
+				color: var(--primary-color);
+			}
+		</style>
+	
+
+		<grid-view>
+			<template is="dom-repeat" items="[[courses]]">
+				
+				<paper-card heading="[[get_full_name(item.person)]]" >
+					<paper-ripple></paper-ripple>
+					<div class="card-content">
+						<div>
+							<span>[[item.semester.title]]</span>
+							<span>[[item.year]]</span>
+						</div>
+					</div>
+				</paper-card>	
+			
+			</template>
+		</grid-view>
+	
+	</template>
+
+	<script>
+		Polymer({
+			is: 'course-browser',
+			behaviors: [Behaviors.api_requestor],
+			properties: {
+				topicId: {
+					type:     String,
+					value:    undefined,
+					observer: 'get_new_data' 
+				},
+				courses: {
+					type: Array,
+					value: undefined
+				}
+			},
+
+			get_new_data: function (new_topic_id, old_topic_id) {
+				this.make_api_request({
+					verb: 'GET',
+					resource: 'courses',
+					query: { where: { topic_id: new_topic_id } },
+					context: this,
+					callback: function (result) { this.courses = result.body.data; console.log(this.courses);}
+				});
+			},
+
+			get_full_name: function (person) {
+				var full_name = person.first_name + ' ' + person.last_name;
+				return full_name;
+			}
+		});
+	</script>
+</dom-module>
