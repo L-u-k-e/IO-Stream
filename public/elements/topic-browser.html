@@ -84,6 +84,10 @@
 					value: 0
 				}
 			},
+			
+			ready: function () {
+				this._load_more_topics()
+			},
 
 			_load_more_topics: function (event, detail) {
 				this.make_api_request({
@@ -102,7 +106,6 @@
 				this.fire('navigation-request', {url: '/topics/'+event.model.item.id});
 			},
 
-			attached: this._load_more_topics
 		});
 	</script>
 </dom-module>
