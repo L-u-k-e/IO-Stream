@@ -34,6 +34,19 @@
 				padding: 0 16px;
 			}
 
+			#subject-narrow {
+				display: none;
+			}
+
+			@media (max-width: 667px) {
+				#subject-narrow {
+					display: block;
+				}
+				#subject-wide {
+					display: none;
+				}
+				app-toolbar {height: 48px;}
+			}
 
 
 		</style>
@@ -41,10 +54,12 @@
 		<app-header-layout id=container>
 
 		<div id="header">
-			<app-toolbar></app-toolbar>
+			<app-toolbar>
+				<div id="subject-narrow">[[topic.subject]]</div>
+			</app-toolbar>
 			<app-toolbar>
 				<div title>[[topic.title]]</div>
-				<div>[[topic.subject]]</div>
+				<div id="subject-wide">[[topic.subject]]</div>
 			</app-toolbar>
 			<div id="description">[[topic.description]]</div>
 		</div>
