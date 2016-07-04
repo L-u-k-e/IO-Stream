@@ -42,7 +42,7 @@
 		</style>
 		<grid-view>
 			<template is="dom-repeat" items="[[items]]">
-				<paper-card cascaded heading="[[item.title]]" on-tap="_fire_topic_selection_notification">
+				<paper-card cascaded heading="[[item.title]]" on-tap="_request_topic_navigation">
 					<paper-ripple></paper-ripple>
 					<span>[[item.description]]</span>
 					<div id="right">
@@ -84,7 +84,7 @@
 					value: 0
 				}
 			},
-			
+
 			ready: function () {
 				this._load_more_topics()
 			},
@@ -102,7 +102,7 @@
 				});
 			},
 			
-			_fire_topic_selection_notification: function (event, detail) {
+			_request_topic_navigation: function (event, detail) {
 				this.fire('navigation-request', {url: '/topics/'+event.model.item.id});
 			},
 
