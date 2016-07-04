@@ -21,7 +21,9 @@ model.exports = function (router) {
 };*/
 
 var get_some = function (req, res, next) {
-	courses.get_some(req.query)
+	var args = req.query;
+	args.inflection = 'many';
+	courses.get(args)
 	.then(function (data) {
 		res.status(200).json({
 			message: 'Retrieved some courses.',
@@ -35,8 +37,10 @@ var get_some = function (req, res, next) {
 
 
 var get_one = function (req, res, next) {
-	courses.get_one({id: req.params.id})
-	.then(function (data) {
+	courses.get({
+		inflection: 'one',
+		where: {id: req.params.id}
+	}).then(function (data) {
 		res.status(200).json({
 			message: 'Retrieved one course.',
 			data: data

@@ -3,7 +3,9 @@ var topics = require('../models/topics');
 
 
 var get_some = function (req, res, next) {
-	topics.get_some(req.query)
+	var args = req.query;
+	args.inflection = 'many';
+	topics.get(args)
 	.then(function (data) {
 		res.status(200).json({
 			message: 'Retrieved some topics.',
@@ -17,8 +19,10 @@ var get_some = function (req, res, next) {
 
 
 var get_one = function (req, res, next) {
-	topics.get_one({id: req.params.id})
-	.then(function (data) {
+	topics.get({
+		inflection: 'one',
+		where: {id: req.params.id}
+	}).then(function (data) {
 		res.status(200).json({
 			message: 'Retrieved one topic.',
 			data: data

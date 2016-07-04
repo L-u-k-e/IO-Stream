@@ -48,6 +48,15 @@
 					end: function (ctx) {
 						self.$.topic_viewer.topicID = ctx.params.id;
 					}
+				},
+				{
+					route:  '/courses/:id',
+					page:   'course viewer',
+					id:     'courser_viewer',
+					import: 'course-viewer',
+					end: function (ctx) {
+						self.$.course_viewer.courseId = ctx.params.id;
+					}
 				}
 			];
 			_.each(routes, setup_route);

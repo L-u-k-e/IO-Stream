@@ -1,15 +1,18 @@
+var subjects      = require('./subjects');
 var db            = require('../config/db_config');
 var orm           = require('../helpers/orm');
 var generate_uuid = require('../helpers/uuid');
 var _             = require('lodash');
 var async         = require('async');
-
 var table = 'topic';
 
-exports.get_some = function (args) {
-	var topics_promise = orm.select({
+
+exports.get = function (args) {
+	args = args || {};
+
+	var promise = orm.select({
 		db:     db, 
-		table:  table,  
+		table:  table, 
 		where:  args.where,
 		order:  args.order,
 		limit:  args.limit,
@@ -17,39 +20,23 @@ exports.get_some = function (args) {
 		group:  args.group
 	});
 
-	var topics_with_subjects_promise = topics_promise.map(function (topic) {
-		var promise = orm.select({
-			db: db,
-			table: 'subject',
-			qrm: 'one',
+	//subject details
+	promise = promise.map(function (topic) {
+		return subjects.get({
+			inflection: 'one',
 			where: {id: topic.subject_id}
 		}).then(function (subject) {
-			topic.subject = subject.title;
+			topic.subject = subject;
 			return topic;
 		});
-		return promise;
 	});
 
-	return topics_with_subjects_promise;
-};
-
-exports.get_one = function (args) {
-	var topic_promise = orm.select({
-		db: db,
-		table: table,
-		where: {id: args.id},
-		qrm: 'one'
-	}).then(function(topic) {
-		var promise = orm.select({
-			db: db,
-			table: 'subject',
-			where: { id: topic.subject_id },
-			qrm: 'one'
-		}).then(function (subject) {
-			topic.subject = subject.title;
-			return topic;
+	if (args.inflection === 'one') {
+		promise = promise.then(function (topics) {
+			if (_.isEmpty(topics)) return {};
+			else return topics[0];
 		});
-		return promise;
-	});
-	return topic_promise;
+	}
+
+	return promise;
 };

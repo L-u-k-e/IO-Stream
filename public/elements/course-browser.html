@@ -26,7 +26,7 @@
 		<grid-view>
 			<template is="dom-repeat" items="[[courses]]">
 				
-				<paper-card heading="[[get_full_name(item.person)]]" >
+				<paper-card heading="[[get_full_name(item.person)]]" on-tap="_request_course_navigation">
 					<paper-ripple></paper-ripple>
 					<div class="card-content">
 						<div>
@@ -63,14 +63,18 @@
 					resource: 'courses',
 					query: { where: { topic_id: new_topic_id } },
 					context: this,
-					callback: function (result) { this.courses = result.body.data; console.log(this.courses);}
+					callback: function (result) { this.courses = result.body.data; }
 				});
 			},
 
 			get_full_name: function (person) {
 				var full_name = person.first_name + ' ' + person.last_name;
 				return full_name;
-			}
+			},
+
+			_request_course_navigation: function (event, detail) {
+				this.fire('navigation-request', {url: '/courses/'+event.model.item.id});
+			},
 		});
 	</script>
 </dom-module>

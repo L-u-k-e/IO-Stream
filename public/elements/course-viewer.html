@@ -14,7 +14,7 @@
 <link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/styles/shared-styles.html">
 
-<dom-module id="topic-viewer">
+<dom-module id="course-viewer">
 	<template>
 		<style>
 			:host {
@@ -66,49 +66,50 @@
 		<app-header-layout id="container">
 
 		<div id="header">
-			<app-toolbar>
-				<div id="subject-narrow">[[topic.subject.title]]</div>
-			</app-toolbar>
-			<app-toolbar>
-				<div title>[[topic.title]]</div>
-				<div id="subject-wide">[[topic.subject.title]]</div>
-			</app-toolbar>
-			<div id="description">[[topic.description]]</div>
+			<app-toolbar></app-toolbar>
+			<app-toolbar></app-toolbar>
+			<app-toolbar></app-toolbar>
 		</div>
 
-		<course-browser topic-id="[[topicID]]"></course-browser>
+		<course-browser course-id="[[courseId]]"></course-browser>
 
 		</app-header-layout>
 
 	</template>
 	<script>
 		Polymer({
-			is: 'topic-viewer',
+			is: 'course-viewer',
 			behaviors: [Behaviors.api_requestor,  Behaviors.cascaded_animation],
 			properties: {
-				topicID: {
+				courseId: {
 					type: String,
 					value: undefined,
 					observer: 'get_new_data'
 				},
-				topic: {
+				course: {
 					type: Object, 
 					value: {}
 				},
 				loading: {
 					type: Boolean,
 					value: false
+				},
+				videos: {
+					type: Array,
+					value: undefined
 				}
 			},
 
-			get_new_data: function (new_topic_id, old_topic_id) {
+			get_new_data: function (new_course_id, old_course_id) {
 				this.loading = true;
 				this.make_api_request({
 					verb: 'GET', 
-					resource: ['topics', new_topic_id],
+					resource: 'videos',
+					query: { where: {course_id: this.courseId} },
 					context: this, 
 					callback: function (result) { 
-						this.topic = result.body.data; 
+						this.videos = result.body.data; 
+						console.log(this.videos);
 						this.loading = false;
 					}
 				});

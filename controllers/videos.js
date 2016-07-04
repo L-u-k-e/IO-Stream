@@ -96,7 +96,9 @@ var send_merge_completion_notice = function (req, res, next) {
 
 /* Get some videos */
 var get_some = function (req, res, next) {
-	videos.get_some(req.query)
+	var args = req.query;
+	args.inflection = 'many';
+	videos.get(args)
 	.then(function (data) {
 		res.status(200).json({
 			message: 'Retrieved some videos.',
@@ -122,5 +124,8 @@ module.exports = function (router) {
 		delete_upload_token,
 		send_merge_completion_notice
 	);
+
+	/* get some videos */
+	router.get('/api/videos', get_some);
 
 };

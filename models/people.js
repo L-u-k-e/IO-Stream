@@ -5,13 +5,10 @@ var table = 'person';
 
 exports.get = function (args) {
 	args = args || {};
-	var inflection = args.inflection;
-	if (!_.includes(['many', 'one'], inflection)) inflection = 'many';
 
 	var promise = orm.select({
 		db:     db, 
 		table:  table,
-		qrm:    inflection,  
 		where:  args.where,
 		order:  args.order,
 		limit:  args.limit,
@@ -19,5 +16,11 @@ exports.get = function (args) {
 		group:  args.group
 	});
 	
+	if (args.inflection === 'one') {
+		promise = promise.then(function (people) {
+			if (_.isEmpty(people)) return {};
+			else return people[0];
+		});
+	}
 	return promise;
 };

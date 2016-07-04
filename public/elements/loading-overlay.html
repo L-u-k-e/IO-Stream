@@ -1,5 +1,6 @@
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <dom-module id="loading-overlay">
 	<template>
 		<style>
@@ -7,7 +8,7 @@
 				@apply(--layout-fit);
 				@apply(--layout-horizontal);
 				@apply(--layout-center-center);
-				background: white;
+				background: var(--paper-grey-100);
 				z-index: 1000;
 			}
 			:host(:not([active])) {
