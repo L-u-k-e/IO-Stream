@@ -1,16 +1,11 @@
-<link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
-<link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="/bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="/behaviors/api-requestor.html">
-<link rel="import" href="/behaviors/cascaded-animation.html">
-<link rel="import" href="/elements/course-browser.html">
+<link rel="import" href="/elements/video-browser.html">
 <link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/styles/shared-styles.html">
 
@@ -24,9 +19,18 @@
 			app-header-layout {
 				@apply(--layout-fit);
 			}
+			app-header-layout a {
+				text-decoration: inherit;
+				font-style: inherit;
+				color: inherit;
+				transition: all 0.2s ease;
+			} 
+			app-header-layout a:hover {
+				color: var(--primary-color);	
+			}
 
 			#header {
-				background: var(--paper-teal-100);
+				background: var(--paper-amber-100);
 				/*@apply(--shadow-elevation-2dp);*/
 			}
 
@@ -67,13 +71,14 @@
 
 		<div id="header">
 			<app-toolbar></app-toolbar>
-			<app-toolbar></app-toolbar>
-			<app-toolbar></app-toolbar>
+			<app-toolbar>
+				<a href="[[get_topic_link(course.topic.id)]]">[[course.topic.title]]</a>
+			</app-toolbar>
+			<app-toolbar>[[course.person.first_name]]</app-toolbar>
 		</div>
 
-		<template is="dom-repeat" items="[[videos]]">
-			<paper-card>[[item.title]]</paper-card>
-		</template>
+		<video-browser course-id="[[courseId]]"></video-browser>
+
 
 		</app-header-layout>
 
@@ -96,28 +101,27 @@
 					type: Boolean,
 					value: false
 				},
-				videos: {
-					type: Array,
-					value: undefined
-				}
 			},
 
 			get_new_data: function (new_course_id, old_course_id) {
 				this.loading = true;
 				this.make_api_request({
 					verb: 'GET', 
-					resource: 'videos',
-					query: { where: {course_id: this.courseId} },
+					resource: ['courses', this.courseId],
 					context: this, 
 					callback: function (result) { 
-						this.videos = result.body.data; 
-						console.log(this.videos);
+						this.course = result.body.data; 
 						this.loading = false;
 					}
 				});
+
+
+			},
+
+			get_topic_link: function (topic_id) {
+				var link = '/topics/' + topic_id;
+				return link;
 			}
-
-
 
 		});
 	</script>

@@ -1,0 +1,103 @@
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/behaviors/api-requestor.html">
+<link rel="import" href="/elements/loading-overlay.html">
+<link rel="import" href="/elements/grid-view.html">
+<link rel="import" href="/styles/shared-styles.html">
+
+<dom-module id="video-browser">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			paper-card {
+				cursor: pointer;
+				--paper-card-header-image: {
+					height: 125px;
+					display: block;
+				};
+				--paper-card-header-text: {
+					width: 100%;
+					box-sizing: border-box;
+					background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+			    color: white;
+			    @apply(--paper-font-subhead);
+				};
+			}
+
+			paper-ripple {
+				color: var(--primary-color);
+			}
+
+			.card-content > div {
+				margin-bottom: 10px;
+			}
+		</style>
+
+		<loading-overlay active="[[loading]]"></loading-overlay>
+
+		<grid-view>
+			<template is="dom-repeat" items="[[videos]]">
+				<paper-card heading="[[item.title]]" image="[[item.thumbnail_src]]" fade-image preload-image>
+					<paper-ripple></paper-ripple>
+					<div class="card-content">
+						<div>[[get_time_string(item.duration)]]</div>
+						<div>[[get_date_string(item.date_uploaded)]]</div>
+					</div>
+				</paper-card>
+			</template>
+		</grid-view>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'video-browser',
+			
+			behaviors: [Behaviors.api_requestor],
+
+			properties: {
+				courseId: {
+					type: String,
+					value: undefined,
+					observer: 'get_new_data'
+				},
+				videos: {
+					type: Array,
+					value: undefined
+				}
+			},
+
+			get_new_data: function (new_course_id, old_course_id) {
+				this.loading = true;
+				this.make_api_request({
+					verb: 'GET', 
+					resource: 'videos',
+					query: { where: {course_id: new_course_id} },
+					context: this, 
+					callback: function (result) { 
+						this.videos = result.body.data; 
+						this.loading = false;
+					}
+				});
+			},
+
+			get_date_string: function (date) {
+				var str = 'Uploaded ';
+				var m = moment(date).fromNow();
+				str = str + m;
+				return str;
+			},
+
+			get_time_string: function (time) {
+				var str = 'Duration: ';
+				str = str + moment().startOf('day').minutes(time).format('h:mm:ss');
+				return str;
+			},
+
+			
+		});
+	</script>
+</dom-module>
