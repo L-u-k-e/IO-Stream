@@ -28,6 +28,9 @@
 			app-header-layout a:hover {
 				color: var(--primary-color);	
 			}
+			app-toolbar {
+				@apply(--layout-justified);
+			}
 
 			#header {
 				background: var(--paper-amber-100);
@@ -73,8 +76,12 @@
 			<app-toolbar></app-toolbar>
 			<app-toolbar>
 				<a href="[[get_topic_link(course.topic.id)]]">[[course.topic.title]]</a>
+				<div>[[course.topic.subject.title]]</div>
 			</app-toolbar>
-			<app-toolbar>[[course.person.first_name]]</app-toolbar>
+			<app-toolbar>
+				<div>[[get_full_name(course.person)]]</div>
+				<div>[[get_time_detail(course)]]</div>
+			</app-toolbar>
 		</div>
 
 		<video-browser course-id="[[courseId]]"></video-browser>
@@ -86,7 +93,9 @@
 	<script>
 		Polymer({
 			is: 'course-viewer',
-			behaviors: [Behaviors.api_requestor,  Behaviors.cascaded_animation],
+
+			behaviors: [Behaviors.api_requestor],
+
 			properties: {
 				courseId: {
 					type: String,
@@ -95,7 +104,7 @@
 				},
 				course: {
 					type: Object, 
-					value: {}
+					value: undefined
 				},
 				loading: {
 					type: Boolean,
@@ -114,15 +123,26 @@
 						this.loading = false;
 					}
 				});
-
-
 			},
 
 			get_topic_link: function (topic_id) {
 				var link = '/topics/' + topic_id;
 				return link;
+			},
+
+			get_full_name: function (person) {
+				var name = person.first_name + ' ' + person.last_name;
+				return name;
+			},
+
+
+			get_time_detail: function (course) {
+				var detail = course.semester.title + ' ' + course.year;
+				if (course.section) detail += ' Section ' + course.section;
+				return detail;
 			}
 
 		});
 	</script>
 </dom-module>
+
