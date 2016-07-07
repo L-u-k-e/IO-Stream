@@ -1,6 +1,8 @@
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/elements/grid-view.html">
@@ -18,6 +20,7 @@
 				--paper-card-header-image: {
 					height: 125px;
 					display: block;
+					sizing: contain;
 				};
 				--paper-card-header-text: {
 					width: 100%;
@@ -28,26 +31,66 @@
 				};
 			}
 
+			paper-card.narrow {
+				width: 100%;
+				@apply(--layout-horizontal);
+				padding: 10px;
+				font-size: 13px;
+				
+				
+			}
+			paper-card.narrow .card-content div {
+				max-width: 600px;
+				width: 100%;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+			paper-card.narrow iron-image {
+				height: 90px;
+				width: 120px;
+				min-width: 120px;
+			}
+			paper-card.narrow .card-content {
+				padding-top: 0;
+			}
+
 			paper-ripple {
 				color: var(--primary-color);
 			}
 
-			.card-content > div {
-				margin-bottom: 10px;
-			}
 		</style>
 
 		<loading-overlay active="[[loading]]"></loading-overlay>
+		
+		<iron-media-query query="max-width: 667px" query-matches="{{narrow}}">
+		</iron-media-query>
 
 		<grid-view>
 			<template is="dom-repeat" items="[[videos]]">
-				<paper-card heading="[[item.title]]" image="[[item.thumbnail_src]]" fade-image preload-image>
+
+				<template is="dom-if" if="[[!narrow]]">
+					<paper-card heading="[[item.title]]" image="[[item.thumbnail_src]]" fade-image preload-image class="wide">
+						<paper-ripple></paper-ripple>
+						<div class="card-content">
+							<div>[[get_time_string(item.duration)]]</div>
+							<div>[[get_date_string(item.date_uploaded)]]</div>
+						</div>
+					</paper-card>
+				</template>
+
+				<template is="dom-if" if="[[narrow]]">
+					<paper-card class="narrow">
 					<paper-ripple></paper-ripple>
-					<div class="card-content">
-						<div>[[get_time_string(item.duration)]]</div>
-						<div>[[get_date_string(item.date_uploaded)]]</div>
-					</div>
-				</paper-card>
+						<iron-image src="[[item.thumbnail_src]]" sizing="cover"></iron-image>
+						<div class="card-content">
+							<div>[[item.title]]</div>
+							<div>[[get_time_string(item.duration)]]</div>
+							<div>[[get_date_string(item.date_uploaded)]]</div>
+						</div>
+					</paper-card>
+				</template>
+
 			</template>
 		</grid-view>
 		
@@ -67,6 +110,11 @@
 				videos: {
 					type: Array,
 					value: undefined
+				},
+				narrow: {
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true
 				}
 			},
 
