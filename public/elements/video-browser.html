@@ -35,16 +35,7 @@
 				width: 100%;
 				@apply(--layout-horizontal);
 				padding: 10px;
-				font-size: 13px;
-				
-				
-			}
-			paper-card.narrow .card-content div {
-				max-width: 600px;
-				width: 100%;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				overflow: hidden;
+				font-size: 13px;	
 			}
 			paper-card.narrow iron-image {
 				height: 90px;
@@ -53,6 +44,8 @@
 			}
 			paper-card.narrow .card-content {
 				padding-top: 0;
+				@apply(--layout-vertical);
+				@apply(--layout-justified);
 			}
 
 			paper-ripple {
@@ -80,7 +73,7 @@
 				</template>
 
 				<template is="dom-if" if="[[narrow]]">
-					<paper-card class="narrow">
+					<paper-card class="narrow" elevation="0">
 					<paper-ripple></paper-ripple>
 						<iron-image src="[[item.thumbnail_src]]" sizing="cover"></iron-image>
 						<div class="card-content">
