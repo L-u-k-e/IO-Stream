@@ -1,13 +1,38 @@
+
+<!--
+I would like to just use responsive-properties here, 
+but if these properties aren't read only, then we get timing issues with 
+false (default) values flowing down from above after we set true. 
+
+Hopefully polymer will allow readonly properties to participare in upwards data binding soon:
+	https://github.com/Polymer/polymer/issues/3551
+	https://github.com/Polymer/polymer/pull/3580
+-->
 <link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="/behaviors/responsive-properties.html">
 <dom-module id="responsive-queries">
 	<template>
-		<iron-media-query query="max-width: 667px" query-matches="{{narrow}}"></iron-media-query>
+		<iron-media-query query="(max-width: 667px)" query-matches="{{_narrow}}"></iron-media-query>
 	</template>
 	<script>
 		Polymer({
 			is: 'responsive-queries',
-			behaviors: [Behaviors.responsive_properties]
+			properties: {
+				_narrow: {
+					type: Boolean, 
+					value: false,
+					observer: 'reflect_narrow'
+				},
+				narrow: {
+					type: Boolean,
+					value: false,
+					readOnly: true,
+					notify: true,
+				}
+			},
+
+			reflect_narrow: function (new_value, old_value) {
+				this._setNarrow(new_value);
+			}
 		});
 	</script>
 </dom-module>

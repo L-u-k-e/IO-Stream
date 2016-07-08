@@ -9,9 +9,10 @@
 <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="/bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="/behaviors/api-requestor.html">
-<link rel="import" href="/behaviors/cascaded-animation.html">
+<link rel="import" href="/behaviors/responsive-properties.html">
 <link rel="import" href="/elements/course-browser.html">
 <link rel="import" href="/elements/loading-overlay.html">
+<link rel="import" href="/elements/responsive-queries.html">
 <link rel="import" href="/styles/shared-styles.html">
 
 <dom-module id="topic-viewer">
@@ -43,25 +44,28 @@
 				display: none;
 			}
 
-			@media (max-width: 667px) {
-				#subject-narrow {
-					display: block;
-				}
-				#subject-wide {
-					display: none;
-				}
-				app-toolbar {
-					height: 48px;
-				}
-				#descripition {
-					min-height: 48px;
-				}
+	
+			:host([narrow]) #subject-narrow {
+				display: block;
 			}
+			
+			:host([narrow]) #subject-wide {
+				display: none;
+			}
+
+			:host([narrow]) app-toolbar {
+				height: 48px;
+			}
+			:host([narrow]) #descripition {
+				min-height: 48px;
+			}
+			
 
 
 		</style>
 
 		<loading-overlay active="[[loading]]"></loading-overlay>
+		<responsive-queries narrow="{{narrow}}"></responsive-queries>
 
 		<app-header-layout id="container">
 
@@ -84,7 +88,7 @@
 	<script>
 		Polymer({
 			is: 'topic-viewer',
-			behaviors: [Behaviors.api_requestor,  Behaviors.cascaded_animation],
+			behaviors: [Behaviors.api_requestor,  Behaviors.responsive_properties],
 			properties: {
 				topicID: {
 					type: String,
