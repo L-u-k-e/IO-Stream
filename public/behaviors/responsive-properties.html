@@ -1,0 +1,25 @@
+<script>
+	
+	var Behaviors = Behaviors || {};
+
+	Behaviors.responsive_properties = (function () {
+		var _screen_width_changed = function  () {};
+
+		var properties = {
+			narrow: {
+				type: Boolean,
+				value: false,
+				notify: true,
+				reflectToAttribute: true,
+				observer: '_screen_width_changed'
+			}
+		}
+
+		return {
+			properties: properties,
+			_screen_width_changed: _screen_width_changed
+		};
+
+	}());
+
+</script>

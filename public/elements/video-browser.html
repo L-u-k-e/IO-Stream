@@ -4,7 +4,9 @@
 <link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="/bower_components/iron-image/iron-image.html">
 <link rel="import" href="/behaviors/api-requestor.html">
+<link rel="import" href="/behaviors/responsive-properties.html">
 <link rel="import" href="/elements/loading-overlay.html">
+<link rel="import" href="/elements/responsive-queries.html">
 <link rel="import" href="/elements/grid-view.html">
 <link rel="import" href="/styles/shared-styles.html">
 
@@ -56,8 +58,7 @@
 
 		<loading-overlay active="[[loading]]"></loading-overlay>
 		
-		<iron-media-query query="max-width: 667px" query-matches="{{narrow}}">
-		</iron-media-query>
+		<responsive-queries narrow="{{narrow}}"></responsive-queries>
 
 		<grid-view>
 			<template is="dom-repeat" items="[[videos]]">

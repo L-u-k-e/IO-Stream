@@ -1,0 +1,13 @@
+<link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="/behaviors/responsive-properties.html">
+<dom-module id="responsive-queries">
+	<template>
+		<iron-media-query query="max-width: 667px" query-matches="{{narrow}}"></iron-media-query>
+	</template>
+	<script>
+		Polymer({
+			is: 'responsive-queries',
+			behaviors: [Behaviors.responsive_properties]
+		});
+	</script>
+</dom-module>
