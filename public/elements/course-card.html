@@ -1,5 +1,4 @@
-<link rel="import" href="/bower_components/paper-card/paper-card.html">
-
+<link rel="import" href="/elements/ripple-card.html">
 <dom-module id="course-card">
 	<template>
 		<style>
@@ -7,11 +6,38 @@
 				display: block;
 			}
 		</style>
-		
+
+		<ripple-card heading="[[_get_full_name(course.person)]]" on-tap="_request_course_navigation">
+			<div class="card-content">
+				<div>
+					<span>[[course.semester.title]]</span>
+					<span>[[course.year]]</span>
+				</div>
+			</div>
+		</ripple-card>
+
 	</template>
 	<script>
 		Polymer({
-			is: 'course-card'
+			is: 'course-card',
+			
+			properties: {
+				course: {
+					type: Object,
+					value: {}
+				}
+			},
+
+			_get_full_name: function (person) {
+				var full_name = person.first_name + ' ' + person.last_name;
+				return full_name;
+			},
+
+			_request_course_navigation: function (event, detail) {
+				this.async(function () {
+					this.fire('navigation-request', {url: '/courses/'+this.course.id});
+				}, 200);	
+			}
 		});
 	</script>
 </dom-module>
