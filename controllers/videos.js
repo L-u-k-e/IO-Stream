@@ -112,6 +112,22 @@ var get_some = function (req, res, next) {
 
 
 
+/* Get some videos */
+var get_one = function (req, res, next) {
+	var args = {id: req.params.id};
+	args.inflection = 'one';
+	videos.get(args)
+	.then(function (data) {
+		res.status(200).json({
+			message: 'Retrieved one video.',
+			data: data
+		});
+	})
+	.catch (function (err) {
+		console.log(err);
+	});
+};
+
 
 module.exports = function (router) {
 
@@ -128,4 +144,5 @@ module.exports = function (router) {
 	/* get some videos */
 	router.get('/api/videos', get_some);
 
+	router.get('/api/videos/:id', get_one);
 };
