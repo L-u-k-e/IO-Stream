@@ -1,4 +1,4 @@
-<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/elements/ripple-card.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
@@ -12,12 +12,9 @@
 			:host {
 				display: block;
 			}
-			paper-card {
-				padding: 15px;
+			ripple-card {
+				--paper-card: { padding: 15px; };
 				cursor: pointer;
-			}
-			paper-ripple {
-				color: var(--primary-color);
 			}
 			#right {
 				position: absolute;
@@ -42,8 +39,7 @@
 		</style>
 		<grid-view>
 			<template is="dom-repeat" items="[[items]]">
-				<paper-card cascaded heading="[[item.title]]" on-tap="_request_topic_navigation">
-					<paper-ripple></paper-ripple>
+				<ripple-card cascaded heading="[[item.title]]" on-tap="_request_topic_navigation">
 					<span>[[item.description]]</span>
 					<div id="right">
 						<div>
@@ -57,7 +53,7 @@
 							<span>[[item.person_id]]</span>
 						</div>
 					</div>
-				</paper-card>
+				</ripple>
 			</template>
 		</grid-view>
 		<div id="more_button_container">

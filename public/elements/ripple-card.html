@@ -1,0 +1,82 @@
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/styles/shared-styles.html">
+<link rel="import" href="/behaviors/responsive-properties.html">
+<link rel="import" href="/elements/responsive-queries.html">
+<dom-module id="ripple-card">
+	<template>
+		<style>
+			:host {
+				display: block;
+				position: relative;
+				@apply(--layout-vertical);
+			}
+			paper-card {
+				@apply(--layout-flex);
+				box-sizing: content-box;
+				@apply(--paper-card-background-color);
+				@apply(--paper-card-header-color);
+				@apply(--paper-card-header);
+				@apply(--paper-card-header-text);
+				@apply(--paper-card-header-image);
+				@apply(--paper-card-header-image-text);
+				@apply(--paper-card-content);
+				@apply(--paper-card-actions);
+				@apply(--paper-card);
+			}
+			paper-ripple {
+				color: var(--primary-color);
+			}
+		</style>
+		<responsive-queries narrow="{{narrow}}"></responsive-queries>
+		<paper-card 
+			heading="[[heading]]" 
+			image="[[image]]" 
+			elevation="[[elevation]]" 
+			animated-shadow="[[animatedShadow]]"
+		>
+			<paper-ripple></paper-ripple>
+			<content></content>
+		</paper-card>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'ripple-card',
+			behaviors: [Behaviors.responsive_properties],
+			properties: {
+        heading: {
+          type: String,
+          value: '',
+        },
+        image: {
+          type: String,
+          value: ''
+        },
+        preloadImage: {
+          type: Boolean,
+          value: false
+        },
+        fadeImage: {
+          type: Boolean,
+          value: false
+        },
+        elevation: {
+          type: Number,
+          value: 1,
+          reflectToAttribute: true
+        },
+        animatedShadow: {
+          type: Boolean,
+          value: false
+        }
+			},
+
+			_get_elevation(narrow) {
+				var elevation = +narrow; 
+				return elevation;
+			}
+		});
+	</script>
+</dom-module>
