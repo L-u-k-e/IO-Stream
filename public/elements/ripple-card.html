@@ -13,6 +13,11 @@
 				cursor: pointer;
 				@apply(--layout-vertical);
 			}
+
+			:host([narrow]) {
+				width: 100%;
+			}
+
 			paper-card {
 				@apply(--layout-flex);
 				box-sizing: content-box;
@@ -57,7 +62,7 @@
 		<paper-card 
 			heading="[[heading]]" 
 			image="[[image]]" 
-			elevation="[[elevation]]" 
+			elevation="[[_get_elevation(narrow)]]" 
 			animated-shadow="[[animatedShadow]]"
 		>
 			<paper-ripple></paper-ripple>
@@ -98,7 +103,7 @@
 			},
 
 			_get_elevation(narrow) {
-				var elevation = +narrow; 
+				var elevation = +(!narrow); 
 				return elevation;
 			}
 		});
