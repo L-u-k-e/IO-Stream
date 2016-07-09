@@ -1,13 +1,8 @@
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
-<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
-<link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="/bower_components/iron-image/iron-image.html">
 <link rel="import" href="/behaviors/api-requestor.html">
-<link rel="import" href="/behaviors/responsive-properties.html">
 <link rel="import" href="/elements/loading-overlay.html">
-<link rel="import" href="/elements/responsive-queries.html">
 <link rel="import" href="/elements/grid-view.html">
+<link rel="import" href="/elements/video-card.html">
 <link rel="import" href="/styles/shared-styles.html">
 
 <dom-module id="video-browser">
@@ -17,77 +12,16 @@
 				display: block;
 			}
 
-			paper-card {
-				cursor: pointer;
-				--paper-card-header-image: {
-					height: 125px;
-					display: block;
-					sizing: contain;
-				};
-				--paper-card-header-text: {
-					width: 100%;
-					box-sizing: border-box;
-					background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
-			    color: white;
-			    @apply(--paper-font-subhead);
-				};
-			}
-
-			paper-card.narrow {
-				width: 100%;
-				@apply(--layout-horizontal);
-				padding: 10px;
-				font-size: 13px;	
-			}
-			paper-card.narrow iron-image {
-				height: 90px;
-				width: 120px;
-				min-width: 120px;
-			}
-			paper-card.narrow .card-content {
-				padding-top: 0;
-				@apply(--layout-vertical);
-				@apply(--layout-justified);
-			}
-
-			paper-ripple {
-				color: var(--primary-color);
-			}
-
 		</style>
 
 		<loading-overlay active="[[loading]]"></loading-overlay>
-		
-		<responsive-queries narrow="{{narrow}}"></responsive-queries>
 
 		<grid-view>
 			<template is="dom-repeat" items="[[videos]]">
-
-				<template is="dom-if" if="[[!narrow]]">
-					<paper-card heading="[[item.title]]" image="[[item.thumbnail_src]]" fade-image preload-image class="wide">
-						<paper-ripple></paper-ripple>
-						<div class="card-content">
-							<div>[[get_time_string(item.duration)]]</div>
-							<div>[[get_date_string(item.date_uploaded)]]</div>
-						</div>
-					</paper-card>
-				</template>
-
-				<template is="dom-if" if="[[narrow]]">
-					<paper-card class="narrow" elevation="0">
-					<paper-ripple></paper-ripple>
-						<iron-image src="[[item.thumbnail_src]]" sizing="cover"></iron-image>
-						<div class="card-content">
-							<div>[[item.title]]</div>
-							<div>[[get_time_string(item.duration)]]</div>
-							<div>[[get_date_string(item.date_uploaded)]]</div>
-						</div>
-					</paper-card>
-				</template>
-
+				<video-card video="[[item]]"></video-card>
 			</template>
 		</grid-view>
-		
+
 	</template>
 	<script>
 		Polymer({
@@ -125,21 +59,6 @@
 					}
 				});
 			},
-
-			get_date_string: function (date) {
-				var str = 'Uploaded ';
-				var m = moment(date).fromNow();
-				str = str + m;
-				return str;
-			},
-
-			get_time_string: function (time) {
-				var str = 'Duration: ';
-				str = str + moment().startOf('day').minutes(time).format('h:mm:ss');
-				return str;
-			},
-
-			
 		});
 	</script>
 </dom-module>

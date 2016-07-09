@@ -1,0 +1,101 @@
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/elements/responsive-queries.html">
+<link rel="import" href="/elements/ripple-card.html">
+<link rel="import" href="/behaviors/responsive-properties.html">
+<dom-module id="video-card">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			ripple-card {
+				--ripple-card: {
+					padding: 0;
+				};
+				--ripple-card-header-image: {
+					height: 125px;
+					display: block;
+					background-size: cover;
+					width: 100%;
+				};
+				--ripple-card-header-text: {
+					width: 100%;
+					box-sizing: border-box;
+					background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+			    color: white;
+			    @apply(--paper-font-subhead);
+				};
+				display: block;
+			}
+
+			ripple-card.narrow {
+				width: 100%;
+				--ripple-card: {
+					@apply(--layout-horizontal);
+					padding: 10px;
+					font-size: 13px;
+				};	
+			}
+			ripple-card.narrow iron-image {
+				height: 90px;
+				width: 120px;
+				min-width: 120px;
+			}
+			ripple-card.narrow .card-content {
+				padding-top: 0;
+				@apply(--layout-vertical);
+				@apply(--layout-justified);
+			}
+		</style>
+
+		<responsive-queries narrow="{{narrow}}"></responsive-queries>
+
+		<template is="dom-if" if="[[!narrow]]">
+			<ripple-card heading="[[video.title]]" image="[[video.thumbnail_src]]" fade-image preload-image class="wide">
+				<div class="card-content">
+					<div>[[get_time_string(video.duration)]]</div>
+					<div>[[get_date_string(video.date_uploaded)]]</div>
+				</div>
+			</ripple-card>
+		</template>
+
+		<template is="dom-if" if="[[narrow]]">
+			<ripple-card class="narrow" elevation="0">
+				<iron-image src="[[video.thumbnail_src]]" sizing="cover"></iron-image>
+				<div class="card-content">
+					<div>[[video.title]]</div>
+					<div>[[get_time_string(video.duration)]]</div>
+					<div>[[get_date_string(video.date_uploaded)]]</div>
+				</div>
+			</ripple-card>
+		</template>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'video-card',
+
+			behaviors: [Behaviors.responsive_queries],
+
+			properties: {
+				video: {
+					type: Object,
+					value: {}
+				}
+			},
+
+			get_date_string: function (date) {
+				var str = 'Uploaded ';
+				var m = moment(date).fromNow();
+				str = str + m;
+				return str;
+			},
+
+			get_time_string: function (time) {
+				var str = 'Duration: ';
+				str = str + moment().startOf('day').minutes(time).format('h:mm:ss');
+				return str;
+			},
+		});
+	</script>
+</dom-module>

@@ -17,15 +17,37 @@
 				@apply(--layout-flex);
 				box-sizing: content-box;
 				padding: 15px;
-				@apply(--paper-card-background-color);
-				@apply(--paper-card-header-color);
-				@apply(--paper-card-header);
-				@apply(--paper-card-header-text);
-				@apply(--paper-card-header-image);
-				@apply(--paper-card-header-image-text);
-				@apply(--paper-card-content);
-				@apply(--paper-card-actions);
-				@apply(--paper-card);
+
+				@apply(--ripple-card);
+
+				--paper-card-background-color: {
+					@apply(--ripple-card-background-color);
+				};
+				--paper-card-header-color: {
+					@apply(--ripple-card-header-color);
+				};
+				--paper-card-header: {
+					@apply(--ripple-card-header);
+				};
+				--paper-card-header-text: {
+					@apply(--ripple-card-header-text);
+				};
+				--paper-card-header-image: {
+					@apply(--ripple-card-header-image);
+				};
+				--paper-card-header-image-text: {
+					@apply(--ripple-card-header-image-text);
+				};
+				--paper-card-content: {
+					@apply(--ripple-card-content);
+				};
+				--paper-card-actions: {
+					@apply(--ripple-card-actions);
+				};
+				--paper-card: {
+					@apply(--ripple-card-inner-card);
+				};
+
 			}
 			paper-ripple {
 				color: var(--primary-color);
