@@ -1,0 +1,72 @@
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/elements/ripple-card.html">
+
+<dom-module id="topic-card">
+	<template>
+
+		<style>
+
+			:host {
+				display: block;
+				/* align-items: stretch  (default) will make the ripple-card's height fill up the container. */
+				@apply(--layout-horizontal); 
+			}
+
+			ripple-card {
+				cursor: pointer;
+				--paper-card: { 
+					padding: 15px; 
+				};
+			}
+
+			#right {
+				position: absolute;
+				top: 8px; right: 8px; bottom: 8px;
+				@apply(--layout-vertical);
+				@apply(--layout-justified);
+
+				font-size: 10px;
+				color: #333;
+				text-align: right;
+			}
+
+		</style>
+
+		<ripple-card cascaded heading="[[topic.title]]" on-tap="_request_topic_navigation">
+			<span>[[topic.description]]</span>
+			<div id="right">
+				<div>
+					<div><span>[[topic.subject.title]]</span></div>
+					<div>
+						<span>[[topic.semester]]</span>
+						<span>[[topic.year]]</span>
+					</div>
+				</div>
+				<div>
+					<span>[[topic.person_id]]</span>
+				</div>
+			</div>
+		</ripple-card>	
+
+	</template>
+
+	<script>
+		Polymer({
+			is: 'topic-card',
+			
+			properties: {
+				topic: {
+					type: Object,
+					value: undefined
+				}
+			},
+
+			_request_topic_navigation: function (event, detail) {
+				this.async(function () {
+					this.fire('navigation-request', {url: '/topics/'+this.topic.id});
+				}, 200);
+			}
+		});
+	</script>
+
+</dom-module>

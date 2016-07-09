@@ -1,7 +1,6 @@
-<link rel="import" href="/elements/ripple-card.html">
+<link rel="import" href="/elements/topic-card.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
-<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/cascaded-animation.html">
 <link rel="import" href="grid-view.html">
@@ -12,20 +11,7 @@
 			:host {
 				display: block;
 			}
-			ripple-card {
-				--paper-card: { padding: 15px; };
-				cursor: pointer;
-			}
-			#right {
-				position: absolute;
-				top: 8px; right: 8px; bottom: 8px;
-				@apply(--layout-vertical);
-				@apply(--layout-justified);
 
-				font-size: 10px;
-				color: #333;
-				text-align: right;
-			}
 			#more_button_container {
 				@apply(--layout-horizontal);
 				@apply(--layout-center-center);
@@ -37,28 +23,17 @@
 			}
 
 		</style>
+
 		<grid-view>
 			<template is="dom-repeat" items="[[items]]">
-				<ripple-card cascaded heading="[[item.title]]" on-tap="_request_topic_navigation">
-					<span>[[item.description]]</span>
-					<div id="right">
-						<div>
-							<div><span>[[item.subject.title]]</span></div>
-							<div>
-								<span>[[item.semester]]</span>
-								<span>[[item.year]]</span>
-							</div>
-						</div>
-						<div>
-							<span>[[item.person_id]]</span>
-						</div>
-					</div>
-				</ripple>
+				<topic-card topic="[[item]]"></topic-card>
 			</template>
 		</grid-view>
+
 		<div id="more_button_container">
 			<paper-button raised id="more_button" on-tap="_load_more_topics">Older</paper-button>
 		</div>
+
 	</template>
 	<script>
 		Polymer({
@@ -96,12 +71,8 @@
 						this.offset += this.limit;
 					}
 				});
-			},
+			}
 			
-			_request_topic_navigation: function (event, detail) {
-				this.fire('navigation-request', {url: '/topics/'+event.model.item.id});
-			},
-
 		});
 	</script>
 </dom-module>
