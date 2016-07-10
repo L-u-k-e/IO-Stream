@@ -54,64 +54,18 @@
 			xhr.send(body);
 		};
 
-/*
-
-
-		var getData = function (spec) {
-			var preprocess = function (raw_data) {
-				var self = this;       
-				var data = _.map(raw_data, function (item) {
-					//downcase the key names 
-					var item = _.mapKeys(item, function (v, k) { return k.toLowerCase(); });        
-					//add a file_path property if it quacks like it should have one. 
-					if (item.file_name && item.absolute_path) {
-						item.file_path = self.getFilePath({
-							absolute: item.absolute_path,
-							year: item.calendar_year, // may be undefined, but that's okay
-							file_name: item.file_name              
-						});
-					}  
-					return item;
-				});
-				return data;
-			}; 
-
-			//case doesnt actually matter to CF, but I like them to match anyways. 
-			var name = _.camelCase(this.baseKey);
-			makeAPIRequest({
-				method: 'get' + name + 'Data',
-				callback: function (raw_data) {
-					if (!this.onNewData) { return; }
-					var data = preprocess.call(this, raw_data);
-					this.onNewData.call(this, data); 
-				},
-				context: this
-			}); 
-		};
-
-
-
-
-
-
-		var base = 'data';
-		var getFilePath = function (spec) {
-			var path = spec.file_name;
-			if (!+spec.absolute) {
-				var parts = [ base, _.kebabCase(this.baseKey), spec.file_name ];
-				if (spec.year) { parts.splice(2, 0, spec.year); }
-				path = _.join(parts, '/');
+		var properties = {
+			loading: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
 			}
-			return path;
 		};
 
-
-*/
-
-
-
+	
 
 		return Object.freeze({
+			properties: properties,
 			make_api_request: make_api_request,
 			encode_resource_path: encode_resource_path,
 			encode_query_string: encode_query_string

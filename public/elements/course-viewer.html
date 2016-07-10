@@ -15,53 +15,34 @@
 			:host {
 				display: block;
 				position: relative;
-			}
-			app-header-layout {
-				@apply(--layout-fit);
-			}
-			app-header-layout a {
-				text-decoration: inherit;
-				font-style: inherit;
-				color: inherit;
-				transition: all 0.2s ease;
-			} 
-			app-header-layout a:hover {
-				color: var(--primary-color);	
-			}
-			app-toolbar {
-				@apply(--layout-justified);
+				height: 100%;
+				@apply(--layout-vertical);
 			}
 
 			#header {
 				background: var(--paper-amber-100);
 				/*@apply(--shadow-elevation-2dp);*/
 			}
-
-			#description {
-				@apply(--paper-font-subhead);
-				@apply(--layout-horizontal);
-				@apply(--layout-center);
-				padding: 0 16px;
-				min-height: 64px;
-				padding-bottom: 5px;
+			#header a {
+				text-decoration: inherit;
+				font-style: inherit;
+				color: inherit;
+				transition: all 0.2s ease;
+			} 
+			#header a:hover {
+				color: var(--primary-color);	
+			}
+			#header app-toolbar {
+				@apply(--layout-justified);
 			}
 
-			#subject-narrow {
-				display: none;
+			video-browser {
+				@apply(--layout-flex);
 			}
 
 			@media (max-width: 667px) {
-				#subject-narrow {
-					display: block;
-				}
-				#subject-wide {
-					display: none;
-				}
 				app-toolbar {
 					height: 48px;
-				}
-				#descripition {
-					min-height: 48px;
 				}
 			}
 
@@ -70,7 +51,6 @@
 
 		<loading-overlay active="[[loading]]"></loading-overlay>
 
-		<app-header-layout id="container">
 
 		<div id="header">
 			<app-toolbar></app-toolbar>
@@ -86,8 +66,6 @@
 
 		<video-browser course-id="[[courseId]]"></video-browser>
 
-
-		</app-header-layout>
 
 	</template>
 	<script>

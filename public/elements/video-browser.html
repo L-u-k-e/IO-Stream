@@ -10,6 +10,11 @@
 		<style>
 			:host {
 				display: block;
+				position: relative;
+			}
+
+			:host([loading]) {
+				overflow: hidden;
 			}
 
 		</style>
@@ -54,8 +59,8 @@
 					query: { where: {course_id: new_course_id} },
 					context: this, 
 					callback: function (result) { 
-						this.videos = result.body.data; 
 						this.loading = false;
+						this.videos = result.body.data; 
 					}
 				});
 			},
