@@ -11,7 +11,7 @@
 				display: block;
 				position: relative;
 				cursor: pointer;
-				@apply(--layout-vertical);
+				@apply(--layout-horizontal);
 			}
 
 			:host([narrow]) {
@@ -19,7 +19,7 @@
 			}
 
 			paper-card {
-				@apply(--layout-flex);
+				width: 100%;
 				box-sizing: content-box;
 				padding: 15px;
 
@@ -77,7 +77,7 @@
 			properties: {
         heading: {
           type: String,
-          value: '',
+          value: ''
         },
         image: {
           type: String,
@@ -102,7 +102,7 @@
         }
 			},
 
-			_get_elevation(narrow) {
+			_get_elevation: function(narrow) {
 				var elevation = +(!narrow); 
 				return elevation;
 			}

@@ -9,14 +9,17 @@
 			:host {
 				display: block;
 				/* align-items: stretch  (default) will make the ripple-card's height fill up the container. */
-				@apply(--layout-horizontal); 
+				@apply(--layout-horizontal);
+			}
+
+			paper-card {
+				display: block;
+				width: 100%;
 			}
 
 			#right {
 				position: absolute;
 				top: 8px; right: 8px; bottom: 8px;
-				@apply(--layout-vertical);
-				@apply(--layout-justified);
 
 				font-size: 10px;
 				color: #333;
@@ -25,7 +28,7 @@
 
 		</style>
 
-		<ripple-card cascaded heading="[[topic.title]]" on-tap="_request_topic_navigation">
+		<ripple-card heading="[[topic.title]]" on-tap="_request_topic_navigation">
 			<span>[[topic.description]]</span>
 			<div id="right">
 				<div>
