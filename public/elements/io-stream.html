@@ -31,6 +31,7 @@
 <!-- Custom Imports -->
 <link rel="import" href="/elements/the-header.html">
 <link rel="import" href="/elements/the-sidebar.html">
+<link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/behaviors/app-router.html">
 
@@ -99,6 +100,8 @@
 			</app-header>
 
 			<app-drawer-layout fullbleed responsive-width="1250px">
+
+				<loading-overlay id="loading_overlay" active="[[loading]]"></loading-overlay>
 
 				<app-drawer id="drawer">
 					 <the-sidebar selected="[[page]]"></the-sidebar>

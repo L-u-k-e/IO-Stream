@@ -1,4 +1,5 @@
 <link rel="import" href="/elements/topic-card.html">
+<link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/behaviors/api-requestor.html">
@@ -12,6 +13,10 @@
 				display: block;
 			}
 
+			:host([loading]) {
+				overflow: hidden;
+			}
+
 			#more_button_container {
 				@apply(--layout-horizontal);
 				@apply(--layout-center-center);
@@ -23,6 +28,8 @@
 			}
 
 		</style>
+
+		<loading-overlay active="[[loading]]"></loading-overlay>
 
 		<grid-view>
 			<template is="dom-repeat" items="[[items]]">
@@ -61,6 +68,7 @@
 			},
 
 			_load_more_topics: function (event, detail) {
+				this.loading = true;
 				this.make_api_request({
 					verb: 'GET', 
 					resource: 'topics',
@@ -69,6 +77,7 @@
 					callback: function (result) {
 						this.items = _.concat(this.items, result.body.data);
 						this.offset += this.limit;
+						this.loading = false;
 					}
 				});
 			}
