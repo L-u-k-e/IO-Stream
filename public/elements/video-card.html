@@ -51,7 +51,13 @@
 		<responsive-queries narrow="{{narrow}}"></responsive-queries>
 
 		<template is="dom-if" if="[[!narrow]]">
-			<ripple-card heading="[[video.title]]" image="[[video.thumbnail_src]]" fade-image preload-image class="wide">
+			<ripple-card 
+				heading="[[video.title]]" 
+				image="[[video.thumbnail_src]]" 
+				fade-image
+				preload-image 
+				class="wide"
+				on-tap="_request_video_navigation">
 				<div class="card-content">
 					<div>[[get_time_string(video.duration)]]</div>
 					<div>[[get_date_string(video.date_uploaded)]]</div>
@@ -60,7 +66,7 @@
 		</template>
 
 		<template is="dom-if" if="[[narrow]]">
-			<ripple-card class="narrow" elevation="0">
+			<ripple-card class="narrow" elevation="0" on-tap="_request_video_navigation">
 				<iron-image src="[[video.thumbnail_src]]" sizing="cover"></iron-image>
 				<div class="card-content">
 					<div>[[video.title]]</div>
@@ -96,6 +102,14 @@
 				str = str + moment().startOf('day').minutes(time).format('h:mm:ss');
 				return str;
 			},
+
+			_request_video_navigation: function (event, detail) {
+				this.async(function () {
+					this.fire('navigation-request', {url: '/videos/'+this.video.id});
+				}, 200);	
+			}
+
 		});
 	</script>
 </dom-module>
+

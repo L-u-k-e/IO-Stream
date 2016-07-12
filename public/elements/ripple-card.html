@@ -61,6 +61,9 @@
 			image="[[image]]" 
 			elevation="[[_get_elevation(narrow)]]" 
 			animated-shadow="[[animatedShadow]]"
+			preload-image="[[preloadImage]]"
+			fade-image="[[fadeImage]]"
+			placeholder-image="[[placeholderImage]]"
 		>
 			<paper-ripple></paper-ripple>
 			<content></content>
@@ -79,6 +82,10 @@
         image: {
           type: String,
           value: ''
+        },
+        placeholderImage: {
+        	type: String,
+        	value: null
         },
         preloadImage: {
           type: Boolean,

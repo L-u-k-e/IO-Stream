@@ -57,10 +57,19 @@
 				{
 					route:  '/courses/:id',
 					page:   'course viewer',
-					id:     'courser_viewer',
+					id:     'course_viewer',
 					import: 'course-viewer',
 					end: function (ctx) {
 						self.$.course_viewer.courseId = ctx.params.id;
+					}
+				},
+				{
+					route:  '/videos/:id',
+					page:   'video viewer',
+					id:     'video_viewer',
+					import: 'video-viewer',
+					end: function (ctx) {
+						self.$.video_viewer.videoId = ctx.params.id;
 					}
 				}
 			];

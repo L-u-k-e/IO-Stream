@@ -1,0 +1,46 @@
+<link rel="import" href="/bower_components/video-player/video-player.html">
+<link rel="import" href="/behaviors/api-requestor.html">
+<dom-module id="video-viewer">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<video-player id="video_player">
+		</video-player>	
+	</template>
+	<script>
+		Polymer({
+			is: 'video-viewer',
+			
+			behaviors: [Behaviors.api_requestor],
+
+			properties: {
+				videoId: {
+					type: Object,
+					value: undefined,
+					observer: 'get_new_data'
+				},
+				video: {
+					type: Object,
+					value: undefined
+				}
+			},
+
+			get_new_data: function (new_video_id, old_video_id) {
+				this.loading = true;
+				this.make_api_request({
+					verb: 'GET', 
+					resource: ['videos', new_video_id],
+					context: this, 
+					callback: function (result) { 
+						this.video = result.body.data;
+						this.$.source.src = this.video.src;
+						this.loading = false;
+					}
+				});
+			},
+		});
+	</script>
+</dom-module>

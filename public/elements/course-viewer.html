@@ -66,7 +66,6 @@
 
 		<video-browser course-id="[[courseId]]"></video-browser>
 
-
 	</template>
 	<script>
 		Polymer({
@@ -88,6 +87,10 @@
 					type: Boolean,
 					value: false
 				},
+				page: {
+					type: String,
+					value: 'browser'
+				}
 			},
 
 			get_new_data: function (new_course_id, old_course_id) {
