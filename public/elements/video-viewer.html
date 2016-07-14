@@ -4,11 +4,13 @@
 	<template>
 		<style>
 			:host {
-				display: block;
+				@apply(--layout-vertical);
+				@apply(--layout-center);
 			}
+			
 		</style>
-		<video-player id="video_player">
-		</video-player>	
+
+		<video-player id="video_player"></video-player>	
 	</template>
 	<script>
 		Polymer({
@@ -36,7 +38,9 @@
 					context: this, 
 					callback: function (result) { 
 						this.video = result.body.data;
-						this.$.source.src = this.video.src;
+						var source = document.createElement('source');
+						source.setAttribute('src', this.video.src);
+						Polymer.dom(this.$.video_player).appendChild(source)
 						this.loading = false;
 					}
 				});

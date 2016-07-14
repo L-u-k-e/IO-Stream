@@ -10,6 +10,7 @@
   "homepage": "",
   "ignore": [
     "**/.*",
+    "web-components",
     "node_modules",
     "public/bower_components",
     "test",
@@ -17,23 +18,18 @@
   ],
   "dependencies": {
     "iron-elements": "PolymerElements/iron-elements#~1.0.8",
-    "paper-elements": "PolymerElements/paper-elements#~1.0.7",
-    "gold-elements": "PolymerElements/gold-elements#~1.0.1",
-    "neon-elements": "PolymerElements/neon-elements#~1.0.0",
-    "platinum-elements": "PolymerElements/platinum-elements#~2.0.0",
-    "google-web-components": "GoogleWebComponents/google-web-components#~1.0.1",
-    "lodash": "~4.3.0",
-    "polymer": "~1.2.4",
-    "paper-search": "~1.0.20",
-    "app-layout": "PolymerLabs/app-layout#~0.0.7",
+    "paper-elements": "^1.0.7",
+    "neon-elements": "^1.0.0",
+    "lodash": "^4.13.1",
+    "polymer": "^1.6.0",
+    "app-layout": "^0.10.0",
     "fullscreen-enabled": "L-u-k-e/fullscreen-enabled#^0.5.0",
-    "video-player": "L-u-k-e/video-player#^0.2.0",
-    "page": "visionmedia/page.js#^1.7.1",
-    "vaadin-upload": "^1.0.0-alpha2",
-    "moment": "^2.12.0",
-    "flow.js": "~2"
+    "video-player": "L-u-k-e/video-player#^0.3.0",
+    "page": "^1.7.1",
+    "moment": "^2.14.1",
+    "flow.js": "^2.11.2"
   },
   "resolutions": {
-    "lodash": "^4.6.1"
+    "lodash": "^4.13.1"
   }
 }
