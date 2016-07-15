@@ -20,7 +20,12 @@
 
 		<video-player id="video_player"></video-player>
 		<paper-card heading="[[video.title]]">
-			<div class="card-content">[[video.course.topic.title]]</div>
+			<div class="card-content">
+				<div>[[video.course.topic.title]]</div>
+				<div>
+					<span>[[video.course.semester.title]]</span>
+					<span>[[video.course.year]]</span>
+			</div>
 		</paper-card>
 
 	</template>
