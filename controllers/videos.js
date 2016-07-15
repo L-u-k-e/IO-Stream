@@ -114,9 +114,10 @@ var get_some = function (req, res, next) {
 
 /* Get some videos */
 var get_one = function (req, res, next) {
-	var args = {id: req.params.id};
-	args.inflection = 'one';
-	videos.get(args)
+	videos.get({
+		inflection: 'one',
+		where: {id: req.params.id}
+	})
 	.then(function (data) {
 		res.status(200).json({
 			message: 'Retrieved one video.',
