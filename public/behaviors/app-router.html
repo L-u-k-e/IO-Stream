@@ -10,17 +10,16 @@
 
 			var setup_route = function (args) {
 				page(args.route, function (ctx) {
-					var set_view = function () { 
+					var set_view = function () {
 						if (args.page) self.page = args.page;
 						if (args.end) args.end(ctx);
 						self.loading = false;
 					};
-
 					self.loading = true;
 					if (args.id && !Polymer.isInstance(self.$[args.id])) {
-						self.importHref('/elements/'+args.import+'.html', set_view, true);
+						self.importHref('/elements/'+args.import+'.html', set_view, null, true);
 					} else { set_view(); }
-					set_view();
+					
 				});
 			};
 

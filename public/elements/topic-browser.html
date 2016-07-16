@@ -3,7 +3,6 @@
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/behaviors/api-requestor.html">
-<link rel="import" href="/behaviors/cascaded-animation.html">
 <link rel="import" href="grid-view.html">
 
 <dom-module id="topic-browser">
@@ -46,7 +45,7 @@
 		Polymer({
 			is: 'topic-browser',
 
-			behaviors: [Behaviors.api_requestor, Behaviors.cascaded_animation ],
+			behaviors: [Behaviors.api_requestor],
 
 			properties: {
 				items: {
@@ -63,8 +62,7 @@
 				}
 			},
 
-			ready: function () {
-				this.offset += 15;
+			attached: function () {
 				this._load_more_topics();
 			},
 
