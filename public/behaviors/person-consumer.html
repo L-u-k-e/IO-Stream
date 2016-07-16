@@ -1,0 +1,16 @@
+<script>
+	var Behaviors = Behaviors || {};
+	Behaviors.person_consumer = (function() {
+
+		var get_full_name = function (person) {
+			var full_name = person.first_name + ' ' + person.last_name;
+			return full_name;
+		};
+
+		return Object.freeze({
+			_get_full_name: get_full_name
+		});
+
+	}());
+</script>
+</script>

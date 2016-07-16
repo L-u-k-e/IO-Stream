@@ -64,7 +64,8 @@
 			},
 
 			ready: function () {
-				this._load_more_topics()
+				this.offset += 15;
+				this._load_more_topics();
 			},
 
 			_load_more_topics: function (event, detail) {

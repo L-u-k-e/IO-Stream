@@ -1,4 +1,6 @@
 <link rel="import" href="/elements/ripple-card.html">
+<link rel="import" href="/behaviors/person-consumer.html">
+
 <dom-module id="course-card">
 	<template>
 		<style>
@@ -21,16 +23,13 @@
 		Polymer({
 			is: 'course-card',
 			
+			behaviors: [Behaviors.person_consumer],
+
 			properties: {
 				course: {
 					type: Object,
 					value: {}
 				}
-			},
-
-			_get_full_name: function (person) {
-				var full_name = person.first_name + ' ' + person.last_name;
-				return full_name;
 			},
 
 			_request_course_navigation: function (event, detail) {

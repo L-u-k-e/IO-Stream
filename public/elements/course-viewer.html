@@ -5,6 +5,7 @@
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="/behaviors/api-requestor.html">
+<link rel="import" href="/behaviors/person-consumer.html">
 <link rel="import" href="/elements/video-browser.html">
 <link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/styles/shared-styles.html">
@@ -63,7 +64,7 @@
 				<div>[[course.topic.subject.title]]</div>
 			</app-toolbar>
 			<app-toolbar>
-				<div>[[get_full_name(course.person)]]</div>
+				<div>[[_get_full_name(course.person)]]</div>
 				<div>[[get_time_detail(course)]]</div>
 			</app-toolbar>
 		</div>
@@ -75,7 +76,7 @@
 		Polymer({
 			is: 'course-viewer',
 
-			behaviors: [Behaviors.api_requestor],
+			behaviors: [Behaviors.api_requestor, Behaviors.person_consumer],
 
 			properties: {
 				courseId: {
@@ -114,12 +115,6 @@
 				var link = '/topics/' + topic_id;
 				return link;
 			},
-
-			get_full_name: function (person) {
-				var name = person.first_name + ' ' + person.last_name;
-				return name;
-			},
-
 
 			get_time_detail: function (course) {
 				var detail = course.semester.title + ' ' + course.year;

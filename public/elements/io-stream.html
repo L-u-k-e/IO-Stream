@@ -84,8 +84,8 @@
 				@apply(--layout-center-center);
 			}*/
 
-			neon-animated-pages,
-			neon-animated-pages > * {
+			#pages,
+			#pages > * {
 				@apply(--layout-fit);
 			}
 
@@ -107,7 +107,9 @@
 					 <the-sidebar selected="[[page]]"></the-sidebar>
 				</app-drawer>
 				
-				<neon-animated-pages selected="[[page]]" 
+				<iron-pages 
+					id="pages"
+					selected="[[page]]" 
 					attr-for-selected="data-page" 
 					selected-attribute="showing"
 				>
@@ -117,7 +119,7 @@
 					<video-viewer   id="video_viewer"   data-page="video viewer"></video-viewer>
 					<file-uploader  id="video_browser"  data-page="watch"></file-uploader>
 					<course-creator id="course-creator" data-page="course creator"></course-creator>
-				</neon-animated-pages>
+				</iron-pages>			
 			</app-drawer-layout>
 
 
