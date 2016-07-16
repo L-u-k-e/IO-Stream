@@ -1,9 +1,9 @@
 {
-  "name": "classx-suny-poly",
+  "name": "IO-Stream",
   "authors": [
     "L-u-k-e <parzycl1@sunyit.edu>"
   ],
-  "description": "ClassX made great with Node JS.",
+  "description": "A video sharing platform for lectures",
   "main": "",
   "moduleType": [],
   "license": "MIT",
@@ -28,8 +28,5 @@
     "page": "^1.7.1",
     "moment": "^2.14.1",
     "flow.js": "^2.11.2"
-  },
-  "resolutions": {
-    "lodash": "^4.13.1"
   }
 }
