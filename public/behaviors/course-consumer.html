@@ -1,0 +1,21 @@
+<link rel="import" href="person-consumer.html">
+<script>
+	var Behaviors = Behaviors || {};
+
+	var course_consumer = (function () {
+		var get_semester_detail = function (course) {
+			var detail = course.semester.title + ' ' + course.year;
+			if (course.section) detail += ' (Section ' + course.section + ')';
+			return detail;
+		};
+
+		return Object.freeze({
+			_get_semester_detail: get_semester_detail
+		});
+	}());
+
+	Behaviors.course_consumer = [
+		Behaviors.person_consumer,
+		course_consumer
+	]
+</script>

@@ -1,5 +1,5 @@
 <link rel="import" href="/elements/ripple-card.html">
-<link rel="import" href="/behaviors/person-consumer.html">
+<link rel="import" href="/behaviors/course-consumer.html">
 
 <dom-module id="course-card">
 	<template>
@@ -11,10 +11,7 @@
 
 		<ripple-card heading="[[_get_full_name(course.person)]]" on-tap="_request_course_navigation">
 			<div class="card-content">
-				<div>
-					<span>[[course.semester.title]]</span>
-					<span>[[course.year]]</span>
-				</div>
+				<div>[[_get_semester_detail(course)]]</div>
 			</div>
 		</ripple-card>
 
@@ -23,7 +20,7 @@
 		Polymer({
 			is: 'course-card',
 			
-			behaviors: [Behaviors.person_consumer],
+			behaviors: [Behaviors.course_consumer],
 
 			properties: {
 				course: {
