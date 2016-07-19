@@ -6,7 +6,9 @@
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/course-consumer.html">
+<link rel="import" href="/behaviors/responsive-properties.html">
 <link rel="import" href="/elements/video-browser.html">
+<link rel="import" href="/elements/responsive-queries.html">
 <link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/styles/shared-styles.html">
 
@@ -32,10 +34,9 @@
 				text-decoration: inherit;
 				font-style: inherit;
 				color: inherit;
-				transition: all 0.2s ease;
 			} 
-			#header a:hover {
-				color: var(--primary-color);	
+			#header a:hover {	
+				text-decoration: underline;
 			}
 			#header app-toolbar {
 				@apply(--layout-justified);
@@ -45,27 +46,52 @@
 				@apply(--layout-flex);
 			}
 
-			@media (max-width: 667px) {
-				app-toolbar {
-					height: 48px;
-				}
+			:host(:not([narrow])) .toolbar-narrow,
+			:host(:not([narrow])) #subject-narrow,
+			:host(:not([narrow])) #semester-narrow {
+				display: none;
 			}
+
+			/*:host([narrow]) #subject-narrow,
+			:host([narrow]) .toolbar-narrow,
+			:host([narrow]) #semester-narrow {
+				display: block;
+			}*/
+
+			:host([narrow]) #subject-wide,
+			:host([narrow]) #semester-wide {
+				display: none;
+			}
+			:host([narrow]) app-toolbar {
+				height: 36px;
+			}
+
+			:host([narrow]) .secondary-toolbar {
+				@apply(--paper-font-subhead);
+				height: 28px;
+			}
+			
 
 
 		</style>
 
 		<loading-overlay active="[[loading]]"></loading-overlay>
-
+		<responsive-queries narrow="{{narrow}}"></responsive-queries>
 
 		<div id="header">
-			<app-toolbar></app-toolbar>
 			<app-toolbar>
-				<a href="[[get_topic_link(course.topic.id)]]">[[course.topic.title]]</a>
-				<div>[[course.topic.subject.title]]</div>
+				<div id="subject-narrow">[[course.topic.subject.title]]</div>
 			</app-toolbar>
 			<app-toolbar>
-				<div>[[_get_full_name(course.person)]]</div>
-				<div>[[_get_semester_detail(course)]]</div>
+				<a href="[[get_topic_link(course.topic.id)]]">[[course.topic.title]]</a>
+				<div id="subject-wide">[[course.topic.subject.title]]</div>
+			</app-toolbar>
+			<app-toolbar class="secondary-toolbar">
+				<div id="professor">[[_get_full_name(course.person)]]</div>
+				<div id="semester-wide">[[_get_semester_detail(course)]]</div>
+			</app-toolbar>
+			<app-toolbar class="toolbar-narrow secondary-toolbar">
+				<div id="semester-narrow">[[_get_semester_detail(course)]]</div>
 			</app-toolbar>
 		</div>
 
@@ -76,7 +102,7 @@
 		Polymer({
 			is: 'course-viewer',
 
-			behaviors: [Behaviors.api_requestor, Behaviors.course_consumer],
+			behaviors: [Behaviors.api_requestor, Behaviors.responsive_properties, Behaviors.course_consumer],
 
 			properties: {
 				courseId: {
