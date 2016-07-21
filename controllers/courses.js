@@ -1,24 +1,7 @@
 var courses = require('../models/courses');
 var videos  = require('../models/videos');
-/* general flow: authenticate -> controller -> send response */
-/*(var route_map = [
-	{ verb:  'get', 
-		route: '/api/courses',
-		privs: ['read'],
-		model_method: 'get_all'
-	}, {
-		verb:  'get', 
-		route: '/api/courses/:id',
-		privs: ['read'],
-		model_method: 'get'
-	}
-];
 
-model.exports = function (router) {
-	_.each(map, function (spec) {
-		router[spec.verb](route, _.partial(check_privs, privs), courses[model_method]);
-	});
-};*/
+
 
 var get_some = function (req, res, next) {
 	var args = req.query;
@@ -69,8 +52,55 @@ var get_videos = function (req, res, next) {
 };
 
 module.exports = function (router) {
+
+	/**
+	 * @swagger
+	 * definition:
+	 *   Course:
+	 *     properties:
+	 *       id:
+	 *         type: string
+	 *       topic_id:
+	 *         type: string
+	 *       semester_id:
+	 *         type: integer
+	 *       year:
+	 *         type: string
+	 *       section:
+	 *         type: string
+	 *       person_id:
+	 *         type: string
+	 */
+
+
+
+
+
+
+
+	/**
+	 * @swagger	
+   * /api/courses:
+   *   get:
+   *     tags:
+   *       - Courses
+   *     description: Returns a set of courses
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: An array of courses
+   *         schema:
+   *           $ref: '#/definitions/Course'
+   */
 	router.get('/api/courses', get_some);
+
+
 	router.get('/api/courses/:id', get_one);
+
+
 	router.get('/api/courses/:id/videos', get_videos);
+
+
 	/*router.post('/api/courses', create);*/
 };

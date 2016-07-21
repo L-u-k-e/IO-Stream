@@ -1,4 +1,5 @@
 var express = require('express');
+var swagger_spec = require('./swagger.js');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -27,6 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(query_parser);
 app.use('/', controllers);
+
+//swagger
+app.get('/swagger.json', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swagger_spec);
+});
 
 app.use('*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, 'public')});
