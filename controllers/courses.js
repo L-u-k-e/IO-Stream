@@ -92,6 +92,13 @@ module.exports = function (router) {
    *         description: An array of courses
    *         schema:
    *           $ref: '#/definitions/Course'
+   *     parameters:
+   *       - name: where
+   *         description: JSON object whose keys are model attributes and values are the filter values. 
+   *           There is an implied AND between the individual keys/value pairs.
+   *         type: string
+   *         required: false
+   *         in: query
    */
 	router.get('/api/courses', get_some);
 
