@@ -41,13 +41,62 @@ var send_chunk_completion_notice = function (req, res, next) {
 
 module.exports = function (router) {
 
-	/* Check to see if a chunk has already been uploaded */
+	/**
+	 * @swagger	
+	 * /api/video-chunks:
+	 *   get:
+	 *     tags:
+	 *       - Video Chunks
+	 *     description: Check to see if a video chunk has been uploaded
+	 *     responses:
+	 *       200:
+	 *         description: Indicates that the chunk already exists.
+	 *       204:
+	 *         description: Indicates that the chunk has not yet been uploaded.
+	 *     parameters:
+	 *       - name: flowIdentifier
+	 *         description: A client-provided file identifier unique to the source file of the chunk whose status is being requested 
+	 *         type: string
+	 *         required: true
+	 *         in: query
+	 *       - name: flowChunkNumber
+	 *         description: The index of the chunk whose status is being requested
+	 *         type:  integer
+	 *         required: true
+	 *         in: query
+	 */
 	router.get('/api/video-chunks', 
 		input_binding.normalize_params,
 		get_chunk_status
 	);
 
-	/* Upload a new chunk */
+		/**
+	 * @swagger	
+	 * /api/video-chunks:
+	 *   post:
+	 *     tags:
+	 *       - Video Chunks
+	 *     description: Upload a new chunk
+	 *     responses:
+	 *       201:
+	 *         description: Indicates that the chunk was successfully uploaded.
+	 *     parameters:
+	 *       - name: file
+	 *         description: The file chunk to be uploaded to the staging directory.
+	 *         type: file
+	 *         required: true
+	 *         in: body
+	 *       - name: flowIdentifier
+	 *         description: A client-provided file identifier unique to the source file of the chunk whose status is being requested 
+	 *         type: string
+	 *         required: true
+	 *         in: query
+	 *       - name: flowChunkNumber
+	 *         description: The index of the chunk whose status is being requested
+	 *         type:  integer
+	 *         required: true
+	 *         in: query
+	 */
 	router.post('/api/video-chunks',
 		upload.single('file'), 
 		input_binding.normalize_params,
