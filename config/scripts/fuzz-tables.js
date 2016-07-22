@@ -150,6 +150,7 @@ var seed_videos = function (next) {
 	console.log('seeding videos...');
 
 	var videos_path = path.join('public', 'videos');
+	var publishing_dir = path.join(videos_path, 'published');
 	var samples_dir = path.join(videos_path, 'samples');
 	var video_samples_dir = path.join(samples_dir, 'videos');
 	var thumbs_samples_dir = path.join(samples_dir, 'thumbnails');
@@ -157,9 +158,7 @@ var seed_videos = function (next) {
 	var thumb_names = fs.readdirSync(thumbs_samples_dir);
 	
 	_.each(fs.readdirSync(videos_path), function (item) {
-		if (!_.includes(['samples', 'staging'], item)) {
-			fs.removeSync(path.join(videos_path, item));
-		}
+		fs.removeSync(path.join(publishing_dir, item));
 	});
 
 
@@ -167,7 +166,7 @@ var seed_videos = function (next) {
 		var uuid = generate_uuid(true);
 		var video_file_src = path.join(video_samples_dir, _.sample(video_names));
 		var thumb_file_src = path.join(thumbs_samples_dir, _.sample(thumb_names));
-		var uuid_dir = path.join(videos_path, uuid);
+		var uuid_dir = path.join(publishing_dir, uuid);
 		var video_file_dest = path.join(uuid_dir, uuid + path.extname(video_file_src));
 		var thumb_file_dest = path.join(uuid_dir, 'thumb' + path.extname(thumb_file_src));
 		fs.mkdirSync(uuid_dir);
