@@ -26,7 +26,8 @@ CREATE TABLE person (
 	faculty     boolean       NOT NULL,
 	super_user  boolean       NOT NULL,
 	first_name  varchar(100)  NOT NULL,
-	last_name   varchar(100)  NOT NULL
+	last_name   varchar(100)  NOT NULL,
+	hash        char(60)      NOT NULL
 ); 
 
 

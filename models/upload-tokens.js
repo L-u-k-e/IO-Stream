@@ -7,6 +7,7 @@ var generate_uuid = require('../helpers/uuid');
 
 
 exports.get = function (spec) {
+	console.log(spec);
 	var promise = orm.select({
 		db: db, 
 		table: 'upload_token',

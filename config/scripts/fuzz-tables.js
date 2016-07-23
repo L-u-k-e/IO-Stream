@@ -16,6 +16,7 @@ var generate_uuid = require('../../helpers/uuid');
 var async         = require('async');
 var fs            = require('fs-extra');
 var path          = require('path');
+var bcrypt        = require('bcrypt');
 
 var users = [];
 var videos = [];
@@ -79,13 +80,15 @@ var get_ids_from = function (table, cb) {
 var seed_users = function (next) {
 	console.log('seeding users ...');
 
+
 	_.times(15, function (i) {
 		users.push({
 			id:         faker.internet.userName(),
 			faculty:    (i <= 5 || i > 10),
 			super_user: (i <= 5),
 			first_name: faker.name.firstName(),
-			last_name:  faker.name.lastName()
+			last_name:  faker.name.lastName(),
+			hash:       bcrypt.hashSync('password', 12)
 		});
 	});
 

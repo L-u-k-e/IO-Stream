@@ -23,10 +23,13 @@ var lookup_upload_token = function (req, res, next) {
 
 /* Request that a new upload token be created and send the video ID to the client whenever one is allocated. */
 var reserve_upload_token = function (req, res, next) {
+	console.log('creating');
 	var key = { file_id: req.file_id };
 	upload_tokens.create(key)
-	.then(function (token) { send_video_id({res: res, status: 201, id: token.video_id}) })
-	.catch(function (err) { next(err); });
+	.then(function (token) { 
+		console.log(res);
+		send_video_id({res: res, status: 201, id: token.video_id}) })
+	.catch(function (err) { console.log('error'); console.log(err); next(err); });
 };
 
 /* Send a video ID back to the client */
