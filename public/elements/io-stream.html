@@ -32,6 +32,7 @@
 <link rel="import" href="/elements/the-header.html">
 <link rel="import" href="/elements/the-sidebar.html">
 <link rel="import" href="/elements/loading-overlay.html">
+<link rel="import" href="/elements/signin-dialog.html">
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/behaviors/app-router.html">
 
@@ -76,7 +77,10 @@
 				position: relative;
 				z-index: 100;
 			}
-
+			signin-dialog {
+				position: relative;
+				z-index: 1000;
+			}
 			/* Main container should fill it's parent's space */
 			/*#main {
 				@apply(--layout-fit);
@@ -93,6 +97,7 @@
 
 		<app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
 
+		<signin-dialog id="signin_dialog"></signin-dialog>
 		<app-header-layout has-scrolling-region>
 
 			<app-header fixed shadow>
@@ -141,12 +146,17 @@
 			behaviors: [Behaviors.app_router],
 
 			listeners: {
-				'drawer-toggle-request': '_toggle_drawer'
+				'drawer-toggle-request': '_toggle_drawer',
+				'signin-dialog-toggle-request': '_toggle_signin_dialog'
 			},
 
 			_toggle_drawer: function (event, detail) {
 				this.$.drawer.toggle();
 			},
+
+			_toggle_signin_dialog: function(event, detail) {
+				this.$.signin_dialog.toggle();
+			}
 
 		});
 	</script>

@@ -19,10 +19,11 @@
 <link rel="import" href="/bower_components/iron-icons/av-icons.html">
 <link rel="import" href="/bower_components/iron-icons/hardware-icons.html">
 <link rel="import" href="/bower_components/paper-search/paper-search-bar.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/iron-icons/social-icons.html">
 
 <!-- Custom Imports -->
 <link rel="import" href="/styles/shared-styles.html">
-<link rel="import" href="/elements/signin-portal.html">
 
 
 
@@ -84,18 +85,28 @@
 				--iron-icon-width: 30px; 
 			}
 
-			#drawer_toggler {
+			#drawer_toggler,
+			#signin-trigger iron-icon {
 				color: var(--accent-color);
 			}
 
-			/* Drawe toggler should only be visible below responsive width */
+			#signin-trigger {
+				font-size: 14px;
+				--paper-button-ink-color: var(--accent-color);
+			}
+			#signin-trigger > * {
+				margin-right: 5px;
+			}
+
+
+			/* Drawer toggler should only be visible below responsive width */
 			@media (min-width: 1251px) {
 				#drawer_toggler {
 					display: none;
 				}
 			}
 
-			/* Some elements need to disappear all togehter when space gets cramped*/
+			/* Some elements need to disappear all together when space gets cramped*/
 			@media (max-width: 575px) and (min-width: 476px) {
 				#left div {
 					display: none !important;
@@ -128,8 +139,14 @@
 					<iron-icon id="logo" icon="hardware:developer-board"></iron-icon>
 				</div>
 			</div>
+			
 			<span>SUNY Polytechnic</span>
-			<signin-portal></signin-portal>
+			
+			<paper-button id="signin-trigger" raised on-tap="_request_signin_dialog_toggle"> 
+				<iron-icon icon="social:person"></iron-icon>
+				<span>SIGN IN</span>
+			</paper-button>
+
 			<!--<paper-search-bar></paper-search-bar>-->
 		</app-toolbar>
 
@@ -148,6 +165,10 @@
 			
 			_request_drawer_toggle: function (event, detail) {
 				this.fire('drawer-toggle-request');
+			},
+
+			_request_signin_dialog_toggle: function (event, detail) {
+				this.fire('signin-dialog-toggle-request');
 			}
 			
 		});
