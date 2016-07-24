@@ -31,7 +31,8 @@
 
 		var make_api_request = function (spec) {
 			
-			var body  = spec.body;
+			var body = JSON.stringify(spec.body);
+			var headers = spec.headers;
 			var resource_path = encode_resource_path(spec.resource);   
 			var query_string = encode_query_string(spec.query);
 			var full_url = resource_path + query_string;
@@ -51,6 +52,9 @@
 			};
 
 			xhr.open(spec.verb, full_url);
+			_.each(headers, function (value, key) {
+				xhr.setRequestHeader(key, value); 
+			});
 			xhr.send(body);
 		};
 

@@ -1,6 +1,7 @@
 <link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 <link rel="import" href="/behaviors/responsive-properties.html">
+<link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/elements/responsive-queries.html">
 
 <dom-module id="signin-dialog">
@@ -32,13 +33,13 @@
 		<responsive-queries narrow="{{narrow}}"></responsive-queries>
 		<paper-dialog id="dialog" with-backdrop>
 			<h2>Sign In</h2>
-			<paper-input placeholder="username"></paper-input>
-			<paper-input type="password" placeholder="password"></paper-input>
+			<paper-input id="username" placeholder="username"></paper-input>
+			<paper-input id="password" type="password" placeholder="password"></paper-input>
 			<div>(Use your SIT Net Credentials)</div>
 			<div id="error">[[error_message]]</div>
 			<div class="buttons">
 				<paper-button dialog-dismiss>cancel</paper-button>
-				<paper-button dialog-confirm autofocus>sign in</paper-button>
+				<paper-button dialog-confirm autofocus on-tap="_authenticate">sign in</paper-button>
 			</div>
 		</paper-dialog>
 
@@ -47,9 +48,27 @@
 	<script>
 		Polymer({
 			is: 'signin-dialog',
-			behaviors: [Behaviors.responsive_properties],
+			behaviors: [Behaviors.responsive_properties, Behaviors.api_requestor],
+			
 			toggle: function () {
 				this.$.dialog.toggle();
+			},
+
+			_authenticate: function (event, detail) {
+				this.make_api_request({
+					verb: 'POST', 
+					resource: 'auth-tokens',
+					headers: {'Content-Type': 'application/json'},
+					body: {
+						user: this.$.username.value,
+						password: this.$.password.value
+					},
+					context: this,
+					callback: function (result) { 
+						this.course = result.body.data; 
+						this.loading = false;
+					}
+				});	
 			}
 		});
 	</script>
