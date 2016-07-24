@@ -53,8 +53,20 @@
 				text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
 				@apply(--paper-font-title);
 			}
-			
-
+			app-toolbar > * {
+				@apply(--layout-flex);
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+			}	
+			#middle {
+				@apply(--layout-start-justified);
+			}
+			#middle {
+				@apply(--layout-center-justified);
+			}
+			#right {
+				@apply(--layout-end-justified);
+			}
 
 
 
@@ -64,7 +76,7 @@
 			 *
 			 * The left header contains the drawer toggler and the classX branding. 
 			 */
-			#left {
+			#left-inner {
 				width: 240px;
 				@apply(--layout-horizontal);
 				@apply(--layout-center);
@@ -73,7 +85,7 @@
 			/* The ClassX branding should be centered in the remaining
 			 * space of the #left div after the #drawer_toggler is placed. 
 			 */
-			#left div {
+			#left #left-inner div {
 				@apply(--layout-flex);
 				@apply(--layout-horizontal);
 				@apply(--layout-center-center);
@@ -105,24 +117,20 @@
 					display: none;
 				}
 			}
-
-			/* Some elements need to disappear all together when space gets cramped*/
-			@media (max-width: 575px) and (min-width: 476px) {
-				#left div {
-					display: none !important;
-				}
-			}
 			@media (max-width: 850px) {
-				app-toolbar > span {
+				#middle {
 					display: none;
 				}
 			}
 			@media (max-width: 475px) {
-				paper-search-bar {
+				#left-inner {
+					width:100%;
+				}
+				#logo {
 					display: none;
 				}
-				#left {
-					width:100%;
+				#right {
+					@apply(--layout-flex-none);
 				}
 			}
 
@@ -133,20 +141,25 @@
 
 		<app-toolbar>
 			<div id="left">
-				<paper-icon-button icon="menu" id="drawer_toggler" on-tap="_request_drawer_toggle"></paper-icon-button>
-				<div>
-					<span> IO Stream </span>
-					<iron-icon id="logo" icon="hardware:developer-board"></iron-icon>
+				<div id="left-inner">
+					<paper-icon-button icon="menu" id="drawer_toggler" on-tap="_request_drawer_toggle"></paper-icon-button>
+					<div>
+						<span> IO Stream </span>
+						<iron-icon id="logo" icon="hardware:developer-board"></iron-icon>
+					</div>
 				</div>
 			</div>
 			
+			<div id="middle">
 			<span>SUNY Polytechnic</span>
-			
-			<paper-button id="signin-trigger" raised on-tap="_request_signin_dialog_toggle"> 
-				<iron-icon icon="social:person"></iron-icon>
-				<span>SIGN IN</span>
-			</paper-button>
+			</div>
 
+			<div id="right">
+				<paper-button id="signin-trigger" raised on-tap="_request_signin_dialog_toggle"> 
+					<iron-icon icon="social:person"></iron-icon>
+					<span>SIGN IN</span>
+				</paper-button>
+			</div>
 			<!--<paper-search-bar></paper-search-bar>-->
 		</app-toolbar>
 
