@@ -22,12 +22,13 @@ DROP TABLE person;
 
 
 CREATE TABLE person (
-	id          varchar(50)   PRIMARY KEY,
-	faculty     boolean       NOT NULL,
-	super_user  boolean       NOT NULL,
-	first_name  varchar(100)  NOT NULL,
-	last_name   varchar(100)  NOT NULL,
-	hash        char(60)      NOT NULL
+	id                       varchar(50)   PRIMARY KEY,
+	faculty                  boolean       NOT NULL,
+	super_user               boolean       NOT NULL,
+	first_name               varchar(100)  NOT NULL,
+	last_name                varchar(100)  NOT NULL,
+	hash                     char(60)      NOT NULL,
+	last_token_invalidation  timestamp     NOT NULL      DEFAULT CURRENT_TIMESTAMP
 ); 
 
 
@@ -57,7 +58,7 @@ CREATE TABLE topic (
 	subject_id     int            NOT NULL,
 	title          varchar(250)   NOT NULL,
 	description    varchar(1000)  NULL,
-	date_created   date           NOT NULL     DEFAULT CURRENT_DATE
+	date_created   timestamp      NOT NULL     DEFAULT CURRENT_DATE
 );
 
 ALTER TABLE topic ADD CONSTRAINT topic_subject 
@@ -110,7 +111,7 @@ CREATE TABLE video (
 	duration           decimal(255,2)  NULL,
 	date_uploaded      timestamp       NULL,
 	date_modified      timestamp       NOT NULL      DEFAULT CURRENT_TIMESTAMP,
-	course_id  char(11)        NOT NULL,
+	course_id          char(11)        NOT NULL,
 	title              varchar(100)    NULL,
 	description        varchar(500)    NULL,
 	src                varchar(1000)   NULL,
