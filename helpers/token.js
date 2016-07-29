@@ -1,4 +1,6 @@
 var jwt = require('jwt-simple');
+var _   = require('lodash');
+
 var secret = 'donuts'
 
 exports.new = function (user) {
@@ -10,13 +12,20 @@ exports.new = function (user) {
 exports.auth = function (perms) {
 	var middleware = function (req, res, next) {
 		try {
-			var cookie = req.cookies.auth-token;
-			console.log(cookie);
+			var cookie = req.cookies.auth_token;
 			var payload = jwt.decode(cookie, secret);
-			console.log(payload);
-			next();
+
+			var has_perm = function (perm) {
+				var prop = _.snakeCase(perm);
+				var has = !!payload.user[prop];
+				return has;
+			};
+
+			if (_.every(perms, has_perm)) next();
+			else res.status(401).json({message: 'Insufficient permissions.'});
+			
 		} catch (err) {
-			res.status(401).json({message: 'Invalid or non-existant authentication token.'})
+			res.status(401).json({message: 'Invalid or non-existant authentication token.'});
 		}
 	};
 	return middleware;
