@@ -31,7 +31,6 @@ exports.get = function (args) {
 
 
 exports.authenticate = function (args) {
-	console.log(args);
 	return orm.select({
 		db: db,
 		table: table,
@@ -41,7 +40,8 @@ exports.authenticate = function (args) {
 	.then(function (user) {
 		return compare(args.password, user.hash)
 		.then(function (same) {
-			var auth_info = { valid: same, permissions: user.permissions };
+			var public_props = ['id', 'faculty', 'super_user', 'first_name', 'last_name'];
+			var auth_info = { valid: same, user: _.pick(user, public_props) };
 			return auth_info;
 		});
 	})
