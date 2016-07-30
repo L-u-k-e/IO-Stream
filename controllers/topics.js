@@ -1,4 +1,5 @@
 var topics = require('../models/topics');
+var token  = require('../helpers/token'); 
 
 
 
@@ -38,6 +39,6 @@ var get_one = function (req, res, next) {
 
 
 module.exports = function (router) {
-	router.get('/api/topics', get_some);
-	router.get('/api/topics/:id', get_one);
+	router.get('/api/topics', token.auth(), get_some);
+	router.get('/api/topics/:id', token.auth(), get_one);
 };

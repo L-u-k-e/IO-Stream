@@ -31,15 +31,14 @@
 		</style>
 		
 		<responsive-queries narrow="{{narrow}}"></responsive-queries>
-		<paper-dialog id="dialog" with-backdrop>
-			<h2>Sign In</h2>
+		<paper-dialog id="dialog" modal>
+			<h2>Welcome!</h2>
 			<paper-input id="username" placeholder="username"></paper-input>
 			<paper-input id="password" type="password" placeholder="password"></paper-input>
 			<div>(Use your SIT Net Credentials)</div>
 			<div id="error">[[error_message]]</div>
 			<div class="buttons">
-				<paper-button dialog-dismiss>cancel</paper-button>
-				<paper-button dialog-confirm autofocus on-tap="_authenticate">sign in</paper-button>
+				<paper-button autofocus on-tap="_authenticate">sign in</paper-button>
 			</div>
 		</paper-dialog>
 

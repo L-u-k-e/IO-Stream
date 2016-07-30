@@ -29,8 +29,14 @@
 			var routes = [
 				{ 
 					route: '/', 
-					end: function () { page.redirect('/topics'); } 
+					end: function () { page.redirect('/welcome'); } 
 				}, 
+				{
+					route:  '/welcome',
+					page:   'welcome',
+					id:     'welcome',
+					import: 'signin-page'
+				},
 				{ 
 					route:  '/watch', 
 					page:   'watch', 

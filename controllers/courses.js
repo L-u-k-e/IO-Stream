@@ -1,5 +1,6 @@
 var courses = require('../models/courses');
 var videos  = require('../models/videos');
+var token   = require('../helpers/token');
 
 
 
@@ -100,13 +101,13 @@ module.exports = function (router) {
    *         required: false
    *         in: query
    */
-	router.get('/api/courses', get_some);
+	router.get('/api/courses', token.auth(), get_some);
 
 
-	router.get('/api/courses/:id', get_one);
+	router.get('/api/courses/:id', token.auth(), get_one);
 
 
-	router.get('/api/courses/:id/videos', get_videos);
+	router.get('/api/courses/:id/videos', token.auth(), get_videos);
 
 
 	/*router.post('/api/courses', create);*/

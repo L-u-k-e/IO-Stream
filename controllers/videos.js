@@ -6,7 +6,7 @@ var _             = require('lodash');
 var path          = require('path');
 var fs            = require('fs');
 var multer        = require('multer');
-
+var token         = require('../helpers/token');
 
 
 
@@ -143,7 +143,7 @@ module.exports = function (router) {
 	);
 
 	/* get some videos */
-	router.get('/api/videos', get_some);
+	router.get('/api/videos', token.auth(), get_some);
 
-	router.get('/api/videos/:id', get_one);
+	router.get('/api/videos/:id', token.auth(), get_one);
 };

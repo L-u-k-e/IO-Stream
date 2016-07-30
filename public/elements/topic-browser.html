@@ -71,6 +71,7 @@
 				this.make_api_request({
 					verb: 'GET', 
 					resource: 'topics',
+					check_auth: true,
 					query:  {limit: this.batchSize, offset: this.offset, order: ['title']},
 					context: this, 
 					callback: function (result) {

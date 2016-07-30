@@ -31,32 +31,35 @@
 
 		var make_api_request = function (spec) {
 			
+			var self = this;
 			var body = JSON.stringify(spec.body);
 			var headers = spec.headers;
+			var check_auth = spec.check_auth;
 			var resource_path = encode_resource_path(spec.resource);   
 			var query_string = encode_query_string(spec.query);
 			var full_url = resource_path + query_string;
-
-			var context = spec.context || window;
 			var xhr = new XMLHttpRequest();
+
 			xhr.onreadystatechange = function () { 
 				if (xhr.readyState == XMLHttpRequest.DONE) {
 					var response = {status: xhr.status, body: xhr.response};
 					try { response.body = JSON.parse(xhr.response); }
 					catch (syntaxError) {}
-
-					if (spec.callback) {
-						spec.callback.call(context, response);
+					if (response.status == 401 && check_auth) {
+						self.fire('signin-request');
+					} else if (spec.callback) {
+						spec.callback.call(self, response);
 					}
 				}
 			};
-
 			xhr.open(spec.verb, full_url);
 			_.each(headers, function (value, key) {
 				xhr.setRequestHeader(key, value); 
 			});
 			xhr.send(body);
 		};
+
+
 
 		var properties = {
 			loading: {

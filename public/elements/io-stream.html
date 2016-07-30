@@ -118,6 +118,7 @@
 					attr-for-selected="data-page" 
 					selected-attribute="showing"
 				>
+					<signin-page    id="welcome"        data-page="welcome"></signin-page>
 					<topic-browser  id="topic_browser"  data-page="topic browser"></topic-browser>
 					<topic-viewer   id="topic_viewer"   data-page="topic viewer"></topic-viewer>
 					<course-viewer  id="course_viewer"  data-page="course viewer"></course-viewer>
@@ -147,7 +148,7 @@
 
 			listeners: {
 				'drawer-toggle-request': '_toggle_drawer',
-				'signin-dialog-toggle-request': '_toggle_signin_dialog'
+				'signin-request': '_toggle_signin_dialog'
 			},
 
 			_toggle_drawer: function (event, detail) {
