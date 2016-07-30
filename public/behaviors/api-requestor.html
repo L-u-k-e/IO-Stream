@@ -34,7 +34,7 @@
 			var self = this;
 			var body = JSON.stringify(spec.body);
 			var headers = spec.headers;
-			var check_auth = spec.check_auth;
+			var check_auth = (_.has(spec, 'check_auth')) ? spec.check_auth : true;
 			var resource_path = encode_resource_path(spec.resource);   
 			var query_string = encode_query_string(spec.query);
 			var full_url = resource_path + query_string;
