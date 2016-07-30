@@ -156,7 +156,7 @@
 			},
 
 			_toggle_signin_dialog: function(event, detail) {
-				this.$.signin_dialog.toggle();
+				this.$.signin_dialog.open({success_callback: detail.success_callback});
 			}
 
 		});

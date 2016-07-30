@@ -1,5 +1,6 @@
 <link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/behaviors/responsive-properties.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/elements/responsive-queries.html">
@@ -17,7 +18,14 @@
 			paper-dialog {
 				position: relative;
 			}
-
+			#error {
+				color: red;
+			}
+			.buttons {
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+				@apply(--layout-justified);
+			}
 			:host([narrow]) paper-dialog {
 				width: 100%;
 				margin: 10px;
@@ -25,7 +33,6 @@
 			
 			:host([narrow]) paper-input {
 				min-width: 0;
-
 			}
 
 		</style>
@@ -36,8 +43,8 @@
 			<paper-input id="username" placeholder="username"></paper-input>
 			<paper-input id="password" type="password" placeholder="password"></paper-input>
 			<div>(Use your SIT Net Credentials)</div>
-			<div id="error">[[error_message]]</div>
 			<div class="buttons">
+				<div id="error">[[error_message]]</div>
 				<paper-button autofocus on-tap="_authenticate">sign in</paper-button>
 			</div>
 		</paper-dialog>
@@ -47,14 +54,24 @@
 	<script>
 		Polymer({
 			is: 'signin-dialog',
-			behaviors: [Behaviors.responsive_properties, Behaviors.api_requestor],
 			
-			toggle: function () {
-				this.$.dialog.toggle();
+			behaviors: [Behaviors.responsive_properties, Behaviors.api_requestor],
+
+			properties: {
+				successCallbacks: {
+					type: Array,
+					value: []
+				}
+			},
+			
+			open: function (args) {
+				this.successCallbacks.push(args.success_callback);
+				this.$.dialog.open();
 			},
 
 			_authenticate: function (event, detail) {
 				this.make_api_request({
+					check_auth: false,
 					verb: 'POST', 
 					resource: 'auth-tokens',
 					headers: {'Content-Type': 'application/json'},
@@ -62,10 +79,15 @@
 						user: this.$.username.value,
 						password: this.$.password.value
 					},
-					context: this,
-					callback: function (result) { 
-						this.course = result.body.data; 
-						this.loading = false;
+					callback: function (result) {
+						if (result.status == 401) {
+							this.error_message = result.body.message; 
+						} else {
+							this.error_message = '';
+							_.each(this.successCallbacks, function (cb) { cb(); });
+							this.successCallbacks = [];
+							this.$.dialog.close();
+						} 
 					}
 				});	
 			}

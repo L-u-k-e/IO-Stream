@@ -38,25 +38,29 @@
 			var resource_path = encode_resource_path(spec.resource);   
 			var query_string = encode_query_string(spec.query);
 			var full_url = resource_path + query_string;
-			var xhr = new XMLHttpRequest();
 
-			xhr.onreadystatechange = function () { 
-				if (xhr.readyState == XMLHttpRequest.DONE) {
-					var response = {status: xhr.status, body: xhr.response};
-					try { response.body = JSON.parse(xhr.response); }
-					catch (syntaxError) {}
-					if (response.status == 401 && check_auth) {
-						self.fire('signin-request');
-					} else if (spec.callback) {
-						spec.callback.call(self, response);
+			var send_request = function () {
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function () { 
+					if (xhr.readyState == XMLHttpRequest.DONE) {
+						var response = {status: xhr.status, body: xhr.response};
+						try { response.body = JSON.parse(xhr.response); }
+						catch (syntaxError) {}
+						if (response.status == 401 && check_auth) {
+							self.fire('signin-request', {success_callback: send_request.bind(self)});
+						} else if (spec.callback) {
+							spec.callback.call(self, response);
+						}
 					}
-				}
+				};
+				xhr.open(spec.verb, full_url);
+				_.each(headers, function (value, key) {
+					xhr.setRequestHeader(key, value); 
+				});
+				xhr.send(body);
 			};
-			xhr.open(spec.verb, full_url);
-			_.each(headers, function (value, key) {
-				xhr.setRequestHeader(key, value); 
-			});
-			xhr.send(body);
+			send_request();
+			
 		};
 
 
