@@ -3,7 +3,7 @@ var pg = require('pg-promise')({promiseLib: promise});
 var connection_config = { 
 	host: 'localhost',
 	user: 'www',
-	password: '1234567',
+	password: '123456',
 	database: 'io_stream'
 };
 var db = pg(connection_config);

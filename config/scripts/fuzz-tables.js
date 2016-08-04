@@ -155,20 +155,14 @@ var seed_videos = function (next) {
 	var videos_path = path.join('public', 'videos');
 	var publishing_dir = path.join(videos_path, 'published');
 	var samples_dir = path.join(videos_path, 'samples');
-	var video_samples_dir = path.join(samples_dir, 'videos');
-	var thumbs_samples_dir = path.join(samples_dir, 'thumbnails');
-	var video_names = fs.readdirSync(video_samples_dir);
-	var thumb_names = fs.readdirSync(thumbs_samples_dir);
+	var samples = fs.readdirSync(samples_dir);
 	
-	_.each(fs.readdirSync(videos_path), function (item) {
-		fs.removeSync(path.join(publishing_dir, item));
-	});
-
-
+	fs.emptyDirSync(publishing_dir);
 	_.times(5000, function (i) {
 		var uuid = generate_uuid(true);
-		var video_file_src = path.join(video_samples_dir, _.sample(video_names));
-		var thumb_file_src = path.join(thumbs_samples_dir, _.sample(thumb_names));
+		var sample = _.sample(samples);
+		var video_file_src = path.join(samples_dir,sample, 'video.mp4');
+		var thumb_file_src = path.join(samples_dir,sample, 'thumb.jpg');
 		var uuid_dir = path.join(publishing_dir, uuid);
 		var video_file_dest = path.join(uuid_dir, uuid + path.extname(video_file_src));
 		var thumb_file_dest = path.join(uuid_dir, 'thumb' + path.extname(thumb_file_src));

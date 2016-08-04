@@ -1,0 +1,2 @@
+DROPDB io_stream
+CREATEDB io_stream
