@@ -1,0 +1,35 @@
+<script>
+	var Behaviors = Behaviors || {};
+	Behaviors.token_manager = (function () {
+		var token = {};
+
+		var load_token = function () {
+			token.encoded = localStorage.getItem('auth_token');
+			token.decoded = (token.encoded) ? jwt_decode(token.encoded) : {};
+		};
+
+		var save_token = function (encoded) {
+			localStorage.setItem('auth_token', encoded);
+			load_token();
+		};
+
+		var delete_token = function () {
+			localStorage.removeItem('auth_token');
+		};
+
+		var properties = {
+			token: {
+				type: Object,
+				value: token
+			}
+		}
+
+		return {
+			properties: properties,
+			save_token: save_token,
+			load_token: load_token,
+			delete_token: delete_token
+		};
+
+	}());
+</script>

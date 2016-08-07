@@ -5,7 +5,6 @@
 	 This element acts as the top-most mediator. 
 	 (Google "mediator pattern" if that term confuses you) 
 	
- The design for this application was inspired in part by Youtube :) 
 -->
 
 
@@ -16,6 +15,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="/bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="/bower_components/neon-animation/neon-animated-pages.html">
 <link rel="import" href="/bower_components/neon-animation/neon-animatable.html">
 
@@ -33,8 +33,10 @@
 <link rel="import" href="/elements/the-sidebar.html">
 <link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/elements/signin-dialog.html">
+
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/behaviors/app-router.html">
+<link rel="import" href="/behaviors/token-manager.html">
 
 <link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
@@ -75,22 +77,6 @@
 				};
 			}
 
-			/* The header should be on top of everything. */
-			the-header {
-				position: relative;
-				z-index: 100;
-			}
-			signin-dialog {
-				position: relative;
-				z-index: 1000;
-			}
-			/* Main container should fill it's parent's space */
-			/*#main {
-				@apply(--layout-fit);
-				@apply(--layout-vertical);
-				@apply(--layout-center-center);
-			}*/
-
 			#pages,
 			#pages > * {
 				@apply(--layout-fit);
@@ -101,6 +87,7 @@
 		<app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
 
 		<signin-dialog id="signin_dialog"></signin-dialog>
+
 		<app-header-layout has-scrolling-region>
 
 			<app-header fixed shadow>
@@ -108,19 +95,11 @@
 			</app-header>
 
 			<app-drawer-layout fullbleed responsive-width="1250px">
-
 				<loading-overlay id="loading_overlay" active="[[loading]]"></loading-overlay>
-
 				<app-drawer id="drawer">
 					 <the-sidebar selected="[[page]]"></the-sidebar>
 				</app-drawer>
-				
-				<iron-pages 
-					id="pages"
-					selected="[[page]]" 
-					attr-for-selected="data-page" 
-					selected-attribute="showing"
-				>
+				<iron-pages id="pages" selected="[[page]]" attr-for-selected="data-page" selected-attribute="showing">
 					<signin-page    id="welcome"        data-page="welcome"></signin-page>
 					<topic-browser  id="topic_browser"  data-page="topic browser"></topic-browser>
 					<topic-viewer   id="topic_viewer"   data-page="topic viewer"></topic-viewer>
@@ -130,7 +109,6 @@
 					<course-creator id="course-creator" data-page="course creator"></course-creator>
 				</iron-pages>			
 			</app-drawer-layout>
-
 
 		</app-header-layout>
 
@@ -147,11 +125,15 @@
 		Polymer({
 			is: 'io-stream',
 
-			behaviors: [Behaviors.app_router],
+			behaviors: [Behaviors.app_router, Behaviors.token_manager],
 
 			listeners: {
 				'drawer-toggle-request': '_toggle_drawer',
 				'signin-request': '_toggle_signin_dialog'
+			},
+
+			ready: function () {
+				this.load_token();
 			},
 
 			_toggle_drawer: function (event, detail) {
@@ -160,7 +142,7 @@
 
 			_toggle_signin_dialog: function(event, detail) {
 				this.$.signin_dialog.open({success_callback: detail.success_callback});
-			}
+			},
 
 		});
 	</script>

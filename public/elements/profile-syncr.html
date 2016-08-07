@@ -1,0 +1,28 @@
+<!--
+	This element syncs with local storage to get/set the token attributes pertaining to a user profile. 
+-->
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<dom-module id="profile-syncr">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<iron-localstorage name="app-storage" 
+			value="{{user}}"
+			on-iron-localstorage-load-empty="_request_signin"
+		></iron-localstorage>
+	</template>
+	<script>
+		Polymer({
+			is: 'profile-syncr',
+			properties: {
+				user: {
+					type: Object,
+					value: {}
+				}
+			}
+		});
+	</script>
+</dom-module>

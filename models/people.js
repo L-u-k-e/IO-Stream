@@ -46,6 +46,7 @@ exports.authenticate = function (args) {
 		});
 	})
 	.catch(function (err) {
+		console.log(err);
 		var auth_info = { valid: false };
 		return auth_info;
 	});

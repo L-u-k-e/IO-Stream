@@ -9,9 +9,7 @@ var authenticate = function (req, res, next) {
 			res.status(401).json({message: "Invalid username or password."});
 		} else {
 			var fresh_token = token.new(result.user);
-			var cookie_opts = { maxAge: (1000 * 60 * 60 * 24 * 7), httpOnly: true };
-			res.cookie('auth_token', fresh_token, cookie_opts);
-			res.status(201).json({message: "Created a new authentication token."});
+			res.status(201).append('authorization', fresh_token).json({message: "Created a new authentication token."});
 		}
 	});
 };

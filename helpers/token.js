@@ -1,7 +1,7 @@
 var jwt = require('jwt-simple');
 var _   = require('lodash');
 
-var secret = 'donuts'
+var secret = 'donuts';
 
 exports.new = function (user) {
 	var payload = {user: user};
@@ -12,8 +12,8 @@ exports.new = function (user) {
 exports.auth = function (perms) {
 	var middleware = function (req, res, next) {
 		try {
-			var cookie = req.cookies.auth_token;
-			var payload = jwt.decode(cookie, secret);
+			var token = req.headers.authorization;
+			var payload = jwt.decode(token, secret);
 
 			var has_perm = function (perm) {
 				var prop = _.snakeCase(perm);

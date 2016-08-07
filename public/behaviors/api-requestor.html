@@ -1,86 +1,112 @@
+<link rel="import" href="token-manager.html">
 <script>
 
 	var Behaviors = Behaviors || {};
+	(function () {
+		var api_requestor = (function () {
+			var path_root = 'api';
 
-	Behaviors.api_requestor = (function () {
-		var path_root = 'api';
-
-		var encode_resource_path = function (path) {
-			if (_.isString(path)) path = [path];
-			path.unshift(path_root);
-			var resource_path = path.map(function (sub_resource) {
-				var encoded = encodeURIComponent(sub_resource);
-				return encoded;
-			}).join('/');
-			return '/' + resource_path;
-		};
-
-
-
-		var encode_query_string = function (obj)  {
-			if (!obj) return '';
-			
-			var query_string = _.map(obj, function (v, k) {
-				var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(JSON.stringify(v));
-				return encoded;
-			}).join('&');
-			
-			return '?' + query_string;
-		};
-
-
-		var make_api_request = function (spec) {
-			
-			var self = this;
-			var body = JSON.stringify(spec.body);
-			var headers = spec.headers;
-			var check_auth = (_.has(spec, 'check_auth')) ? spec.check_auth : true;
-			var resource_path = encode_resource_path(spec.resource);   
-			var query_string = encode_query_string(spec.query);
-			var full_url = resource_path + query_string;
-
-			var send_request = function () {
-				var xhr = new XMLHttpRequest();
-				xhr.onreadystatechange = function () { 
-					if (xhr.readyState == XMLHttpRequest.DONE) {
-						var response = {status: xhr.status, body: xhr.response};
-						try { response.body = JSON.parse(xhr.response); }
-						catch (syntaxError) {}
-						if (response.status == 401 && check_auth) {
-							self.fire('signin-request', {success_callback: send_request.bind(self)});
-						} else if (spec.callback) {
-							spec.callback.call(self, response);
-						}
-					}
-				};
-				xhr.open(spec.verb, full_url);
-				_.each(headers, function (value, key) {
-					xhr.setRequestHeader(key, value); 
-				});
-				xhr.send(body);
+			var encode_resource_path = function (path) {
+				if (_.isString(path)) path = [path];
+				path.unshift(path_root);
+				var resource_path = path.map(function (sub_resource) {
+					var encoded = encodeURIComponent(sub_resource);
+					return encoded;
+				}).join('/');
+				return '/' + resource_path;
 			};
-			send_request();
-			
-		};
 
 
 
-		var properties = {
-			loading: {
-				type: Boolean,
-				value: false,
-				reflectToAttribute: true
-			}
-		};
+			var encode_query_string = function (obj)  {
+				if (!obj) return '';
+				
+				var query_string = _.map(obj, function (v, k) {
+					var encoded = encodeURIComponent(k) + '=' + encodeURIComponent(JSON.stringify(v));
+					return encoded;
+				}).join('&');
+				
+				return '?' + query_string;
+			};
 
-	
 
-		return Object.freeze({
-			properties: properties,
-			make_api_request: make_api_request,
-			encode_resource_path: encode_resource_path,
-			encode_query_string: encode_query_string
-		});
+
+			var parse_response_headers = function (str) {
+				var headers = {};
+				_.each(str.split('\r\n'), function (key_value_pair) {
+					var split_kvp = key_value_pair.split(': ');
+					if (split_kvp[0]) headers[split_kvp[0]] = split_kvp[1];
+				});
+				return headers;
+			};
+
+
+
+			var make_api_request = function (spec) {
+				var self = this;
+				var body = JSON.stringify(spec.body);
+				var headers = spec.headers || {};
+				var check_auth = (_.has(spec, 'check_auth')) ? spec.check_auth : true;
+				var resource_path = encode_resource_path(spec.resource);   
+				var query_string = encode_query_string(spec.query);
+				var full_url = resource_path + query_string;
+				
+				var send_request = function () {
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function () { 
+						if (xhr.readyState == XMLHttpRequest.DONE) {
+							var response = {status: xhr.status, body: xhr.response};
+							response.headers = parse_response_headers(xhr.getAllResponseHeaders());
+							try { response.body = JSON.parse(xhr.response); }
+							catch (syntaxError) {}
+							
+							if (response.headers.authorization) {
+								self.save_token(response.headers.authorization);
+							} 
+
+							if (response.status == 401 && check_auth) {
+								self.fire('signin-request', {success_callback: send_request.bind(self)});
+							} else if (spec.callback) {
+								spec.callback.call(self, response);
+							}
+						}
+					};
+
+					xhr.open(spec.verb, full_url);
+					if (self.token.encoded) headers.authorization = self.token.encoded;
+					_.each(headers, function (value, key) {
+						xhr.setRequestHeader(key, value); 
+					});
+					xhr.send(body);	
+				};
+
+				send_request();
+			};
+
+
+
+			var properties = {
+				loading: {
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true
+				}
+			};
+		
+
+
+			return Object.freeze({
+				properties: properties,
+				make_api_request: make_api_request,
+				encode_resource_path: encode_resource_path,
+				encode_query_string: encode_query_string
+			});
+		}());
+
+		Behaviors.api_requestor = [
+			Behaviors.token_manager,
+			api_requestor
+		];
 
 	}());
 

@@ -27,6 +27,7 @@
     "video-player": "L-u-k-e/video-player#^0.3.0",
     "page": "^1.7.1",
     "moment": "^2.14.1",
-    "flow.js": "^2.11.2"
+    "flow.js": "^2.11.2",
+    "jwt-decode": "^2.1.0"
   }
 }
