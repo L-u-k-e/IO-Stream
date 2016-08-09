@@ -2,10 +2,16 @@
 	var Behaviors = Behaviors || {};
 	Behaviors.token_manager = (function () {
 		var token = {};
+		var subscribers = [];
 
 		var load_token = function () {
-			token.encoded = localStorage.getItem('auth_token');
-			token.decoded = (token.encoded) ? jwt_decode(token.encoded) : {};
+			token = {
+				encoded: localStorage.getItem('auth_token'),
+				decoded: (token.encoded) ? jwt_decode(token.encoded) : {}
+			};
+			_.each(subscribers, function (element) {
+				element.token = token;
+			});
 		};
 
 		var save_token = function (encoded) {
@@ -22,9 +28,15 @@
 				type: Object,
 				value: token
 			}
-		}
+		};
+
+		var created = function () {
+			this.token = token;
+			subscribers.push(this);
+		};
 
 		return {
+			ready: created,
 			properties: properties,
 			save_token: save_token,
 			load_token: load_token,

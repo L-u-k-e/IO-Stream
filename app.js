@@ -35,6 +35,7 @@ app.get('/swagger.json', function (req, res) {
   res.send(swagger_spec);
 });
 
+
 app.use('*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, 'public')});
 });

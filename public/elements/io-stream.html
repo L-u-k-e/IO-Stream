@@ -30,8 +30,7 @@
 
 <!-- Custom Imports -->
 <link rel="import" href="/elements/the-header.html">
-<link rel="import" href="/elements/the-sidebar.html">
-<link rel="import" href="/elements/loading-overlay.html">
+<link rel="import" href="/elements/the-sidebar.html">-
 <link rel="import" href="/elements/signin-dialog.html">
 
 <link rel="import" href="/styles/shared-styles.html">
@@ -41,6 +40,7 @@
 <link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/loading-overlay/loading-overlay.html">
 
 
 
@@ -84,8 +84,6 @@
 
 		</style>
 
-		<app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
-
 		<signin-dialog id="signin_dialog"></signin-dialog>
 
 		<app-header-layout has-scrolling-region>
@@ -107,7 +105,7 @@
 					<video-viewer   id="video_viewer"   data-page="video viewer"></video-viewer>
 					<file-uploader  id="video_browser"  data-page="watch"></file-uploader>
 					<course-creator id="course-creator" data-page="course creator"></course-creator>
-				</iron-pages>			
+				</iron-pages>	
 			</app-drawer-layout>
 
 		</app-header-layout>
@@ -127,6 +125,13 @@
 
 			behaviors: [Behaviors.app_router, Behaviors.token_manager],
 
+			properties: {
+				page: {
+					type: String,
+					value: ''
+				}
+			},
+
 			listeners: {
 				'drawer-toggle-request': '_toggle_drawer',
 				'signin-request': '_toggle_signin_dialog'
@@ -142,7 +147,7 @@
 
 			_toggle_signin_dialog: function(event, detail) {
 				this.$.signin_dialog.open({success_callback: detail.success_callback});
-			},
+			}
 
 		});
 	</script>
