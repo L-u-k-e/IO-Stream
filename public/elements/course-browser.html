@@ -1,7 +1,6 @@
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="/elements/grid-view.html">
 <link rel="import" href="/elements/course-card.html">
-<link rel="import" href="/behaviors/api-requestor.html">
 
 <dom-module id="course-browser">
 	<template>
@@ -25,7 +24,6 @@
 	<script>
 		Polymer({
 			is: 'course-browser',
-			behaviors: [Behaviors.api_requestor],
 			properties: {
 				topicId: {
 					type:     String,
@@ -39,10 +37,11 @@
 			},
 
 			get_new_data: function (new_topic_id, old_topic_id) {
-				this.make_api_request({
+				this.fire('api-request', {
 					verb: 'GET',
 					resource: 'courses',
 					query: { where: { topic_id: new_topic_id } },
+					callback_scope: this,
 					callback: function (result) { this.courses = result.body.data; }
 				});
 			},

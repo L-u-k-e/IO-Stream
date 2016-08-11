@@ -8,7 +8,6 @@
 <link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="/bower_components/paper-tabs/paper-tab.html">
-<link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/responsive-properties.html">
 <link rel="import" href="/elements/course-browser.html">
 <link rel="import" href="/elements/loading-overlay.html">
@@ -91,7 +90,7 @@
 	<script>
 		Polymer({
 			is: 'topic-viewer',
-			behaviors: [Behaviors.api_requestor,  Behaviors.responsive_properties],
+			behaviors: [Behaviors.responsive_properties],
 			properties: {
 				topicID: {
 					type: String,
@@ -110,10 +109,10 @@
 
 			get_new_data: function (new_topic_id, old_topic_id) {
 				this.loading = true;
-				this.make_api_request({
+				this.fire('api-request', {
 					verb: 'GET', 
 					resource: ['topics', new_topic_id],
-					context: this, 
+					callback_scope: this,
 					callback: function (result) { 
 						this.topic = result.body.data; 
 						this.loading = false;

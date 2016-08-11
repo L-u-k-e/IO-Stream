@@ -4,7 +4,6 @@
 <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/course-consumer.html">
 <link rel="import" href="/behaviors/responsive-properties.html">
 <link rel="import" href="/elements/video-browser.html">
@@ -101,7 +100,7 @@
 		Polymer({
 			is: 'course-viewer',
 
-			behaviors: [Behaviors.api_requestor, Behaviors.responsive_properties, Behaviors.course_consumer],
+			behaviors: [Behaviors.responsive_properties, Behaviors.course_consumer],
 
 			properties: {
 				courseId: {
@@ -125,10 +124,10 @@
 
 			get_new_data: function (new_course_id, old_course_id) {
 				this.loading = true;
-				this.make_api_request({
+				this.fire('api-request', {
 					verb: 'GET', 
 					resource: ['courses', this.courseId],
-					context: this, 
+					callback_scope: this, 
 					callback: function (result) { 
 						this.course = result.body.data; 
 						this.loading = false;

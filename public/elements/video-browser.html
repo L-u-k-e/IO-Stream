@@ -1,6 +1,5 @@
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/behaviors/api-requestor.html">
-<link rel="import" href="/elements/loading-overlay.html">
 <link rel="import" href="/elements/grid-view.html">
 <link rel="import" href="/elements/video-card.html">
 <link rel="import" href="/styles/shared-styles.html">
@@ -31,8 +30,6 @@
 	<script>
 		Polymer({
 			is: 'video-browser',
-			
-			behaviors: [Behaviors.api_requestor],
 
 			properties: {
 				courseId: {
@@ -53,11 +50,11 @@
 
 			get_new_data: function (new_course_id, old_course_id) {
 				this.loading = true;
-				this.make_api_request({
+				this.fire('api-request', {
 					verb: 'GET', 
 					resource: 'videos',
 					query: { where: {course_id: new_course_id} },
-					context: this, 
+					callback_scope: this, 
 					callback: function (result) { 
 						this.loading = false;
 						this.videos = result.body.data; 

@@ -1,8 +1,8 @@
 <link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-meta/iron-meta.html">
 <link rel="import" href="/behaviors/responsive-properties.html">
-<link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/elements/responsive-queries.html">
 
 <dom-module id="signin-dialog">
@@ -35,6 +35,7 @@
 
 		</style>
 		
+		<iron-meta id="token_store" key="token"></iron-meta>
 		<responsive-queries narrow="{{narrow}}"></responsive-queries>
 		<paper-dialog id="dialog" modal>
 			<h2>Welcome!</h2>
@@ -53,7 +54,7 @@
 		Polymer({
 			is: 'signin-dialog',
 			
-			behaviors: [Behaviors.responsive_properties, Behaviors.api_requestor],
+			behaviors: [Behaviors.responsive_properties],
 
 			properties: {
 				successCallbacks: {
@@ -68,7 +69,7 @@
 			},
 
 			_authenticate: function (event, detail) {
-				this.make_api_request({
+				this.fire('api-request',{
 					check_auth: false,
 					verb: 'POST', 
 					resource: 'auth-tokens',
@@ -77,6 +78,7 @@
 						user: this.$.username.value,
 						password: this.$.password.value
 					},
+					callback_scope: this,
 					callback: function (result) {
 						if (result.status == 401) {
 							this.error_message = result.body.message; 

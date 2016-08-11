@@ -1,7 +1,6 @@
 <link rel="import" href="/elements/topic-card.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
-<link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="grid-view.html">
 
 <dom-module id="topic-browser">
@@ -44,8 +43,6 @@
 		Polymer({
 			is: 'topic-browser',
 
-			behaviors: [Behaviors.api_requestor],
-
 			properties: {
 				items: {
 					type: Array,
@@ -67,10 +64,11 @@
 
 			_load_more_topics: function (event, detail) {
 				this.loading = true;
-				this.make_api_request({
+				this.fire('api-request', {
 					verb: 'GET', 
 					resource: 'topics',
 					query:  {limit: this.batchSize, offset: this.offset, order: ['title']},
+					callback_scope: this,
 					callback: function (result) {
 						this.items = _.concat(this.items, result.body.data);
 						this.offset += this.limit;

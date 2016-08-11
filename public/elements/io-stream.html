@@ -35,7 +35,7 @@
 
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/behaviors/app-router.html">
-<link rel="import" href="/behaviors/token-manager.html">
+<link rel="import" href="/behaviors/api-requestor.html">
 
 <link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
@@ -84,6 +84,7 @@
 
 		</style>
 
+		<iron-meta key="token" value="{{token}}"></iron-meta>
 		<signin-dialog id="signin_dialog"></signin-dialog>
 
 		<app-header-layout has-scrolling-region>
@@ -123,7 +124,7 @@
 		Polymer({
 			is: 'io-stream',
 
-			behaviors: [Behaviors.app_router, Behaviors.token_manager],
+			behaviors: [Behaviors.app_router, Behaviors.api_requestor],
 
 			properties: {
 				page: {

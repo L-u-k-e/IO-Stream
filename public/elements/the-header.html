@@ -23,6 +23,7 @@
 
 <!-- Custom Imports -->
 <link rel="import" href="/styles/shared-styles.html">
+<link rel="import" href="/behaviors/token-manager.html">
 
 
 
@@ -156,7 +157,7 @@
 			<div id="right">
 				<paper-button id="signin-trigger" raised on-tap="_request_signin_dialog_toggle"> 
 					<iron-icon icon="social:person"></iron-icon>
-					<span>SIGN IN</span>
+					<span>[[token.encoded]]</span>
 				</paper-button>
 			</div>
 			<!--<paper-search-bar></paper-search-bar>-->
@@ -174,6 +175,11 @@
 	<script>
 		Polymer({
 			is: 'the-header',
+			ready: function () {
+				console.log(this.token);
+			},
+
+			Behaviors: [Behaviors.token_manager],
 			
 			_request_drawer_toggle: function (event, detail) {
 				this.fire('drawer-toggle-request');

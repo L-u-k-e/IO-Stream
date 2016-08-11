@@ -32,8 +32,6 @@
 	<script>
 		Polymer({
 			is: 'video-viewer',
-			
-			behaviors: [Behaviors.api_requestor],
 
 			properties: {
 				videoId: {
@@ -49,10 +47,10 @@
 
 			get_new_data: function (new_video_id, old_video_id) {
 				this.loading = true;
-				this.make_api_request({
+				this.fire('api-request', {
 					verb: 'GET', 
 					resource: ['videos', new_video_id],
-					context: this, 
+					callback_scope: this, 
 					callback: function (result) { 
 						this.video = result.body.data;
 						var source = document.createElement('source');

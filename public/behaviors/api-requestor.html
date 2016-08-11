@@ -50,6 +50,7 @@
 				var resource_path = encode_resource_path(spec.resource);   
 				var query_string = encode_query_string(spec.query);
 				var full_url = resource_path + query_string;
+				var callback_scope = spec.callback_scope || window;
 				
 				var send_request = function () {
 					var xhr = new XMLHttpRequest();
@@ -67,7 +68,7 @@
 							if (response.status == 401 && check_auth) {
 								self.fire('signin-request', {success_callback: send_request.bind(self)});
 							} else if (spec.callback) {
-								spec.callback.call(self, response);
+								spec.callback.call(callback_scope, response);
 							}
 						}
 					};
@@ -94,9 +95,19 @@
 			};
 		
 
+			var pass_api_request = function (event, detail) {
+				this.make_api_request(detail);
+			};
+
+			var listeners = {
+				'api-request': '_pass_api_request'
+			};
+
 
 			return Object.freeze({
 				properties: properties,
+				listeners: listeners,
+				_pass_api_request: pass_api_request,
 				make_api_request: make_api_request,
 				encode_resource_path: encode_resource_path,
 				encode_query_string: encode_query_string
