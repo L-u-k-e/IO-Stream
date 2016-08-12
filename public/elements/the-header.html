@@ -18,12 +18,11 @@
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/iron-icons/av-icons.html">
 <link rel="import" href="/bower_components/iron-icons/hardware-icons.html">
-<link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/iron-icons/social-icons.html">
 
 <!-- Custom Imports -->
 <link rel="import" href="/styles/shared-styles.html">
-<link rel="import" href="/behaviors/token-manager.html">
+<link rel="import" href="/elements/user-action-portal.html">
 
 
 
@@ -97,17 +96,8 @@
 				--iron-icon-width: 30px; 
 			}
 
-			#drawer_toggler,
-			#signin-trigger iron-icon {
+			#drawer_toggler {
 				color: var(--accent-color);
-			}
-
-			#signin-trigger {
-				font-size: 14px;
-				--paper-button-ink-color: var(--accent-color);
-			}
-			#signin-trigger > * {
-				margin-right: 5px;
 			}
 
 
@@ -135,10 +125,8 @@
 			}
 
 
-
 		</style>
 		
-
 		<app-toolbar>
 			<div id="left">
 				<div id="left-inner">
@@ -151,16 +139,12 @@
 			</div>
 			
 			<div id="middle">
-			<span>SUNY Polytechnic</span>
+				<span>SUNY Polytechnic</span>
 			</div>
 
 			<div id="right">
-				<paper-button id="signin-trigger" raised on-tap="_request_signin_dialog_toggle"> 
-					<iron-icon icon="social:person"></iron-icon>
-					<span>[[token.encoded]]</span>
-				</paper-button>
+				<user-action-portal token="[[token]]"></user-action-portal>
 			</div>
-			<!--<paper-search-bar></paper-search-bar>-->
 		</app-toolbar>
 
 
@@ -175,12 +159,13 @@
 	<script>
 		Polymer({
 			is: 'the-header',
-			ready: function () {
-				console.log(this.token);
+			
+			behaviors: [Behaviors.person_consumer],
+
+			properties: {
+				token: Object
 			},
 
-			Behaviors: [Behaviors.token_manager],
-			
 			_request_drawer_toggle: function (event, detail) {
 				this.fire('drawer-toggle-request');
 			},

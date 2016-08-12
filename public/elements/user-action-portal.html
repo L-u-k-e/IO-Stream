@@ -1,0 +1,83 @@
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="/bower_components/paper-menu/paper-menu.html">
+
+<link rel="import" href="/behaviors/person-consumer.html">
+<link rel="import" href="/styles/shared-styles.html">
+
+<dom-module id="user-action-portal">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-button {
+				font-size: 14px;
+				--paper-button-ink-color: var(--accent-color);
+			}
+			iron-icon {
+				color: var(--accent-color);
+			}
+			paper-menu-button {
+				padding: 0;
+			}
+			paper-menu {
+				width:150px;
+			}
+			paper-menu paper-item {
+				cursor: pointer;
+				--paper-item-focused: {
+					color: var(--primary-color);
+				};
+			}
+
+			:host(:not([access="faculty"])) paper-item.faculty,
+			:host(:not([access="admin"])) paper-item.admin {
+				display: none;
+			};
+		</style>
+
+		<paper-menu-button>
+			<paper-button class="dropdown-trigger"> 
+				<span>[[_get_full_name(token.decoded.user)]]</span>
+				<iron-icon icon="expand-more"></iron-icon>
+			</paper-button>
+			<paper-menu class="dropdown-content">
+				<template is="dom-repeat" items="[[items]]">
+					<paper-item class$="[[item.class]]">[[item.text]]</paper-item>
+				</template>
+			</paper-menu>
+		</paper-menu-button>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'user-action-portal',
+			behaviors: [Behaviors.person_consumer],
+			properties: {
+				token: Object,
+				access: {
+					type: String,
+					computed: '_get_access_level(token)',
+					reflectToAttribute: true
+				}
+			},
+			ready: function () {
+				this.items = [
+					{text: 'Sign Out',   class: 'public' },
+					{text: 'My Courses', class: 'faculty'},
+					{text: 'Topics',     class: 'admin'  },
+					{text: 'Users',      class: 'admin'  },
+					{text: 'About',      class: 'public' },
+				]
+			},
+			_get_access_level: function (token) {
+				var user = token.decoded.user;
+				var access = 'public';
+				if (user.super_user) access = 'admin';
+				else if (user.faculty) access = 'faculty';
+				return access;
+			}
+		});
+	</script>
+</dom-module>
