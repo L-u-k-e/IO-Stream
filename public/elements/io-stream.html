@@ -134,11 +134,16 @@
 
 			listeners: {
 				'drawer-toggle-request': '_toggle_drawer',
-				'signin-request': '_toggle_signin_dialog'
+				'signin-request': '_toggle_signin_dialog',
+				'signout-request': '_signout'
 			},
 
 			ready: function () {
 				this.load_token();
+			},
+
+			_signout: function (event, detail) {
+				this.delete_token();
 			},
 
 			_toggle_drawer: function (event, detail) {

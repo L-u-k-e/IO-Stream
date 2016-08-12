@@ -44,7 +44,7 @@
 			</paper-button>
 			<paper-menu class="dropdown-content">
 				<template is="dom-repeat" items="[[items]]">
-					<paper-item class$="[[item.class]]">[[item.text]]</paper-item>
+					<paper-item class$="[[item.class]]" on-tap="_item_tapped">[[item.text]]</paper-item>
 				</template>
 			</paper-menu>
 		</paper-menu-button>
@@ -53,7 +53,9 @@
 	<script>
 		Polymer({
 			is: 'user-action-portal',
+
 			behaviors: [Behaviors.person_consumer],
+
 			properties: {
 				token: Object,
 				access: {
@@ -62,21 +64,35 @@
 					reflectToAttribute: true
 				}
 			},
+
 			ready: function () {
 				this.items = [
-					{text: 'Sign Out',   class: 'public' },
-					{text: 'My Courses', class: 'faculty'},
-					{text: 'Topics',     class: 'admin'  },
-					{text: 'Users',      class: 'admin'  },
-					{text: 'About',      class: 'public' },
+					{text: 'Sign Out'  , class: 'public' , tap: '_request_signout'},
+					{text: 'My Courses', class: 'faculty', tap: '_navigate'       , route: '/courses/manage' },
+					{text: 'Topics'    , class: 'admin'  , tap: '_navigate'       , route: '/topics/manage' },
+					{text: 'Publishers', class: 'admin'  , tap: '_navigate'       , route: '/publishers/manage'},
+					{text: 'About'     , class: 'public' , tap: '_navigate'       , route: '/about'},
 				]
 			},
+
+			_item_tapped: function (event, detail) {
+				this[event.model.item.tap](event, detail);
+			},
+
 			_get_access_level: function (token) {
 				var user = token.decoded.user;
 				var access = 'public';
 				if (user.super_user) access = 'admin';
 				else if (user.faculty) access = 'faculty';
 				return access;
+			},
+
+			_request_signout: function (event, detail) {
+				this.fire('signout-request');
+			},
+
+			_navigate: function (event, detail) {
+				this.fire('navigation-request', {url: event.model.item.route});
 			}
 		});
 	</script>
