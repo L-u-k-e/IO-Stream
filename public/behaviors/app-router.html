@@ -62,6 +62,15 @@
 					}
 				},
 				{
+					route:  '/courses/manage/:id',
+					page:   'courses manager',
+					id:     'courses_manager',
+					import: 'course/courses-manager',
+					end: function (ctx) {
+						self.$.courses_manager.personId = ctx.params.id;
+					}
+				},
+				{
 					route:  '/videos/:id',
 					page:   'video viewer',
 					id:     'video_viewer',

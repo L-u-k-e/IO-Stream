@@ -1,0 +1,47 @@
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/elements/grid-view.html">
+<link rel="import" href="/elements/course/course-edit-card.html">
+
+<dom-module id="courses-manager">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		
+		<grid-view>
+			<template is="dom-repeat" items="[[courses]]">
+				<course-edit-card course="[[item]]"></course-edit-card>
+			</template>
+		</grid-view>	
+
+	</template>
+	<script>
+		Polymer({
+			is: 'courses-manager',
+			
+			properties: {
+				personId: {
+					type: String, 
+					value: undefined,
+					observer: 'get_new_data'
+				}
+			},
+
+			get_new_data: function (new_val, old_val) {
+				this.loading = true;
+				this.fire('api-request', {
+					verb: 'GET', 
+					resource: 'courses',
+					query: { where: { person_id: new_val } },
+					callback_scope: this,
+					callback: function (result) { 
+						this.courses = result.body.data
+						this.loading = false;
+					}
+				});
+			}
+		});
+	</script>
+</dom-module>

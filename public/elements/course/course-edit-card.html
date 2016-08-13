@@ -1,0 +1,41 @@
+<link rel="import" href="/elements/ripple-card.html">
+<link rel="import" href="/behaviors/course-consumer.html">
+
+<dom-module id="course-edit-card">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			ripple-card  {
+				height: 100%;
+			}
+		</style>
+		<ripple-card heading="[[course.topic.title]]" on-tap="_request_course_navigation">
+			<div class="card-content">
+				<div>[[_get_semester_detail(course)]]</div>
+			</div>
+		</ripple-card>
+
+	</template>
+	<script>
+		Polymer({
+			is: 'course-edit-card',
+
+			behaviors: [Behaviors.course_consumer],
+
+			properties: {
+				course: {
+					type: Object,
+					value: {}
+				}
+			},
+
+			_request_course_navigation: function (event, detail) {
+				this.async(function () {
+					this.fire('navigation-request', {url: '/courses/edit/'+this.course.id});
+				}, 200);	
+			}
+		});
+	</script>
+</dom-module>
