@@ -12,6 +12,7 @@
 				display: block;
 			}
 			paper-button {
+				min-width: 150px;
 				font-size: 14px;
 				--paper-button-ink-color: var(--accent-color);
 			}
@@ -40,7 +41,7 @@
 		<paper-menu-button>
 			<paper-button class="dropdown-trigger"> 
 				<span>[[_get_full_name(token.decoded.user)]]</span>
-				<iron-icon icon="expand-more"></iron-icon>
+				<iron-icon icon="[[_get_icon(token)]]"></iron-icon>
 			</paper-button>
 			<paper-menu class="dropdown-content">
 				<template is="dom-repeat" items="[[items]]">
@@ -87,6 +88,11 @@
 					else if (user.faculty) access = 'faculty';
 				}
 				return access;
+			},
+
+			_get_icon: function (token) {
+				var icon = (token.encoded) ? 'expand-more' : 'error-outline';
+				return icon;
 			},
 
 			_request_signout: function (event, detail) {
