@@ -32,8 +32,8 @@
 				};
 			}
 
-			:host(:not([access="faculty"])) paper-item.faculty,
-			:host(:not([access="admin"])) paper-item.admin {
+			:host(:not([access*="faculty"])) paper-item.faculty,
+			:host(:not([access*="admin"])) paper-item.admin {
 				display: none;
 			};
 		</style>
@@ -81,13 +81,14 @@
 			},
 
 			_get_access_level: function (token) {
-				var access = 'public';
+				var access_list = ['public'];
 				var user = _.get(token, 'decoded.user');
 				if (user) {
-					if (user.super_user) access = 'admin';
-					else if (user.faculty) access = 'faculty';
+					if (user.super_user) access_list.push('admin');
+					if (user.faculty) access_list.push('faculty');
 				}
-				return access;
+				var access_class = access_list.join(',');
+				return access_class;
 			},
 
 			_get_icon: function (token) {
