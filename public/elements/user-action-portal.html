@@ -69,9 +69,9 @@
 
 			ready: function () {
 				this.items = [
-					{text: 'My Courses', class: 'faculty', tap: '_navigate'       , route: '/courses/manage' },
-					{text: 'Topics'    , class: 'admin'  , tap: '_navigate'       , route: '/topics/manage' },
-					{text: 'Publishers', class: 'admin'  , tap: '_navigate'       , route: '/publishers/manage'},
+					{text: 'My Courses', class: 'faculty', tap: '_navigate'       , route: '/courses/manage/', append: 'id' },
+					{text: 'Topics'    , class: 'admin'  , tap: '_navigate'       , route: '/topics/manage/', append: 'id' },
+					{text: 'Publishers', class: 'admin'  , tap: '_navigate'       , route: '/publishers/manage/', append: 'id'},
 					{text: 'About'     , class: 'public' , tap: '_navigate'       , route: '/about'},
 				]
 			},
@@ -107,7 +107,10 @@
 			},
 
 			_navigate: function (event, detail) {
-				this.fire('navigation-request', {url: event.model.item.route});
+				var item = event.model.item;
+				var route = item.route;
+				if (item.append) route += this.token.decoded.user[item.append]; 
+				this.fire('navigation-request', {url: route});
 			}
 		});
 	</script>
