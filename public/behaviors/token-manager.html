@@ -3,7 +3,7 @@
 	Behaviors.token_manager = (function () {
 
 		var load_token = function () {
-			var token = {}
+			var token = {};
 			token.encoded = localStorage.getItem('auth_token');
 			token.decoded = (token.encoded) ? jwt_decode(token.encoded) : {};
 			this.token = token;
@@ -11,12 +11,12 @@
 
 		var save_token = function (encoded) {
 			localStorage.setItem('auth_token', encoded);
-			load_token();
+			this.load_token();
 		};
 
 		var delete_token = function () {
 			localStorage.removeItem('auth_token');
-			load_token();
+			this.load_token();
 		};
 
 		var properties = {

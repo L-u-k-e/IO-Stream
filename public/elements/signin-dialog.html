@@ -83,7 +83,6 @@
 						if (result.status == 401) {
 							this.error_message = result.body.message; 
 						} else {
-							console.log(result);
 							this.error_message = '';
 							_.each(this.successCallbacks, function (cb) { cb(); });
 							this.successCallbacks = [];

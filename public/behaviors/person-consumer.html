@@ -3,6 +3,7 @@
 	Behaviors.person_consumer = (function() {
 
 		var get_full_name = function (person) {
+			if (!person) return;
 			var full_name = person.first_name + ' ' + person.last_name;
 			return full_name;
 		};

@@ -60,7 +60,7 @@
 							response.headers = parse_response_headers(xhr.getAllResponseHeaders());
 							try { response.body = JSON.parse(xhr.response); }
 							catch (syntaxError) {}
-							
+
 							if (response.headers.authorization) {
 								self.save_token(response.headers.authorization);
 							} 

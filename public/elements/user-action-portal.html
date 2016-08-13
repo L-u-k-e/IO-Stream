@@ -80,10 +80,12 @@
 			},
 
 			_get_access_level: function (token) {
-				var user = token.decoded.user;
 				var access = 'public';
-				if (user.super_user) access = 'admin';
-				else if (user.faculty) access = 'faculty';
+				var user = _.get(token, 'decoded.user');
+				if (user) {
+					if (user.super_user) access = 'admin';
+					else if (user.faculty) access = 'faculty';
+				}
 				return access;
 			},
 
