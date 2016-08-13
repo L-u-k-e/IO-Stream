@@ -64,7 +64,7 @@
 			},
 			
 			open: function (args) {
-				this.successCallbacks.push(args.success_callback);
+				if (args.success_callback) this.successCallbacks.push(args.success_callback);
 				this.$.dialog.open();
 			},
 

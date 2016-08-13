@@ -44,6 +44,7 @@
 				<iron-icon icon="[[_get_icon(token)]]"></iron-icon>
 			</paper-button>
 			<paper-menu class="dropdown-content">
+				<paper-item class="public" on-tap="_request_status_change">[[_get_status_change_text(token)]]</paper-item>
 				<template is="dom-repeat" items="[[items]]">
 					<paper-item class$="[[item.class]]" on-tap="_item_tapped">[[item.text]]</paper-item>
 				</template>
@@ -68,7 +69,6 @@
 
 			ready: function () {
 				this.items = [
-					{text: 'Sign Out'  , class: 'public' , tap: '_request_signout'},
 					{text: 'My Courses', class: 'faculty', tap: '_navigate'       , route: '/courses/manage' },
 					{text: 'Topics'    , class: 'admin'  , tap: '_navigate'       , route: '/topics/manage' },
 					{text: 'Publishers', class: 'admin'  , tap: '_navigate'       , route: '/publishers/manage'},
@@ -96,8 +96,14 @@
 				return icon;
 			},
 
-			_request_signout: function (event, detail) {
-				this.fire('signout-request');
+			_request_status_change: function (event, detail) {
+				var req = (this.token && this.token.encoded) ? 'signout-request' : 'signin-request';
+				this.fire(req);
+			},
+
+			_get_status_change_text: function (token) {
+				var text = (token && token.encoded) ? 'Sign Out' : 'Sign In';
+				return text;
 			},
 
 			_navigate: function (event, detail) {
