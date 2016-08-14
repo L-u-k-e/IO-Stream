@@ -82,7 +82,7 @@
 				</template>
 			</template>
 
-			<template is="dom-if" if="[[token.decoded.user.super_user]]">
+			<template is="dom-if" if="[[token.decoded.user.admin]]">
 				<template is="dom-repeat" items="[[_admin_menu_items]]">
 					<paper-item data-page="[[item.page]]">
 						<iron-icon icon="[[item.icon]]"></iron-icon>
