@@ -23,7 +23,7 @@ DROP TABLE person;
 
 CREATE TABLE person (
 	id                       varchar(50)   PRIMARY KEY,
-	faculty                  boolean       NOT NULL,
+	publisher                boolean       NOT NULL,
 	admin                    boolean       NOT NULL,
 	first_name               varchar(100)  NOT NULL,
 	last_name                varchar(100)  NOT NULL,

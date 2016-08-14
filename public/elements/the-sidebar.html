@@ -73,8 +73,8 @@
 				</paper-item>
 			</template>
 
-			<template is="dom-if" if="[[token.decoded.user.faculty]]">
-				<template is="dom-repeat" items="[[_faculty_menu_items]]">
+			<template is="dom-if" if="[[token.decoded.user.publisher]]">
+				<template is="dom-repeat" items="[[_publisher_menu_items]]">
 					<paper-item data-page="[[item.page]]">
 						<iron-icon icon="[[item.icon]]"></iron-icon>
 						<span>[[item.text]]</span>
@@ -119,7 +119,7 @@
 					{icon: 'av:fiber-new'      , text: 'New Videos'           , page: 'watch'  }
 				];
 
-				this._faculty_menu_items = [
+				this._publisher_menu_items = [
 					{icon: 'record-voice-over', text: 'My Courses', page: 'watch'}
 				];
 

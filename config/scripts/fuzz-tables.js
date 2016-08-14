@@ -84,7 +84,7 @@ var seed_users = function (next) {
 	_.times(15, function (i) {
 		users.push({
 			id:         faker.internet.userName(),
-			faculty:    (i <= 5 || i > 10),
+			publisher:  (i <= 5 || i > 10),
 			admin:      (i <= 5),
 			first_name: faker.name.firstName(),
 			last_name:  faker.name.lastName(),

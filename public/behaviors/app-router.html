@@ -78,7 +78,7 @@
 						page:       'courses manager',
 						id:         'courses_manager',
 						import:     'course/courses-manager',
-						access:     ['faculty', 'admin'],
+						access:     ['publisher', 'admin'],
 						self_check: 'id',
 						end: function (ctx) {
 							self.$.courses_manager.personId = ctx.params.id;
@@ -89,7 +89,7 @@
 						page:       'courses manager',
 						id:         'courses_manager',
 						import:     'course/courses-manager',
-						access:     ['faculty', 'admin'],
+						access:     ['publisher', 'admin'],
 						self_check: 'id',
 						end: function (ctx) {
 							self.$.courses_manager.personId = ctx.params.id;

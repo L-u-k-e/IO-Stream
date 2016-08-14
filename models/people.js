@@ -40,7 +40,7 @@ exports.authenticate = function (args) {
 	.then(function (user) {
 		return compare(args.password, user.hash)
 		.then(function (same) {
-			var public_props = ['id', 'faculty', 'admin', 'first_name', 'last_name'];
+			var public_props = ['id', 'publisher', 'admin', 'first_name', 'last_name'];
 			var auth_info = { valid: same, user: _.pick(user, public_props) };
 			return auth_info;
 		});
