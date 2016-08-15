@@ -11,7 +11,7 @@ var secret = 'donuts';
 
 /******************************** MIDDLEWARE *********************************/
 
-var make_token = function(user) {
+function make_token(user) {
 	var now = moment();
 	var payload = {
 		iat: now.format('X'),
@@ -85,7 +85,6 @@ function check_route_permissions(perms) {
 
 
 function refresh_token_if_necessary(req, res, next) {
-	console.log('starting');
 	var dates = get_key_dates(res);
 	var lapsed = dates.issue_date.diff(moment(), 'days');
 	if (lapsed >= 1) res.headers.authentication = make_token(res.person);

@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express = require('express');
 var swagger_spec = require('./swagger.js');
 var path = require('path');
