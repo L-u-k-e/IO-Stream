@@ -13,7 +13,6 @@ var secret = 'donuts';
 
 function make_token(user) {
 	var secret = get_secret_key();
-	console.log(secret);
 	var now = moment();
 	var payload = {
 		iat: now.format('X'),
