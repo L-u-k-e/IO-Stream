@@ -19,7 +19,7 @@ fi
 psql -h localhost -U postgres -d io_stream -a -f config/scripts/create-tables.sql
 psql -h localhost -U postgres -d io_stream -a -f config/scripts/grant-privs.sql
 psql -h localhost -U postgres -d io_stream -a -f config/scripts/seed-tables.sql
-
+node -r dotenv/config config/scripts/init-jwt-secret.js  
 if [ "$2" = "--fuzz" ] ; then
-	node config/scripts/fuzz-tables.js
+	node -r dotenv/config config/scripts/fuzz-tables.js
 fi

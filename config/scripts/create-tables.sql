@@ -6,6 +6,7 @@
  *    CAREFUL NOW!
  */
 
+DROP TABLE jwt_secret;
 DROP TABLE upload_token;
 DROP TABLE favorite;
 DROP TABLE subscription;
@@ -16,6 +17,13 @@ DROP TABLE subject;
 DROP TABLE semester;
 DROP TABLE person;
 
+
+
+
+
+CREATE TABLE jwt_secret (
+	key                       varchar(342)   PRIMARY KEY
+); 
 
 
 
