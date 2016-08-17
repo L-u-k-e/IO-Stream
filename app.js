@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./config/scripts/load-jwt-secret');
 var express = require('express');
 var swagger_spec = require('./swagger.js');
 var path = require('path');

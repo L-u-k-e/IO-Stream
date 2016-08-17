@@ -12,6 +12,8 @@ var secret = 'donuts';
 /******************************** MIDDLEWARE *********************************/
 
 function make_token(user) {
+	var secret = process.env.jwt_secret_key;
+	console.log(secret);
 	var now = moment();
 	var payload = {
 		iat: now.format('X'),
@@ -37,6 +39,7 @@ function auth(perms) {
 
 
 function decode_token(req, res, next) {
+	var secret = process.env.jwt_secret_key;
 	try {
 		var token = {encoded: req.headers.authorization};
 		token.decoded = jwt.decode(token.encoded, secret);
