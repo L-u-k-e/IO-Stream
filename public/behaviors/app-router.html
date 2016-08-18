@@ -5,33 +5,16 @@
 	(function () {
 		var app_router = (function () {
 
-			var has_route_access = function (self, args, ctx) {
-				var grant = true;
-				var user = self.token.decoded.user;
-				if (args.access) grant = !!_.find(args.access, function (cat) { return user[cat]; });
-				if (args.self_check && user.id !== ctx.params[args.self_check]) grant = false;
-				return grant;
-			};
-
-
-			var setup_routes = function () {
+			function setup_routes() {
 				var self = this;
 
 				var setup_route = function (args) {
 					page(args.route, function (ctx) {
-						var set_view = function () {
-							if (args.page) self.page = args.page;
-							if (args.end) args.end(ctx);
-							self.loading = false;
-						};
 						self.loading = true;
-						if (has_route_access(self, args, ctx)) {
-							if (args.id && !Polymer.isInstance(self.$[args.id])) {
-								self.importHref('/elements/'+args.import+'.html', set_view, null, true);
-							} else { set_view(); }
-						} else {
-							page.redirect('/');
-						}
+						var navigate = _.partial(set_view, self,  args, ctx);
+						if (!has_route_access(self, args, ctx)) page.redirect('/');
+						else if (Polymer.isInstance(self.$[args.id])) navigate();
+						else self.importHref('/elements/'+args.import+'.html', navigate, null, true);
 					});
 				};
 
@@ -39,22 +22,26 @@
 
 
 				var routes = [
+
 					{ 
 						route: '/', 
 						end: function () { page.redirect('/topics'); } 
 					}, 
+
 					{ 
 						route:  '/watch', 
 						page:   'watch', 
 						id:     'video_browser',
 						import: 'file-uploader',
 					}, 
+
 					{ 
 						route:  '/topics', 
 						page:   'topic browser', 
 						id:     'topic_browser', 
 						import: 'topic/topic-browser'
 					}, 
+
 					{
 						route:  '/topics/:id', 
 						page:   'topic viewer', 
@@ -64,6 +51,7 @@
 							self.$.topic_viewer.topicID = ctx.params.id;
 						}
 					},
+
 					{
 						route:  '/courses/:id',
 						page:   'course viewer',
@@ -73,6 +61,7 @@
 							self.$.course_viewer.courseId = ctx.params.id;
 						}
 					},
+
 					{
 						route:      '/courses/manage/:id',
 						page:       'courses manager',
@@ -84,17 +73,19 @@
 							self.$.courses_manager.personId = ctx.params.id;
 						}
 					},
+
 					{
 						route:      '/courses/edit/:id',
-						page:       'courses manager',
-						id:         'courses_manager',
-						import:     'course/courses-manager',
+						page:       'course editor',
+						id:         'course_editor',
+						import:     'course/course-editor',
 						access:     ['publisher', 'admin'],
-						self_check: 'id',
 						end: function (ctx) {
-							self.$.courses_manager.personId = ctx.params.id;
+							self.$.course_editor.courseId = ctx.params.id;
 						}
 					},
+
+
 					{
 						route:  '/videos/:id',
 						page:   'video viewer',
@@ -104,16 +95,12 @@
 							self.$.video_viewer.videoId = ctx.params.id;
 						}
 					}
+
+
 				];
+
 				_.each(routes, setup_route);
 				page();
-			};
-
-
-
-
-			var navigate = function (event, detail) {
-				page.show(detail.url);
 			};
 
 			var listeners = {
@@ -125,6 +112,28 @@
 				listeners: listeners,
 				_navigate: navigate
 			});
+
+
+			function navigate(event, detail) {
+				page.show(detail.url);
+			}
+
+
+			function has_route_access(self, args, ctx) {
+				var grant = true;
+				var user = self.token.decoded.user;
+				if (args.access) grant = !!_.find(args.access, function (cat) { return user[cat]; });
+				if (args.self_check && user.id !== ctx.params[args.self_check]) grant = false;
+				return grant;
+			}
+
+
+			function set_view(self, args, ctx) {
+				if (args.page) self.page = args.page;
+				if (args.end) args.end(ctx);
+				self.loading = false;
+			}
+
 		}());
 
 		Behaviors.app_router = [
