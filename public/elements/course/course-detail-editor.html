@@ -1,0 +1,80 @@
+<link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/iron-form/iron-form.html">
+<link rel="import" href=".bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/styles/shared-styles.html">
+
+<dom-module id="course-detail-editor">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			#content {
+				padding: 25px 50px;
+			}
+			#small_widths {
+				position: relative;
+				width: 100%;
+				@apply(--layout-horizontal);
+				@apply(--layout-justified);
+			}
+			#action_buttons {
+				width: 100%;
+				box-sizing: border-box;
+				padding: 10px;
+				margin-top: 10px;
+				@apply(--layout-horizontal);
+				@apply(--layout-end-justified);
+				border-top: 1px solid rgba(0,0,0,0.1);
+			}
+			#action_buttons paper-button {
+				color: var(--primary-color);
+				--paper-button-ink-color: var(--accent-color);
+				height: 100%;
+			}
+		</style>
+
+			<form is="iron-form" id="form" method="post" action="">
+				<div id="content">
+					<paper-input required name="topic" label="topic" value="{{course.topic.title}}"></paper-input>
+
+					<paper-textarea char-counter max-length="1000" rows=3 name="description" label="Description" Placeholder="A little about this course..."></paper-textarea>
+
+					<div id="small_widths">
+						<paper-dropdown-menu required label="Semester" id="semester">
+							<paper-listbox class="dropdown-content">
+								<paper-item>Fall</paper-item>
+								<paper-item>Winter</paper-item>
+								<paper-item>Spring</paper-item>
+								<paper-item>Summer</paper-item>
+							</paper-listbox>
+						</paper-dropdown-menu>
+						<paper-input required name="year" label="Year" allowed-pattern="[0-9]" value="{{year}}"></paper-input>
+						<paper-input required name="subject" label="Subject"></paper-input>
+						<paper-input required name="crse" label="Course Number" allowed-pattern="[0-9]"></paper-input>
+					</div>
+				</div>
+				<div id="action_buttons">
+					<paper-button  on-tap="_clear">CLEAR</paper-button>
+					<paper-button  on-tap="_submit">SUBMIT</paper-button>
+				</div>
+
+			</form>
+		
+	</template>
+	<script>
+		Polymer({
+			is: 'course-detail-editor',
+			properties: {
+				course: {
+					type: Object,
+					value: {}
+				}
+			}
+		});
+	</script>
+</dom-module>

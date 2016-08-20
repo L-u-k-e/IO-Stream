@@ -1,34 +1,59 @@
-
-<link rel="import" href="/bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="/bower_components/paper-styles/shadow.html">
 <link rel="import" href="/styles/shared-styles.html">
+<link rel="import" href="/elements/course/course-detail-editor.html">
 <dom-module id="course-editor">
 	<template>
 		<style>
 			:host {
 				display: block;
+				@apply(--layout-horizontal);
+				@apply(--layout-center-justified);
+				@apply(--layout-start);
 			}
+
+			paper-material {
+				background-color: #fff;
+				width: 100%;
+				max-width: 975px;
+				margin: 15px;
+			}
+
 			app-toolbar {
-				background-color: var(--paper-teal-100);
-				@apply(--shadow-elevation-2dp);
+				border-bottom: 1px solid rgba(0,0,0,0.1);
+				@apply(--layout-horizontal);
+				@apply(--layout-center-justified);
 			}
 			paper-tabs {
-				--paper-tabs-selection-bar-color: #fff;
+				--paper-tabs-selection-bar-color: var(--light-primary-color);
+				@apply(--layout-horizontal);
+				height: 100%;
 			}
 			paper-tab {
-				--paper-tab-ink: #fff;
+				--paper-tab-ink: var(--accent-color);
+				@apply(--layout-flex);
+				--paper-tab-content: {
+					box-sizing: border-box;
+					padding: 15px;
+				};
 			}
 		</style>
-		<app-toolbar>
-			<paper-tabs selected="0">
-				<paper-tab>Course Details</paper-tab>
-				<paper-tab>Videos</paper-tab>
-			</paper-tabs>
-		</app-toolbar>
-		<paper-input label="Title" value="{{course.topic.title}}"></paper-input>
-		<paper-textarea label="Description" value="{{course.topic.description}}"></paper-textarea>
+		<paper-material>
+			<app-toolbar>
+				<paper-tabs selected="{{selected}}">
+					<paper-tab>Course Details</paper-tab>
+					<paper-tab>Videos</paper-tab>
+				</paper-tabs>
+			</app-toolbar>
+			<iron-pages selected="[[selected]]">
+				<course-detail-editor course="[[course]]"></course-detail-editor>
+				<course-videos-edit-list course="[[course]]"></course-videos-edit-list>
+			</iron-pages>
+		</paper-material>
 	</template>
 	<script>
 		Polymer({
@@ -48,6 +73,10 @@
 				loading: {
 					type: Boolean,
 					value: false
+				},
+				selected: {
+					type: Number,
+					value: 0
 				}
 			},
 
