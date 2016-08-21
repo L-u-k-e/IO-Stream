@@ -1,23 +1,15 @@
-var subjects = require('../models/subjects');
-var token     = require('../helpers/token');
+var subjects           = require('../models/subjects');
+var token              = require('../helpers/token');
+var controller_factory = require('../helpers/controller-factory');
+
 
 module.exports = function (router) {
-	router.get('/api/subjects', token.auth(), get_some);
-}
-
-
-
-function get_some(req, res, next) {
-	var args = req.query;
-	args.inflection = 'many';
-	subjects.get(args)
-	.then(function (data) {
-		res.status(200).json({
-			message: 'Retrieved some subjects.',
-			data: data
-		});
-	})
-	.catch (function (err) {
-		console.log(err);
-	});
-}
+	router.get('/api/subjects', 
+		token.auth(), 
+		controller_factory.retrieve({
+			inflection: 'many',
+			message: 'Retrieved zero or more subjects',
+			model: subjects
+		})
+	);
+};

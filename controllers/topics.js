@@ -1,44 +1,27 @@
-var topics = require('../models/topics');
-var token  = require('../helpers/token'); 
-
-
-
-var get_some = function (req, res, next) {
-	var args = req.query;
-	args.inflection = 'many';
-	topics.get(args)
-	.then(function (data) {
-		res.status(200).json({
-			message: 'Retrieved some topics.',
-			data: data
-		});
-	})
-	.catch (function (err) {
-		console.log(err);
-	});
-};
-
-
-var get_one = function (req, res, next) {
-	topics.get({
-		inflection: 'one',
-		where: {id: req.params.id}
-	}).then(function (data) {
-		res.status(200).json({
-			message: 'Retrieved one topic.',
-			data: data
-		});
-	}).catch (function (err) {
-		console.log(err);
-	});
-};
-
-
-
-
+var topics             = require('../models/topics');
+var token              = require('../helpers/token'); 
+var controller_factory = require('../helpers/controller-factory');
 
 
 module.exports = function (router) {
-	router.get('/api/topics', token.auth(), get_some);
-	router.get('/api/topics/:id', token.auth(), get_one);
+
+  router.get('/api/topics', 
+		token.auth(), 
+		controller_factory.retrieve({
+			inflection: 'many',
+			message: 'Retrieved zero or more topics',
+			model: topics
+		})
+	);
+
+
+	router.get('/api/topics/:id', 
+		token.auth(), 
+		controller_factory.retrieve({
+			inflection: 'one',
+			message: 'Retrieved zero or one topics.',
+			model: topics
+		})
+	);
+
 };

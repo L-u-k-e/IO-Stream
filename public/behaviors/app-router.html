@@ -90,7 +90,7 @@
 						route:  '/videos/:id',
 						page:   'video viewer',
 						id:     'video_viewer',
-						import: 'course/video-viewer',
+						import: 'video/video-viewer',
 						end: function (ctx) {
 							self.$.video_viewer.videoId = ctx.params.id;
 						}

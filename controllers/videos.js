@@ -1,12 +1,13 @@
-var videos        = require('../models/videos');
-var upload_tokens = require('../models/upload-tokens');
-var generate_uuid = require('../helpers/uuid');
-var input_binding = require('../helpers/flow_binder')
-var _             = require('lodash');
-var path          = require('path');
-var fs            = require('fs');
-var multer        = require('multer');
-var token         = require('../helpers/token');
+var videos             = require('../models/videos');
+var upload_tokens      = require('../models/upload-tokens');
+var generate_uuid      = require('../helpers/uuid');
+var input_binding      = require('../helpers/flow_binder')
+var _                  = require('lodash');
+var path               = require('path');
+var fs                 = require('fs');
+var multer             = require('multer');
+var token              = require('../helpers/token');
+var controller_factory = require('../helpers/controller-factory');
 
 
 
@@ -94,42 +95,6 @@ var send_merge_completion_notice = function (req, res, next) {
 
 
 
-/* Get some videos */
-var get_some = function (req, res, next) {
-	var args = req.query;
-	args.inflection = 'many';
-	videos.get(args)
-	.then(function (data) {
-		res.status(200).json({
-			message: 'Retrieved some videos.',
-			data: data
-		});
-	})
-	.catch (function (err) {
-		console.log(err);
-	});
-};
-
-
-
-/* Get some videos */
-var get_one = function (req, res, next) {
-	videos.get({
-		inflection: 'one',
-		where: {id: req.params.id}
-	})
-	.then(function (data) {
-		res.status(200).json({
-			message: 'Retrieved one video.',
-			data: data
-		});
-	})
-	.catch (function (err) {
-		console.log(err);
-	});
-};
-
-
 module.exports = function (router) {
 
 	/* Finalize a video upload (merge the chunks) */
@@ -142,8 +107,24 @@ module.exports = function (router) {
 		send_merge_completion_notice
 	);
 
-	/* get some videos */
-	router.get('/api/videos', token.auth(), get_some);
 
-	router.get('/api/videos/:id', token.auth(), get_one);
+	router.get('/api/videos', 
+		token.auth(), 
+		controller_factory.retrieve({
+			inflection: 'many',
+			message: 'Retrieved zero or more videos',
+			model: videos
+		})
+	);
+
+
+	router.get('/api/videos/:id', 
+		token.auth(), 
+		controller_factory.retrieve({
+			inflection: 'one',
+			message: 'Retrieved zero or one videos.',
+			model: videos
+		})
+	);
+
 };
