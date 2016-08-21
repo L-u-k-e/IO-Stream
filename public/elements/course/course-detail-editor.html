@@ -4,7 +4,7 @@
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
 <link rel="import" href="/bower_components/iron-form/iron-form.html">
-<link rel="import" href=".bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/styles/shared-styles.html">
 
 <dom-module id="course-detail-editor">
@@ -15,13 +15,17 @@
 			}
 			#content {
 				padding: 25px 50px;
-			}
-			#small_widths {
-				position: relative;
-				width: 100%;
 				@apply(--layout-horizontal);
-				@apply(--layout-justified);
+				@apply(--layout-center-justified);
+				@apply(--layout-wrap);
 			}
+
+			#content > * {
+				width: 100%;
+				max-width: 300px;
+				margin: 5px 25px;
+			}
+
 			#action_buttons {
 				width: 100%;
 				box-sizing: border-box;
@@ -36,30 +40,53 @@
 				--paper-button-ink-color: var(--accent-color);
 				height: 100%;
 			}
+			paper-item {
+				cursor: pointer;
+				--paper-item-focused: {
+					color: var(--primary-color);
+				};
+			}
+			.inline {
+				display: inline-block;
+			}
 		</style>
 
 			<form is="iron-form" id="form" method="post" action="">
 				<div id="content">
-					<paper-input required name="topic" label="topic" value="{{course.topic.title}}"></paper-input>
 
-					<paper-textarea char-counter max-length="1000" rows=3 name="description" label="Description" Placeholder="A little about this course..."></paper-textarea>
 
-					<div id="small_widths">
-						<paper-dropdown-menu required label="Semester" id="semester">
-							<paper-listbox class="dropdown-content">
-								<paper-item>Fall</paper-item>
-								<paper-item>Winter</paper-item>
-								<paper-item>Spring</paper-item>
-								<paper-item>Summer</paper-item>
-							</paper-listbox>
-						</paper-dropdown-menu>
-						<paper-input required name="year" label="Year" allowed-pattern="[0-9]" value="{{year}}"></paper-input>
-						<paper-input required name="subject" label="Subject"></paper-input>
-						<paper-input required name="crse" label="Course Number" allowed-pattern="[0-9]"></paper-input>
-					</div>
+					<paper-dropdown-menu required label="Subject" id="subject">
+						<paper-listbox id="subject_list" class="dropdown-content" attr-for-selected="data-id" selected="{{selected_subject_id}}">
+							<template is="dom-repeat" items="[[subjects]]">
+								<paper-item data-id="[[item.id]]">[[item.title]]</paper-item>
+							</template>
+						</paper-listbox>
+					</paper-dropdown-menu>
+					<br>
+					<paper-dropdown-menu required label="Topic" id="topic">
+						<paper-listbox id="topic_list" class="dropdown-content" attr-for-selected="data-id" selected="{{selected_topic_id}}">
+							<template is="dom-repeat" items="[[topics]]">
+								<paper-item data-id="[[item.id]]">[[item.title]]</paper-item>
+							</template>
+						</paper-listbox>
+					</paper-dropdown-menu>
+					<br>
+					<paper-dropdown-menu required label="Semester" id="semester">
+						<paper-listbox id="semester_list" class="dropdown-content" attr-for-selected="data-id">
+							<template is="dom-repeat" items="[[semesters]]">
+								<paper-item data-id="[[item.id]]">[[item.title]]</paper-item>
+							</template>
+						</paper-listbox>
+					</paper-dropdown-menu>
+					<br>
+					<paper-input required name="year" label="Year" allowed-pattern="[0-9]" value="{{course.year}}"></paper-input>
+
+						
+
+
 				</div>
 				<div id="action_buttons">
-					<paper-button  on-tap="_clear">CLEAR</paper-button>
+					<paper-button  on-tap="_clear">RESET</paper-button>
 					<paper-button  on-tap="_submit">SUBMIT</paper-button>
 				</div>
 
@@ -69,12 +96,45 @@
 	<script>
 		Polymer({
 			is: 'course-detail-editor',
+			
 			properties: {
 				course: {
 					type: Object,
-					value: {}
+					observer: '_course_changed'
+				},
+				subjects: {
+					type: Array,
+					value: []
+				},
+				semesters: {
+					type: Array,
+					value: []
+				},
+				selected_subject_id: {
+					type: Number,
+					observer: '_selected_subject_id_changed'
 				}
+			},
+
+			_course_changed: function (new_course, old_course) {
+				this.$.subject_list.selected = new_course.topic.subject.id;
+				this.$.semester_list.selected = new_course.semester.id;
+			},
+
+			_selected_subject_id_changed: function (new_id, old_id) {
+				this.selected_topic_id = undefined;
+				this.fire('api-request', {
+					verb: 'GET',
+					resource: 'topics',
+					query: { where: { subject_id: this.selected_subject_id } },
+					callback_scope: this,
+					callback: function (result) {
+						console.log(result);
+						this.topics = result.body.data;
+					}
+				});
 			}
+
 		});
 	</script>
 </dom-module>

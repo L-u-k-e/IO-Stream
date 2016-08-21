@@ -1,0 +1,21 @@
+<script>
+	var Behaviors = Behaviors || {};
+	(function () {
+
+		Behaviors.semester_provider = {
+			ready: get_semesters
+		};
+
+		function get_semesters() {
+			this.fire('api-request', {
+				verb: 'GET',
+				resource: ['semesters'],
+				callback_scope: this,
+				callback: function (result) {
+					this.semesters = result.body.data;
+				}
+			});
+		}
+
+	}());
+</script>

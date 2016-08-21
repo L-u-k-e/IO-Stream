@@ -1,0 +1,21 @@
+<script>
+	var Behaviors = Behaviors || {};
+	(function () {
+
+		Behaviors.subject_provider = {
+			ready: get_subjects
+		};
+
+		function get_subjects() {
+			this.fire('api-request', {
+				verb: 'GET',
+				resource: ['subjects'],
+				callback_scope: this,
+				callback: function (result) {
+					this.subjects = result.body.data;
+				}
+			});
+		}
+
+	}());
+</script>

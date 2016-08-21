@@ -50,7 +50,11 @@
 				</paper-tabs>
 			</app-toolbar>
 			<iron-pages selected="[[selected]]">
-				<course-detail-editor course="[[course]]"></course-detail-editor>
+				<course-detail-editor 
+					course="[[course]]" 
+					semesters="[[semesters]]"
+					subjects="[[subjects]]"
+				></course-detail-editor>
 				<course-videos-edit-list course="[[course]]"></course-videos-edit-list>
 			</iron-pages>
 		</paper-material>
@@ -77,6 +81,12 @@
 				selected: {
 					type: Number,
 					value: 0
+				},
+				semesters: {
+					type: Array
+				},
+				subjects: {
+					type: Array
 				}
 			},
 
@@ -90,7 +100,6 @@
 						var course = result.body.data;
 						if (!course.id || course.person.id !== this.token.decoded.user.id) this.page_not_found();
 						else this.course = course;
-						console.log(this.course);
 						this.loading = false;
 					}
 				});
