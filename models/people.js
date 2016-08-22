@@ -7,7 +7,7 @@ var model_factory = require('../helpers/model-factory');
 var compare       = bluebird.promisify(bcrypt.compare);
 
 var table = 'person';
-var public_properties = ['id', 'publisher', 'admin', 'first_name', 'last_name'];
+var public_properties = ['id', 'publisher', 'admin', 'first_name', 'last_name', 'last_token_invalidation'];
 
 exports.get = model_factory.retrieve({
 	table: table,

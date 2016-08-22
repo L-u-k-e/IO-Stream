@@ -1,7 +1,7 @@
 var db        = require('../config/db_config');
 var orm       = require('../helpers/orm');
 var _         = require('lodash');
-
+var Promise   = require('bluebird');
 
 module.exports = {
 	retrieve: retrieve
@@ -28,12 +28,12 @@ function retrieve(config) {
 			})
 		}
 
-	/*	if (config.publid_properties) {
+		if (config.public_properties) {
 			promise = promise.map(function (data) {
-				return 
-			})
+				return Promise.resolve(_.pick(data, config.public_properties));
+			});
 		}
-*/
+
 		if (params.inflection === 'one') {
 			promise = promise.then(function (data) {
 				if (_.isEmpty(data)) return {};
