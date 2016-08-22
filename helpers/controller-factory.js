@@ -12,6 +12,7 @@ function retrieve(params) {
 			model_arguments.where = model_arguments.where || {}; 
 			model_arguments.where.id = req.params.id;
 		}
+		
 		params.model.get(model_arguments)
 		.then(function (data) {
 			res.status(200).json({

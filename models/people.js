@@ -1,33 +1,18 @@
-var db       = require('../config/db_config');
-var orm      = require('../helpers/orm');
-var _        = require('lodash');
-var bluebird = require('bluebird');
-var bcrypt   = require('bcrypt');
-var compare  = bluebird.promisify(bcrypt.compare);
+var db            = require('../config/db_config');
+var orm           = require('../helpers/orm');
+var _             = require('lodash');
+var bluebird      = require('bluebird');
+var bcrypt        = require('bcrypt');
+var model_factory = require('../helpers/model-factory');
+var compare       = bluebird.promisify(bcrypt.compare);
 
-var table    = 'person';
+var table = 'person';
+var public_properties = ['id', 'publisher', 'admin', 'first_name', 'last_name'];
 
-exports.get = function (args) {
-	args = args || {};
-
-	var promise = orm.select({
-		db:     db, 
-		table:  table,
-		where:  args.where,
-		order:  args.order,
-		limit:  args.limit,
-		offset: args.offset,
-		group:  args.group
-	});
-	
-	if (args.inflection === 'one') {
-		promise = promise.then(function (people) {
-			if (_.isEmpty(people)) return {};
-			else return people[0];
-		});
-	}
-	return promise;
-};
+exports.get = model_factory.retrieve({
+	table: table,
+	public_properties: public_properties
+});
 
 
 exports.authenticate = function (args) {
@@ -40,7 +25,6 @@ exports.authenticate = function (args) {
 	.then(function (user) {
 		return compare(args.password, user.hash)
 		.then(function (same) {
-			var public_props = ['id', 'publisher', 'admin', 'first_name', 'last_name'];
 			var auth_info = { valid: same, user: _.pick(user, public_props) };
 			return auth_info;
 		});
