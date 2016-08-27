@@ -119,6 +119,7 @@
 			_course_changed: function (new_course, old_course) {
 				this.$.subject_list.selected = new_course.topic.subject.id;
 				this.$.semester_list.selected = new_course.semester.id;
+				this.autoselect_topic = true;
 			},
 
 			_selected_subject_id_changed: function (new_id, old_id) {
@@ -130,6 +131,10 @@
 					callback_scope: this,
 					callback: function (result) {
 						this.topics = result.body.data;
+						if (this.autoselect_topic) {
+							this.$.topic_list.selected = this.course.topic.id;
+							this.autoselect_topic = false;
+						}
 					}
 				});
 			}
