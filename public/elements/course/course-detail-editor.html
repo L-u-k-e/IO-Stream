@@ -72,7 +72,7 @@
 					</paper-dropdown-menu>
 					<br>
 					<paper-dropdown-menu required label="Semester" id="semester">
-						<paper-listbox id="semester_list" class="dropdown-content" attr-for-selected="data-id">
+						<paper-listbox id="semester_list" class="dropdown-content" attr-for-selected="data-id" selected="{{selected_semester_id}}">
 							<template is="dom-repeat" items="[[semesters]]">
 								<paper-item data-id="[[item.id]]">[[item.title]]</paper-item>
 							</template>
@@ -129,7 +129,6 @@
 					query: { where: { subject_id: this.selected_subject_id } },
 					callback_scope: this,
 					callback: function (result) {
-						console.log(result);
 						this.topics = result.body.data;
 					}
 				});

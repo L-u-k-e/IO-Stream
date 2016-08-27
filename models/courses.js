@@ -33,11 +33,11 @@ exports.get = model_factory.retrieve({
 		},
 		//semester details
 		function (course) {
-			return people.get({
+			return semesters.get({
 				inflection: 'one',
-				where: {id: course.semsester_id}
-			}).then(function (person) {
-				course.semester = person;
+				where: {id: course.semester_id}
+			}).then(function (semester) {
+				course.semester = semester;
 				return course;
 			});
 		}
