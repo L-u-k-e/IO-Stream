@@ -21,7 +21,7 @@
     "paper-elements": "^1.0.7",
     "neon-elements": "^1.0.0",
     "lodash": "^4.15.0",
-    "polymer": "^1.6.1",
+    "polymer": "1.6.0",
     "app-layout": "^0.10.3",
     "fullscreen-enabled": "L-u-k-e/fullscreen-enabled#^0.5.0",
     "video-player": "L-u-k-e/video-player#^0.3.0",
@@ -31,6 +31,6 @@
     "jwt-decode": "^2.1.0"
   },
   "resolutions": {
-    "polymer": "^1.6.1"
+    "polymer": "1.6.0"
   }
 }
