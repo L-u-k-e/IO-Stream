@@ -25,7 +25,7 @@ exports.authenticate = function (args) {
 	.then(function (user) {
 		return compare(args.password, user.hash)
 		.then(function (same) {
-			var auth_info = { valid: same, user: _.pick(user, public_props) };
+			var auth_info = { valid: same, user: _.pick(user, public_properties) };
 			return auth_info;
 		});
 	})
