@@ -1,0 +1,33 @@
+<link rel="import" href="/bower_components/app-layout/app-grid/app-grid-style.html">
+<dom-module id="grid-style">
+	<template>
+		<style include="app-grid-style">
+			:host {
+				display: block;
+				--app-grid-columns: 4;
+				--app-grid-gutter: 25px;
+				--app-grid-item-height: 50%;
+			}
+
+			@media (max-width: 1575px) {
+				:host {
+					--app-grid-columns: 3;
+				}
+			}
+
+			@media (max-width: 960px) {
+				:host {
+					--app-grid-columns: 2;
+				}
+			}
+
+			@media (max-width: 667px) {
+				:host {
+					--app-grid-columns: 1;
+					--app-grid-gutter: 0px;
+					--app-grid-item-height: 155px;
+				}
+			}
+		</style>	
+	</template>
+</dom-module>

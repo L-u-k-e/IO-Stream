@@ -1,0 +1,26 @@
+<script>
+	var Behaviors = Behaviors || {};
+
+	(function () {
+
+		Behaviors.responsive_grid = {
+			attached: attached, 
+			detached: detached
+		};
+
+		function attached() {
+			this._update_grid = this._update_grid || function () { this.updateStyles(); }.bind(this);
+			window.addEventListener('resize', this._update_grid);
+		}
+
+		function detached() {
+			window.removeEventListener('resize', this._update_grid);
+		}
+
+	}());
+
+</script>
+
+Sortable — is a JavaScript library for reorderable drag-and-drop lists on modern browsers and touch devices. No jQuery. ...
+
+Vaadin Core Elements is an evolving set of free, open sourced custom HTML elements, built using Polymer, for building mo...

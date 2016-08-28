@@ -23,13 +23,19 @@
 
 			ripple-card {
 				width: 100%;
+				max-height: 100%;
+			}
+
+			#desc {
+				overflow: hidden;
+				@apply(--layout-fit);
 			}
 
 		</style>
 
 		<ripple-card heading="[[topic.title]]" on-tap="_request_topic_navigation">
-			<span>[[topic.description]]</span>
-			<div id="right">
+			<div id="desc" class="card-body">[[topic.description]]</div>
+			<div id="right" class="full-card">
 				<div>
 					<div><span>[[topic.subject.title]]</span></div>
 					<div>

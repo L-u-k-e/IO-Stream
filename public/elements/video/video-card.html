@@ -41,7 +41,7 @@
 				width: 120px;
 				min-width: 120px;
 			}
-			ripple-card.narrow .card-content {
+			ripple-card.narrow .card-body {
 				padding-top: 0;
 				@apply(--layout-vertical);
 				@apply(--layout-justified);
@@ -58,7 +58,7 @@
 				preload-image 
 				class="wide"
 				on-tap="_request_video_navigation">
-				<div class="card-content">
+				<div class="card-body">
 					<div>[[get_time_string(video.duration)]]</div>
 					<div>[[get_date_string(video.date_uploaded)]]</div>
 				</div>
@@ -67,8 +67,8 @@
 
 		<template is="dom-if" if="[[narrow]]">
 			<ripple-card class="narrow" elevation="0" on-tap="_request_video_navigation">
-				<iron-image src="[[video.thumbnail_src]]" sizing="cover"></iron-image>
-				<div class="card-content">
+				<iron-image class="full-card" src="[[video.thumbnail_src]]" sizing="cover"></iron-image>
+				<div class="card-body">
 					<div>[[video.title]]</div>
 					<div>[[get_time_string(video.duration)]]</div>
 					<div>[[get_date_string(video.date_uploaded)]]</div>

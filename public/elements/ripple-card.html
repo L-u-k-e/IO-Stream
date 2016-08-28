@@ -24,6 +24,7 @@
 				padding: 15px;
 
 				@apply(--ripple-card);
+				@apply(--layout-vertical);
 
 				--paper-card-background-color: var(--ripple-card-background-color);
 				--paper-card-header-color: var(--ripple-card-header-color);
@@ -54,6 +55,19 @@
 			paper-ripple {
 				color: var(--primary-color);
 			}
+			.card-content {
+				position: relative;
+				@apply(--layout-flex);
+			}
+			.text-fade {
+				position: absolute;
+				bottom: 0; left: 0; right: 0;
+				height: 12px;
+				background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));;
+			}
+			:host([rippling]) .text-fade{ 
+				display: none;
+			}
 		</style>
 		<responsive-queries narrow="{{narrow}}"></responsive-queries>
 		<paper-card 
@@ -64,9 +78,14 @@
 			preload-image="[[preloadImage]]"
 			fade-image="[[fadeImage]]"
 			placeholder-image="[[placeholderImage]]"
+			on-tap="_hide_fade"
 		>
-			<paper-ripple></paper-ripple>
-			<content></content>
+			<paper-ripple on-transitionend="_show_fade"></paper-ripple>
+			<content select=".full-card"></content>
+			<div class="card-content">
+				<content select=".card-body"></content>
+				<div class="text-fade" hidden="[[_animating]]"></div>
+			</div>
 		</paper-card>
 
 	</template>
@@ -103,12 +122,20 @@
         animatedShadow: {
           type: Boolean,
           value: false
-        }
+        },
 			},
 
 			_get_elevation: function(narrow) {
 				var elevation = +(!narrow); 
 				return elevation;
+			},
+
+			_hide_fade: function(event, detail) {
+				this._animating = true;
+			},
+
+			_show_fade: function (event, detail) {
+				this._animating = false;
 			}
 		});
 	</script>

@@ -6,6 +6,7 @@
 <link rel="import" href="/bower_components/paper-styles/shadow.html">
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/elements/course/course-detail-editor.html">
+<link rel="import" href="/elements/course/course-video-edit-list.html">
 <dom-module id="course-editor">
 	<template>
 		<style>
@@ -55,7 +56,7 @@
 					semesters="[[semesters]]"
 					subjects="[[subjects]]"
 				></course-detail-editor>
-				<course-videos-edit-list course="[[course]]"></course-videos-edit-list>
+				<course-video-edit-list course="[[course]]"></course-video-edit-list>
 			</iron-pages>
 		</paper-material>
 	</template>

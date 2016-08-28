@@ -1,11 +1,12 @@
 <link rel="import" href="/elements/topic/topic-card.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
-<link rel="import" href="/elements/grid-view.html">
+<link rel="import" href="/styles/grid-style.html">
+<link rel="import" href="/behaviors/responsive-grid.html">
 
 <dom-module id="topic-browser">
 	<template>
-		<style>
+		<style include="grid-style">
 			:host {
 				display: block;
 			}
@@ -28,11 +29,11 @@
 
 		<loading-overlay active="[[loading]]"></loading-overlay>
 
-		<grid-view>
+		<div class="app-grid" has-aspect-ratio>
 			<template is="dom-repeat" items="[[items]]">
 				<topic-card topic="[[item]]"></topic-card>
 			</template>
-		</grid-view>
+		</div>
 
 		<div id="more_button_container">
 			<paper-button raised id="more_button" on-tap="_load_more_topics">Older</paper-button>
@@ -42,6 +43,8 @@
 	<script>
 		Polymer({
 			is: 'topic-browser',
+
+			behaviors: [Behaviors.responsive_grid],
 
 			properties: {
 				items: {

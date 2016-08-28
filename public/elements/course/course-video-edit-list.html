@@ -1,0 +1,35 @@
+<link rel="import" href="/elements/video/video-card.html">
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="course-video-edit-list">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+	</template>
+	<script>
+		Polymer({
+			is: 'course-video-edit-list',
+			course: {
+				type: Object,
+				//observer: '_course_changed'
+			},
+		});
+	</script>
+</dom-module>

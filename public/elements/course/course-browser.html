@@ -1,23 +1,25 @@
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="/elements/grid-view.html">
 <link rel="import" href="/elements/course/course-card.html">
+<link rel="import" href="/behaviors/responsive-grid.html">
+<link rel="import" href="/styles/grid-style.html">
 
 <dom-module id="course-browser">
 	<template>
 	
-		<style>
+		<style include="grid-style">
 			:host {
 				display: block;
 			}
 
 		</style>
 	
-
-		<grid-view>
+		<div class="app-grid" has-aspect-ratio>
 			<template is="dom-repeat" items="[[courses]]">
 				<course-card course="[[item]]"></course-card>
 			</template>
-		</grid-view>	
+		</div>
+		
 	
 	</template>
 
