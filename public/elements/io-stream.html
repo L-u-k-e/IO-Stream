@@ -35,6 +35,7 @@
 
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/behaviors/app-router.html">
+<link rel="import" href="/behaviors/token-manager.html">
 <link rel="import" href="/behaviors/api-requestor.html">
 <link rel="import" href="/behaviors/semester-provider.html">
 <link rel="import" href="/behaviors/subject-provider.html">
@@ -100,7 +101,7 @@
 				<loading-overlay id="loading_overlay" active="[[loading]]"></loading-overlay>
 
 				<app-drawer id="drawer">
-					 <the-sidebar selected="[[page]]"></the-sidebar>
+					 <the-sidebar selected="[[page]]" token="[[token]]"></the-sidebar>
 				</app-drawer>
 
 				<iron-pages id="pages" selected="[[page]]" attr-for-selected="data-page" selected-attribute="showing">

@@ -3,11 +3,13 @@
 <link rel="import" href="/bower_components/paper-menu/paper-menu.html">
 
 <link rel="import" href="/behaviors/person-consumer.html">
+<link rel="import" href="/behaviors/token-consumer.html">
 <link rel="import" href="/styles/shared-styles.html">
+<link rel="import" href="/styles/access-level-styles.html">
 
 <dom-module id="user-action-portal">
 	<template>
-		<style>
+		<style include="access-level-styles">
 			:host {
 				display: block;
 			}
@@ -31,11 +33,6 @@
 					color: var(--primary-color);
 				};
 			}
-
-			:host(:not([access*="publisher"])) paper-item.publisher,
-			:host(:not([access*="admin"])) paper-item.admin {
-				display: none;
-			};
 		</style>
 
 		<paper-menu-button id="menu_trigger">
@@ -56,39 +53,19 @@
 		Polymer({
 			is: 'user-action-portal',
 
-			behaviors: [Behaviors.person_consumer],
-
-			properties: {
-				token: Object,
-				access: {
-					type: String,
-					computed: '_get_access_level(token)',
-					reflectToAttribute: true
-				}
-			},
+			behaviors: [Behaviors.person_consumer, Behaviors.token_consumer],
 
 			ready: function () {
 				this.items = [
-					{text: 'My Courses', class: 'publisher', tap: '_navigate'       , route: '/courses/manage/', append: 'id' },
-					{text: 'Topics'    , class: 'admin'  , tap: '_navigate'       , route: '/topics/manage/', append: 'id' },
-					{text: 'Publishers', class: 'admin'  , tap: '_navigate'       , route: '/publishers/manage/', append: 'id'},
-					{text: 'About'     , class: 'public' , tap: '_navigate'       , route: '/about'},
+					{text: 'My Courses', class: 'publisher', tap: '_navigate'       , route: '/courses/manage/',    append: 'id' },
+					{text: 'Topics'    , class: 'admin'  ,   tap: '_navigate'       , route: '/topics/manage/',     append: 'id' },
+					{text: 'Publishers', class: 'admin'  ,   tap: '_navigate'       , route: '/publishers/manage/', append: 'id' },
+					{text: 'About'     , class: 'public' ,   tap: '_navigate'       , route: '/about'},
 				]
 			},
 
 			_item_tapped: function (event, detail) {
 				this[event.model.item.tap](event, detail);
-			},
-
-			_get_access_level: function (token) {
-				var access_list = ['public'];
-				var user = _.get(token, 'decoded.user');
-				if (user) {
-					if (user.admin) access_list.push('admin');
-					if (user.publisher) access_list.push('publisher');
-				}
-				var access_class = access_list.join(',');
-				return access_class;
 			},
 
 			_get_icon: function (token) {

@@ -1,0 +1,10 @@
+<dom-module id="access-level-styles">
+	<template>
+		<style>
+			:host(:not([access*="publisher"])) .publisher,
+			:host(:not([access*="admin"])) .admin {
+				display: none;
+			}
+		</style>	
+	</template>
+</dom-module>
