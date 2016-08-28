@@ -20,9 +20,9 @@
 
 		<loading-overlay active="[[loading]]"></loading-overlay>
 
-		<grid-view narrow$="[[narrow]]">
+		<grid-view narrow$="[[forceNarrow]]">
 			<template is="dom-repeat" items="[[videos]]">
-				<video-card force-narrow="[[narrow]]" video="[[item]]"></video-card>
+				<video-card force-narrow="[[forceNarrow]]" video="[[item]]"></video-card>
 			</template>
 		</grid-view>
 
@@ -41,7 +41,7 @@
 					type: Array,
 					value: undefined
 				},
-				narrow: {
+				forceNarrow: {
 					type: Boolean,
 					value: false
 				}

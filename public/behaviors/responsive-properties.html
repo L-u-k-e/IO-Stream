@@ -3,7 +3,13 @@
 	var Behaviors = Behaviors || {};
 
 	Behaviors.responsive_properties = (function () {
-		var _screen_width_changed = function  () {};
+		var _screen_width_changed = function (new_value, old_value) {
+			if (this.forceNarrow) this.narrow = true;
+		};
+
+		var _force_narrow_changed = function (new_value, old_value) {
+			if (new_value) this.narrow = true;
+		};
 
 		var properties = {
 			narrow: {
@@ -12,12 +18,18 @@
 				notify: true,
 				reflectToAttribute: true,
 				observer: '_screen_width_changed'
+			},
+			forceNarrow: {
+				type: Boolean,
+				value: false,
+				observer: '_force_narrow_changed'
 			}
 		}
 
 		return {
 			properties: properties,
-			_screen_width_changed: _screen_width_changed
+			_screen_width_changed: _screen_width_changed,
+			_force_narrow_changed: _force_narrow_changed
 		};
 
 	}());
