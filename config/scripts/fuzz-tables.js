@@ -158,7 +158,11 @@ var seed_videos = function (next) {
 	var samples = fs.readdirSync(samples_dir);
 	
 	fs.emptyDirSync(publishing_dir);
+	var courses_tally = {};
 	_.times(5000, function (i) {
+		var course_id = _.sample(courses).id;
+		courses_tally[course_id] = courses_tally[course_id] || 0;
+		courses_tally[course_id]++;
 		var uuid = generate_uuid(true);
 		var sample = _.sample(samples);
 		var video_file_src = path.join(samples_dir,sample, 'video.mp4');
@@ -177,7 +181,8 @@ var seed_videos = function (next) {
 			title:         faker.company.catchPhrase(),
 			description:   faker.lorem[_.sample(['sentence', 'paragraph'])],
 			thumbnail_src: thumb_file_dest.replace('public',''),
-			src:           video_file_dest.replace('public','')
+			src:           video_file_dest.replace('public',''),
+			rank:          courses_tally[course_id]
 		});
 	});
 

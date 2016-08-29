@@ -123,7 +123,8 @@ CREATE TABLE video (
 	title              varchar(100)    NULL,
 	description        varchar(500)    NULL,
 	src                varchar(1000)   NULL,
-	thumbnail_src      varchar(1000)   NULL
+	thumbnail_src      varchar(1000)   NULL,
+	rank               serial          NOT NULL
 );
 
 

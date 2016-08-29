@@ -96,7 +96,7 @@
 				<the-header token="[[token]]"></the-header>
 			</app-header>
 
-			<app-drawer-layout fullbleed responsive-width="1250px">
+			<app-drawer-layout id="drawer_layout" fullbleed responsive-width="1250px">
 
 				<loading-overlay id="loading_overlay" active="[[loading]]"></loading-overlay>
 
@@ -186,7 +186,10 @@
 			},
 
 			_toggle_drawer: function (event, detail) {
-				this.$.drawer.toggle();
+				var responsive_width = parseInt(this.$.drawer_layout.responsiveWidth, 10);
+				if (window.innerWidth <= responsive_width) { 
+					this.$.drawer.toggle();
+				}
 			},
 
 			_toggle_signin_dialog: function(event, detail) {

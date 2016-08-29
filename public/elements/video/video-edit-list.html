@@ -1,0 +1,22 @@
+<link rel="import" href="bower_components/polymer-sortablejs/polymer-sortablejs.html"/>
+
+<dom-module id="video-edit-list">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<template is="dom-repeat" items="{{}}"
+	</template>
+	<script>
+		Polymer({
+			is: 'video-edit-list',
+			properties: {
+				course: {
+					type: Object
+				}
+			}
+		});
+	</script>
+</dom-module>

@@ -100,8 +100,6 @@
 					callback: function (result) { 
 						var course = result.body.data;
 						if (!course.id || course.person.id !== this.token.decoded.user.id) {
-							console.log(this.token.decoded);
-							console.log(course);
 							this.page_not_found();
 						}
 						else this.course = course;

@@ -1,11 +1,17 @@
 <link rel="import" href="/elements/video/video-browser.html">
-
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 <dom-module id="course-video-edit-list">
 	<template>
 		<style>
 			:host {
 				display: block;
 				position: relative;
+			}
+			#add_video {
+				text-align: center;
+			}
+			paper-button {
+				margin: 10px;
 			}
 		</style>
 		<video-browser course-id="[[course.id]]" force-narrow></video-browser>

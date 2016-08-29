@@ -74,7 +74,7 @@
 			div.publisher,
 			div.admin {
 				border-top: 1px solid rgba(0,0,0,0.1); 
-				padding-bottom: 50px;
+				padding-bottom: 10px;
 			}
 
 			.subhead {
@@ -88,9 +88,9 @@
 
 
 		<div class="top public">
-			<paper-menu selected="[[selected]]" attr-for-selected="data-page" on-iron-activate="_navigate">
+			<paper-menu selected="[[selected]]" attr-for-selected="data-route">
 				<template is="dom-repeat" items="[[_public_menu_items]]">
-					<paper-item data-page="[[item.page]]">
+					<paper-item data-route="[[item.route]]" on-tap="_navigate">
 						<iron-icon icon="[[item.icon]]"></iron-icon>
 						<span>[[item.text]]</span>
 					</paper-item>
@@ -101,9 +101,9 @@
 		<div>
 			<div class="publisher">
 				<div class="subhead">Publisher</div> 
-				<paper-menu selected="[[selected]]" attr-for-selected="data-page" on-iron-activate="_navigate">
+				<paper-menu selected="[[selected]]" attr-for-selected="data-route">
 					<template is="dom-repeat" items="[[_publisher_menu_items]]">
-						<paper-item data-page="[[item.page]]">
+						<paper-item data-route="[[item.route]]" on-tap="_navigate">
 							<iron-icon icon="[[item.icon]]"></iron-icon>
 							<span>[[item.text]]</span>
 						</paper-item>
@@ -113,9 +113,9 @@
 
 			<div class="admin">
 			<div class="subhead">Administrator</div>
-				<paper-menu selected="[[selected]]" attr-for-selected="data-page" on-iron-activate="_navigate">
+				<paper-menu selected="[[selected]]" attr-for-selected="data-route">
 					<template is="dom-repeat" items="[[_admin_menu_items]]">
-						<paper-item data-page="[[item.page]]">
+						<paper-item data-route="[[item.route]]" on-tap="_navigate">
 							<iron-icon icon="[[item.icon]]"></iron-icon>
 							<span>[[item.text]]</span>
 						</paper-item>
@@ -146,28 +146,31 @@
 
 			ready: function () {
 				this._public_menu_items = [
-					{icon: 'explore'           , text: 'View All Topics'      , page: 'topics' },
-					{icon: 'track-changes'     , text: 'Subscriptions'        , page: 'topics' },
-					{icon: 'star'              , text: 'Favorites'            , page: 'topics' },
-					{icon: 'av:fiber-new'      , text: 'New Videos'           , page: 'watch'  }
+					{icon: 'explore'           , text: 'View All Topics'      , route: '/topics' },
+					{icon: 'track-changes'     , text: 'Subscriptions'        , route: '/topics' },
+					{icon: 'star'              , text: 'Favorites'            , route: '/topics' },
+					{icon: 'av:fiber-new'      , text: 'New Videos'           , route: '/watch'  }
 				];
 
 				this._publisher_menu_items = [
-					{icon: 'record-voice-over', text: 'Manage Courses', page: 'watch'}
+					{icon: 'av:add-to-queue', text: 'Upload',  route: '/upload'},
+					{icon: 'record-voice-over', text: 'Courses', route: '/courses/manage/', append: 'id'},
 				];
 
 				this._admin_menu_items = [
-					{icon: 'view-module', text: 'Manage Topics', page: 'watch'},
-					{icon: 'supervisor-account', text: 'Manage Publishers', page: 'watch'},
-
+					{icon: 'view-module', text: 'Topics', route: '/watch'},
+					{icon: 'supervisor-account', text: 'Publishers', route: '/watch'},
 				];
 
 			},
 
 
 			_navigate: function (event, detail) {
-				var url = '/' + detail.selected;
-				this.fire('navigation-request', {url: url});
+				var item = event.model.item;
+				var route = item.route;
+				if (item.append) route += this.token.decoded.user[item.append]; 
+				this.fire('navigation-request', {url: route});
+				this.fire('drawer-toggle-request');
 			}
 
 
