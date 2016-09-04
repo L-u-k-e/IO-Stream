@@ -1,22 +1,86 @@
-<link rel="import" href="bower_components/polymer-sortablejs/polymer-sortablejs.html"/>
-
+<link rel="import" href="/bower_components/polymer-sortablejs/polymer-sortablejs.html"/>
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/elements/video/video-edit-card.html"/>
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <dom-module id="video-edit-list">
 	<template>
 		<style>
 			:host {
 				display: block;
+				position: relative;
+			}
+			.drag_container {
+				@apply(--layout-horizontal);
+				border-top: 1px solid rgba(0,0,0,0.1);
+				border-top: 1px solid rgba(0,0,0,0.1);
+				width: 100%;
+			}
+			.drag_handle {
+				background: #fbfbfb;
+				border-right: 1px solid #e2e2e2;
+				border-left: 1px solid #e2e2e2;
+				width: 15px;
+				@apply(--layout-horizontal);
+				@apply(--layout-center-center);
+				cursor: -webkit-grab;
+				cursor: grab;
+				opacity: 0;
+			}
+			.sortable-ghost {
+				opacity: 0;
+			}
+			.drag_container:hover .drag_handle {
+				opacity: 1;
+			}
+			.drag_handle:active {
+				cursor: -webkit-grabbing;
+				cursor: grabbing;
+			}
+			video-edit-card {
+				@apply(--layout-flex);
+			}
+			iron-icon {
+				color: rgba(0,0,0,0.4);
 			}
 		</style>
-		<template is="dom-repeat" items="{{}}"
+		
+		<sortable-js animation="300" handle=".drag_handle" >
+			<template is="dom-repeat" items="[[videos]]">
+				<div class="drag_container">
+					<div class="drag_handle">
+						<iron-icon icon="more-vert"></iron-icon>
+					</div>
+					<video-edit-card video="[[item]]"></video-edit-card>
+				</div>
+			</template>
+		</sortable-js>
+		
 	</template>
 	<script>
 		Polymer({
 			is: 'video-edit-list',
 			properties: {
 				course: {
-					type: Object
+					type: Object,
+					observer: '_get_new_data'
 				}
+			},
+			
+			_get_new_data: function (new_course, old_course) {
+				this.loading = true;
+				this.fire('api-request', {
+					verb: 'GET', 
+					resource: 'videos',
+					query: { where: {course_id: new_course.id} },
+					callback_scope: this, 
+					callback: function (result) { 
+						this.videos = result.body.data; 
+						this.loading = false;
+					}
+				});
 			}
+
 		});
 	</script>
 </dom-module>

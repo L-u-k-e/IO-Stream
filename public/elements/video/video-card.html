@@ -2,6 +2,7 @@
 <link rel="import" href="/elements/responsive-queries.html">
 <link rel="import" href="/elements/ripple-card.html">
 <link rel="import" href="/behaviors/responsive-properties.html">
+<link rel="import" href="/behaviors/video-consumer.html">
 <dom-module id="video-card">
 	<template>
 		<style>
@@ -81,27 +82,7 @@
 		Polymer({
 			is: 'video-card',
 
-			behaviors: [Behaviors.responsive_properties],
-
-			properties: {
-				video: {
-					type: Object,
-					value: {}
-				}
-			},
-
-			get_date_string: function (date) {
-				var str = 'Uploaded ';
-				var m = moment(date).fromNow();
-				str = str + m;
-				return str;
-			},
-
-			get_time_string: function (time) {
-				var str = 'Duration: ';
-				str = str + moment().startOf('day').minutes(time).format('h:mm:ss');
-				return str;
-			},
+			behaviors: [Behaviors.responsive_properties, Behaviors.video_consumer],
 
 			_request_video_navigation: function (event, detail) {
 				this.async(function () {

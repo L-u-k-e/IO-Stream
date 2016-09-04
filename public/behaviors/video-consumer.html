@@ -1,0 +1,32 @@
+<script>
+	var Behaviors = Behaviors || {};
+	(function () {
+
+		function get_date_string(date) {
+			var str = 'Uploaded ';
+			var m = moment(date).fromNow();
+			str = str + m;
+			return str;
+		}
+
+		function get_time_string(time) {
+			var str = 'Duration: ';
+			str = str + moment().startOf('day').minutes(time).format('h:mm:ss');
+			return str;
+		}
+
+		var properties = {
+			video: {
+				type: Object,
+				value: {}
+			}
+		};
+
+		Behaviors.video_consumer = {
+			get_date_string: get_date_string,
+			get_time_string: get_time_string,
+			properties: properties
+		};
+
+	}());
+</script>

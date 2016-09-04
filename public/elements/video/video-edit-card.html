@@ -1,0 +1,53 @@
+<link rel="import" href="/behaviors/video-consumer.html">
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="video-edit-card">
+	<template>
+		<style>
+			:host {
+				display: block;
+				width: 100%;
+				padding: 15px;
+				@apply(--layout-horizontal);
+			}
+			
+			iron-image {
+				height: 90px;
+				width: 120px;
+				min-width: 120px;
+				margin-right: 15px;
+			}
+			
+			.card_content {
+				padding-top: 0;
+				@apply(--layout-vertical);
+				@apply(--layout-justified);
+				width: 100%;
+			}
+
+			.button_container {
+				@apply(--layout-vertical);
+				@apply(--layout-center-justified);				
+			}
+		</style>
+
+		<iron-image src="[[video.thumbnail_src]]" sizing="cover"></iron-image>
+		<div class="card_content">
+			<div>[[video.title]]</div>
+			<div>[[get_time_string(video.duration)]]</div>
+			<div>[[get_date_string(video.date_uploaded)]]</div>
+		</div>
+		<div class="button_container">
+			<paper-button raised>Edit</paper-button>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'video-edit-card',
+			behaviors: [Behaviors.video_consumer]
+		});
+	</script>
+</dom-module>
