@@ -1,9 +1,10 @@
 <link rel="import" href="/behaviors/video-consumer.html">
+<link rel="import" href="/behaviors/route-composer.html">
 <link rel="import" href="/bower_components/iron-image/iron-image.html">
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
-
+<link rel="import" href="/styles/shared-styles.html">
 <dom-module id="video-edit-card">
 	<template>
 		<style>
@@ -32,6 +33,16 @@
 				@apply(--layout-vertical);
 				@apply(--layout-center-justified);				
 			}
+
+			paper-button {
+				--paper-button-ink-color: var(--primary-color);
+				border: solid 1px #d3d3d3;
+				background: #f8f8f8;
+				color: #333;
+				box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+				padding: 8px 5px;
+			}
+
 		</style>
 
 		<iron-image src="[[video.thumbnail_src]]" sizing="cover"></iron-image>
@@ -41,13 +52,18 @@
 			<div>[[get_date_string(video.date_uploaded)]]</div>
 		</div>
 		<div class="button_container">
-			<paper-button raised>Edit</paper-button>
+			<paper-button 
+				data-route$="/edit/[[video.course.person.id]]/videos/[[video.id]]"
+				on-tap="_request_inline_navigation_async"
+			> Edit
+			</paper-button>
 		</div>
 	</template>
 	<script>
 		Polymer({
 			is: 'video-edit-card',
-			behaviors: [Behaviors.video_consumer]
+			
+			behaviors: [Behaviors.video_consumer, Behaviors.route_composer],
 		});
 	</script>
 </dom-module>

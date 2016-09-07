@@ -56,30 +56,6 @@
 					},
 
 					{
-						route:      '/courses/manage/:id',
-						page:       'courses manager',
-						id:         'courses_manager',
-						import:     'course/courses-manager',
-						access:     ['publisher', 'admin'],
-						self_check: 'id',
-						end: function (ctx) {
-							self.$.courses_manager.personId = ctx.params.id;
-						}
-					},
-
-					{
-						route:      '/courses/edit/:id',
-						page:       'course editor',
-						id:         'course_editor',
-						import:     'course/course-editor',
-						access:     ['publisher', 'admin'],
-						end: function (ctx) {
-							self.$.course_editor.courseId = ctx.params.id;
-						}
-					},
-
-
-					{
 						route:  '/videos/:id',
 						page:   'video viewer',
 						id:     'video_viewer',
@@ -87,7 +63,46 @@
 						end: function (ctx) {
 							self.$.video_viewer.videoId = ctx.params.id;
 						}
+					},
+
+
+
+					{
+						route:      '/edit/:person_id/courses',
+						page:       'courses manager',
+						id:         'courses_manager',
+						import:     'course/courses-manager',
+						access:     ['publisher', 'admin'],
+						self_check: 'person_id',
+						end: function (ctx) {
+							self.$.courses_manager.personId = ctx.params.person_id;
+						}
+					},
+					{
+						route:      '/edit/:person_id/courses/:course_id',
+						page:       'course editor',
+						id:         'course_editor',
+						import:     'course/course-editor',
+						access:     ['publisher', 'admin'],
+						self_check: 'person_id',
+						end: function (ctx) {
+							self.$.course_editor.courseId = ctx.params.course_id;
+						}
+					},
+					{
+						route:      '/edit/:person_id/videos/:video_id',
+						page:       'course editor',
+						id:         'course_editor',
+						import:     'course/course-editor',
+						access:     ['publisher', 'admin'],
+						self_check: 'person_id',
+						end: function (ctx) {
+							self.$.course_editor.courseId = ctx.params.course_id;
+						}
 					}
+
+
+
 
 
 				];

@@ -1,0 +1,21 @@
+<script>
+	var Behaviors = Behaviors || {};
+	(function () {
+
+		function request_inline_navigation(event, detail) {
+			var current_target = event.currentTarget || event.target;
+			var route = current_target.dataset.route;
+			this.fire('navigation-request', {url: route});
+		}
+
+		function request_inline_navigation_async(event, detail) {
+			var event_extract = {currentTarget: event.currentTarget}; // freeze what we need so it isn't mutated while waiting for the async
+			this.async(_.partial(request_inline_navigation, event_extract), 200);
+		}
+
+		Behaviors.route_composer = {
+			_request_inline_navigation_async: request_inline_navigation_async,
+			_request_inline_navigation_sync: request_inline_navigation,
+		}
+	}());
+</script>

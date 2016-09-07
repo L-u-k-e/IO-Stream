@@ -1,5 +1,6 @@
 <link rel="import" href="/elements/ripple-card.html">
 <link rel="import" href="/behaviors/course-consumer.html">
+<link rel="import" href="/behaviors/route-composer.html">
 
 <dom-module id="course-edit-card">
 	<template>
@@ -11,7 +12,11 @@
 				height: 100%;
 			}
 		</style>
-		<ripple-card heading="[[course.topic.title]]" on-tap="_request_course_navigation">
+		<ripple-card 
+			heading="[[course.topic.title]]" 
+			data-route$="/edit/[[course.person.id]]/courses/[[course.id]]"
+			on-tap="_request_inline_navigation_async"
+		>
 			<div class="card-content">
 				<div>[[_get_semester_detail(course)]]</div>
 			</div>
@@ -22,20 +27,15 @@
 		Polymer({
 			is: 'course-edit-card',
 
-			behaviors: [Behaviors.course_consumer],
+			behaviors: [Behaviors.course_consumer, Behaviors.route_composer],
 
 			properties: {
 				course: {
 					type: Object,
 					value: {}
 				}
-			},
-
-			_request_course_navigation: function (event, detail) {
-				this.async(function () {
-					this.fire('navigation-request', {url: '/courses/edit/'+this.course.id});
-				}, 200);	
 			}
+
 		});
 	</script>
 </dom-module>

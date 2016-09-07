@@ -154,7 +154,7 @@
 
 				this._publisher_menu_items = [
 					{icon: 'av:add-to-queue', text: 'Upload',  route: '/upload'},
-					{icon: 'record-voice-over', text: 'Courses', route: '/courses/manage/', append: 'id'},
+					{icon: 'record-voice-over', text: 'Courses', route: '/edit/{{ person }}/courses/', route_attrs: {person: 'token.decoded.user.id'}},
 				];
 
 				this._admin_menu_items = [
@@ -168,7 +168,10 @@
 			_navigate: function (event, detail) {
 				var item = event.model.item;
 				var route = item.route;
-				if (item.append) route += this.token.decoded.user[item.append]; 
+				_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+				if (item.route_attrs) {
+					route = _.template(route)(_.mapValues(item.route_attrs, _.partial(_.get, this)));
+				}
 				this.fire('navigation-request', {url: route});
 				this.fire('drawer-toggle-request');
 			}
