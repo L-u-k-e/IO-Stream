@@ -162,7 +162,7 @@ var seed_videos = function (next) {
 	_.times(5000, function (i) {
 		var course_id = _.sample(courses).id;
 		courses_tally[course_id] = courses_tally[course_id] || 0;
-		courses_tally[course_id]++;
+		courses_tally[course_id] += 1;
 		var uuid = generate_uuid(true);
 		var sample = _.sample(samples);
 		var video_file_src = path.join(samples_dir,sample, 'video.mp4');
@@ -177,7 +177,7 @@ var seed_videos = function (next) {
 			id:            uuid,
 			duration:      (Math.random()*1000+1).toFixed(2),
 			date_uploaded: faker.date.past(),
-			course_id:     _.sample(courses).id,
+			course_id:     course_id,
 			title:         faker.company.catchPhrase(),
 			description:   faker.lorem[_.sample(['sentence', 'paragraph'])],
 			thumbnail_src: thumb_file_dest.replace('public',''),
