@@ -37,9 +37,21 @@ var equals = function (args) {
 
 
 
-var list = function (items) {
+var list_names = function (items) {
 	if (!items) return ''; 
 	return items.map(pgp.as.name).join();
+};
+
+
+
+var generate_order_list = function (items) {
+	var clauses = items.map(function(item) {
+		var order = _.lowerCase(item.order || '');
+		var column = pgp.as.name(item.column || item);
+		if (['asc', 'desc'].indexOf(order) == -1) order = '';
+		return column + ' ' + order;
+	});
+	return clauses.join(', ');
 };
 
 
@@ -48,7 +60,7 @@ var insert = function (args) {
 	var keys = _.keys(args.values);
 	var query = pgp.as.format('INSERT INTO $1~($2^) VALUES($3^) RETURNING *', [
 		args.table,
-		list(keys),
+		list_names(keys),
 		keys.map(function (k) { return '$(' + k + ')'; }).join(', ')
 	]);
 	return args.db.one(query, args.values);
@@ -58,12 +70,12 @@ var insert = function (args) {
 
 var select = function (args) {
 	var template_string = 'SELECT $1^ FROM $2~';
-	var template_vars = [(list(args.columns) || '*'), args.table];
+	var template_vars = [(list_names(args.columns) || '*'), args.table];
 	var i=3;
 	
 	var optional_clauses = [
 		['where',  'WHERE ($i)',   function () { return equals(args.where); }],
-		['order',  'ORDER BY $i^', function () { return list(args.order); }],
+		['order',  'ORDER BY $i^', function () { return generate_order_list(args.order); }],
 		['limit',  'LIMIT $i',     function () { return args.limit; }],
 		['offset', 'OFFSET $i',    function () { return args.offset; }]
 	];
@@ -104,7 +116,7 @@ var remove = function (args) {
 
 module.exports = {
 	equals:    equals,
-	list:      list,
+	list_names:      list_names,
 	insert:    insert,
 	select:    select,
 	update:    update,

@@ -75,7 +75,7 @@
 				this.fire('api-request', {
 					verb: 'GET', 
 					resource: 'videos',
-					query: { where: {course_id: new_course.id} },
+					query: { where: {course_id: new_course.id}, order: [{column: 'rank', order: 'desc'}]},
 					callback_scope: this, 
 					callback: function (result) { 
 						this.videos = result.body.data; 
@@ -87,3 +87,9 @@
 		});
 	</script>
 </dom-module>
+
+
+
+{	
+	sort: [{property:'rank', order: 'desc'}]
+}
