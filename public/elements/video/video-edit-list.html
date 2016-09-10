@@ -42,7 +42,7 @@
 			}
 		</style>
 		
-		<sortable-js  handle=".drag_handle" on-update="sync">
+		<sortable-js id="sortable" handle=".drag_handle" on-update="sync">
 			<template is="dom-repeat" items="[[videos]]">
 				<div class="drag_container">
 					<div class="drag_handle">
@@ -66,9 +66,9 @@
 			sync: function(event, detail) {
 				//please see: https://github.com/SortableJS/polymer-sortablejs/issues/16
 				if (!event.detail) return;
-				console.log(detail)
+				console.log(this.$.sortable.toArray());
+				console.log(detail);
 				console.log(event);
-
 			},
 			_get_new_data: function (new_course, old_course) {
 				this.loading = true;
@@ -87,9 +87,3 @@
 		});
 	</script>
 </dom-module>
-
-
-
-{	
-	sort: [{property:'rank', order: 'desc'}]
-}

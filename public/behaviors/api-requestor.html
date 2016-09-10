@@ -65,6 +65,7 @@
 							} 
 
 							if (response.status == 401 && check_auth) {
+								self.delete_token();
 								self.fire('signin-request', {success_callback: send_request.bind(self)});
 							} else if (spec.callback) {
 								spec.callback.call(callback_scope, response);
