@@ -1,0 +1,1054 @@
+
+> io-stream@0.0.2 start /home/luke/Sandbox/IO-Stream
+> node ./bin/www
+
+[0mGET /edit/Mohammed.Hintz65/courses/MwMC8vcZkyf [36m304 [0m20.140 ms - -[0m
+[0mGET /styles/normalize.css [36m304 [0m3.038 ms - -[0m
+[0mGET /styles/main.css [36m304 [0m3.184 ms - -[0m
+[0mGET /bower_components/lodash/dist/lodash.min.js [36m304 [0m3.261 ms - -[0m
+[0mGET /bower_components/moment/min/moment.min.js [36m304 [0m3.206 ms - -[0m
+[0mGET /bower_components/flow.js/dist/flow.min.js [36m304 [0m3.691 ms - -[0m
+[0mGET /bower_components/webcomponentsjs/webcomponents.min.js [36m304 [0m14.373 ms - -[0m
+[0mGET /bower_components/jwt-decode/build/jwt-decode.min.js [36m304 [0m11.592 ms - -[0m
+[0mGET /elements/io-stream.html [36m304 [0m0.495 ms - -[0m
+[0mGET /bower_components/polymer/polymer.html [36m304 [0m2.998 ms - -[0m
+[0mGET /bower_components/iron-flex-layout/iron-flex-layout.html [36m304 [0m5.700 ms - -[0m
+[0mGET /bower_components/iron-pages/iron-pages.html [36m304 [0m18.673 ms - -[0m
+[0mGET /bower_components/iron-localstorage/iron-localstorage.html [36m304 [0m18.794 ms - -[0m
+[0mGET /bower_components/neon-animation/neon-animated-pages.html [36m304 [0m18.790 ms - -[0m
+[0mGET /bower_components/neon-animation/neon-animatable.html [36m304 [0m19.037 ms - -[0m
+[0mGET /elements/the-header.html [36m304 [0m0.524 ms - -[0m
+[0mGET /bower_components/app-layout/app-drawer-layout/app-drawer-layout.html [36m304 [0m0.548 ms - -[0m
+[0mGET /bower_components/app-layout/app-header-layout/app-header-layout.html [36m304 [0m1.864 ms - -[0m
+[0mGET /bower_components/app-layout/app-drawer/app-drawer.html [36m304 [0m1.995 ms - -[0m
+[0mGET /bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html [36m304 [0m1.911 ms - -[0m
+[0mGET /bower_components/paper-styles/paper-styles.html [36m304 [0m3.169 ms - -[0m
+[0mGET /elements/the-sidebar.html [36m304 [0m1.125 ms - -[0m
+[0mGET /elements/signin-dialog.html [36m304 [0m1.568 ms - -[0m
+[0mGET /styles/shared-styles.html [36m304 [0m0.658 ms - -[0m
+[0mGET /behaviors/app-router.html [36m304 [0m1.103 ms - -[0m
+[0mGET /behaviors/token-manager.html [36m304 [0m1.344 ms - -[0m
+[0mGET /behaviors/api-requestor.html [36m304 [0m1.899 ms - -[0m
+[0mGET /behaviors/semester-provider.html [36m304 [0m0.762 ms - -[0m
+[0mGET /behaviors/subject-provider.html [36m304 [0m0.804 ms - -[0m
+[0mGET /bower_components/paper-dropdown-menu/paper-dropdown-menu.html [36m304 [0m0.625 ms - -[0m
+[0mGET /bower_components/paper-listbox/paper-listbox.html [36m304 [0m1.749 ms - -[0m
+[0mGET /bower_components/paper-item/paper-item.html [36m304 [0m3.175 ms - -[0m
+[0mGET /bower_components/loading-overlay/loading-overlay.html [36m304 [0m5.439 ms - -[0m
+[0mGET /favicon.ico [36m304 [0m2.092 ms - -[0m
+[0mGET /bower_components/polymer/polymer-mini.html [36m304 [0m0.730 ms - -[0m
+[0mGET /bower_components/iron-resizable-behavior/iron-resizable-behavior.html [36m304 [0m6.285 ms - -[0m
+[0mGET /bower_components/iron-selector/iron-selectable.html [36m304 [0m5.639 ms - -[0m
+[0mGET /bower_components/neon-animation/neon-animatable-behavior.html [36m304 [0m5.142 ms - -[0m
+[0mGET /bower_components/neon-animation/neon-animation-runner-behavior.html [36m304 [0m6.581 ms - -[0m
+[0mGET /bower_components/app-layout/app-header/app-header.html [36m304 [0m5.585 ms - -[0m
+[0mGET /bower_components/app-layout/app-toolbar/app-toolbar.html [36m304 [0m4.695 ms - -[0m
+[0mGET /bower_components/paper-icon-button/paper-icon-button.html [36m304 [0m3.966 ms - -[0m
+[0mGET /bower_components/iron-icons/iron-icons.html [36m304 [0m4.272 ms - -[0m
+[0mGET /bower_components/iron-icons/av-icons.html [36m304 [0m6.251 ms - -[0m
+[0mGET /bower_components/iron-icons/hardware-icons.html [36m304 [0m7.565 ms - -[0m
+[0mGET /bower_components/iron-icons/social-icons.html [36m304 [0m7.939 ms - -[0m
+[0mGET /elements/user-action-portal.html [36m304 [0m1.477 ms - -[0m
+[0mGET /bower_components/iron-media-query/iron-media-query.html [36m304 [0m1.909 ms - -[0m
+[0mGET /bower_components/iron-scroll-target-behavior/iron-scroll-target-behavior.html [36m304 [0m2.212 ms - -[0m
+[0mGET /bower_components/iron-flex-layout/classes/iron-flex-layout.html [36m304 [0m3.171 ms - -[0m
+[0mGET /bower_components/paper-styles/color.html [36m304 [0m2.496 ms - -[0m
+[0mGET /bower_components/paper-styles/default-theme.html [36m304 [0m2.531 ms - -[0m
+[0mGET /bower_components/paper-styles/shadow.html [36m304 [0m6.151 ms - -[0m
+[0mGET /bower_components/paper-styles/typography.html [36m304 [0m6.348 ms - -[0m
+[0mGET /bower_components/paper-menu/paper-menu.html [36m304 [0m6.950 ms - -[0m
+[0mGET /styles/access-level-styles.html [36m304 [0m1.181 ms - -[0m
+[0mGET /behaviors/token-consumer.html [36m304 [0m1.195 ms - -[0m
+[0mGET /bower_components/paper-dialog/paper-dialog.html [36m304 [0m8.076 ms - -[0m
+[0mGET /bower_components/paper-input/paper-input.html [36m304 [0m0.436 ms - -[0m
+[0mGET /bower_components/iron-meta/iron-meta.html [36m304 [0m0.368 ms - -[0m
+[0mGET /behaviors/responsive-properties.html [36m304 [0m1.759 ms - -[0m
+[0mGET /elements/responsive-queries.html [36m304 [0m3.122 ms - -[0m
+[0mGET /bower_components/page/page.js [36m304 [0m2.396 ms - -[0m
+[0mGET /bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html [36m304 [0m2.215 ms - -[0m
+[0mGET /bower_components/iron-behaviors/iron-button-state.html [36m304 [0m0.434 ms - -[0m
+[0mGET /bower_components/iron-behaviors/iron-control-state.html [36m304 [0m2.909 ms - -[0m
+[0mGET /bower_components/iron-form-element-behavior/iron-form-element-behavior.html [36m304 [0m1.689 ms - -[0m
+[0mGET /bower_components/iron-icon/iron-icon.html [36m304 [0m0.376 ms - -[0m
+[0mGET /bower_components/iron-validatable-behavior/iron-validatable-behavior.html [36m304 [0m0.363 ms - -[0m
+[0mGET /bower_components/paper-menu-button/paper-menu-button.html [36m304 [0m2.456 ms - -[0m
+[0mGET /bower_components/paper-ripple/paper-ripple.html [36m304 [0m1.745 ms - -[0m
+[0mGET /bower_components/paper-dropdown-menu/paper-dropdown-menu-icons.html [36m304 [0m1.762 ms - -[0m
+[0mGET /bower_components/paper-dropdown-menu/paper-dropdown-menu-shared-styles.html [36m304 [0m2.535 ms - -[0m
+[0mGET /bower_components/iron-menu-behavior/iron-menu-behavior.html [36m304 [0m2.285 ms - -[0m
+[0mGET /bower_components/paper-item/paper-item-behavior.html [36m304 [0m2.638 ms - -[0m
+[0mGET /bower_components/paper-item/paper-item-shared-styles.html [36m304 [0m2.761 ms - -[0m
+[0mGET /bower_components/paper-spinner/paper-spinner.html [36m304 [0m2.801 ms - -[0m
+[0mGET /bower_components/paper-spinner/paper-spinner-lite.html [36m304 [0m2.948 ms - -[0m
+[0mGET /bower_components/polymer/polymer-micro.html [36m304 [0m3.086 ms - -[0m
+[0mGET /bower_components/iron-selector/iron-selection.html [36m304 [0m1.194 ms - -[0m
+[0mGET /bower_components/app-layout/app-scroll-effects/app-scroll-effects-behavior.html [36m304 [0m0.392 ms - -[0m
+[0mGET /bower_components/iron-iconset-svg/iron-iconset-svg.html [36m304 [0m1.168 ms - -[0m
+[0mGET /bower_components/paper-behaviors/paper-inky-focus-behavior.html [36m304 [0m0.407 ms - -[0m
+[0mGET /behaviors/person-consumer.html [36m304 [0m0.584 ms - -[0m
+[0mGET /bower_components/iron-flex-layout/classes/iron-shadow-flex-layout.html [36m304 [0m0.402 ms - -[0m
+[0mGET /bower_components/paper-button/paper-button.html [36m304 [0m1.302 ms - -[0m
+[0mGET /bower_components/font-roboto/roboto.html [36m304 [0m3.000 ms - -[0m
+[0mGET /bower_components/paper-menu/paper-menu-shared-styles.html [36m304 [0m4.450 ms - -[0m
+[0mGET /bower_components/paper-dialog-behavior/paper-dialog-behavior.html [36m304 [0m4.751 ms - -[0m
+[0mGET /bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html [36m304 [0m4.874 ms - -[0m
+[0mGET /bower_components/iron-input/iron-input.html [36m304 [0m2.649 ms - -[0m
+[0mGET /bower_components/paper-input/paper-input-behavior.html [36m304 [0m2.987 ms - -[0m
+[0mGET /bower_components/paper-input/paper-input-char-counter.html [36m304 [0m3.566 ms - -[0m
+[0mGET /bower_components/paper-input/paper-input-container.html [36m304 [0m3.987 ms - -[0m
+[0mGET /bower_components/paper-input/paper-input-error.html [36m304 [0m3.524 ms - -[0m
+[0mGET /bower_components/iron-dropdown/iron-dropdown.html [36m304 [0m0.406 ms - -[0m
+[0mGET /bower_components/neon-animation/animations/fade-in-animation.html [36m304 [0m1.388 ms - -[0m
+[0mGET /bower_components/neon-animation/animations/fade-out-animation.html [36m304 [0m0.768 ms - -[0m
+[0mGET /bower_components/paper-menu-button/paper-menu-button-animations.html [36m304 [0m0.397 ms - -[0m
+[0mGET /bower_components/iron-selector/iron-multi-selectable.html [36m304 [0m1.354 ms - -[0m
+[0mGET /bower_components/paper-spinner/paper-spinner-behavior.html [36m304 [0m1.443 ms - -[0m
+[0mGET /bower_components/paper-spinner/paper-spinner-styles.html [36m304 [0m1.890 ms - -[0m
+[0mGET /bower_components/paper-behaviors/paper-ripple-behavior.html [36m304 [0m4.297 ms - -[0m
+[0mGET /bower_components/app-layout/helpers/helpers.html [36m304 [0m13.107 ms - -[0m
+[0mGET /bower_components/paper-behaviors/paper-button-behavior.html [36m304 [0m11.299 ms - -[0m
+[0mGET /bower_components/paper-material/paper-material-shared-styles.html [36m304 [0m11.197 ms - -[0m
+[0mGET /bower_components/iron-overlay-behavior/iron-overlay-behavior.html [36m304 [0m1.044 ms - -[0m
+[0mGET /bower_components/iron-a11y-announcer/iron-a11y-announcer.html [36m304 [0m12.276 ms - -[0m
+[0mGET /bower_components/paper-input/paper-input-addon-behavior.html [36m304 [0m0.428 ms - -[0m
+[0mGET /bower_components/neon-animation/animations/opaque-animation.html [36m304 [0m1.390 ms - -[0m
+[0mGET /bower_components/iron-dropdown/iron-dropdown-scroll-manager.html [36m304 [0m1.503 ms - -[0m
+[0mGET /bower_components/neon-animation/neon-animation-behavior.html [36m304 [0m1.744 ms - -[0m
+[0mGET /bower_components/neon-animation/web-animations.html [36m304 [0m1.351 ms - -[0m
+[0mGET /bower_components/iron-fit-behavior/iron-fit-behavior.html [36m304 [0m1.113 ms - -[0m
+[0mGET /bower_components/iron-overlay-behavior/iron-overlay-manager.html [36m304 [0m0.880 ms - -[0m
+[0mGET /bower_components/web-animations-js/web-animations-next-lite.min.js [36m304 [0m0.474 ms - -[0m
+[0mGET /bower_components/iron-overlay-behavior/iron-overlay-backdrop.html [36m304 [0m0.657 ms - -[0m
+[0mGET /bower_components/web-animations-js/web-animations-next-lite.min.js.map [36m304 [0m0.371 ms - -[0m
+[0mGET /elements/course/course-editor.html [36m304 [0m0.434 ms - -[0m
+[0mGET /api/semesters [36m304 [0m35.030 ms - -[0m
+[0mGET /api/subjects [36m304 [0m33.975 ms - -[0m
+[0mGET /favicon.ico [36m304 [0m1.161 ms - -[0m
+[0mGET /bower_components/paper-tabs/paper-tabs.html [36m304 [0m2.139 ms - -[0m
+[0mGET /bower_components/paper-material/paper-material.html [36m304 [0m10.847 ms - -[0m
+[0mGET /elements/course/course-detail-editor.html [36m304 [0m11.689 ms - -[0m
+[0mGET /elements/video/video-edit-list.html [36m304 [0m11.513 ms - -[0m
+[0mGET /bower_components/iron-menu-behavior/iron-menubar-behavior.html [36m304 [0m32.870 ms - -[0m
+[0mGET /bower_components/paper-tabs/paper-tabs-icons.html [36m304 [0m33.124 ms - -[0m
+[0mGET /bower_components/paper-tabs/paper-tab.html [36m304 [0m31.944 ms - -[0m
+[0mGET /bower_components/paper-input/paper-textarea.html [36m304 [0m30.646 ms - -[0m
+[0mGET /bower_components/iron-form/iron-form.html [36m304 [0m30.276 ms - -[0m
+[0mGET /bower_components/polymer-sortablejs/polymer-sortablejs.html [36m304 [0m15.840 ms - -[0m
+[0mGET /elements/video/video-edit-card.html [36m304 [0m2.795 ms - -[0m
+[0mGET /bower_components/iron-image/iron-image.html [36m304 [0m3.960 ms - -[0m
+[0mGET /bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html [36m304 [0m0.692 ms - -[0m
+[0mGET /bower_components/iron-ajax/iron-ajax.html [36m304 [0m0.492 ms - -[0m
+[0mGET /bower_components/Sortable/Sortable.js [36m304 [0m1.666 ms - -[0m
+[0mGET /behaviors/video-consumer.html [36m304 [0m0.752 ms - -[0m
+[0mGET /behaviors/route-composer.html [36m304 [0m0.320 ms - -[0m
+[0mGET /bower_components/paper-card/paper-card.html [36m304 [0m0.594 ms - -[0m
+[0mGET /bower_components/iron-ajax/iron-request.html [36m304 [0m12.594 ms - -[0m
+[0mGET /bower_components/promise-polyfill/promise-polyfill-lite.html [36m304 [0m0.535 ms - -[0m
+[0mGET /bower_components/promise-polyfill/Promise.js [36m304 [0m1.954 ms - -[0m
+[0mGET /api/courses/MwMC8vcZkyf [36m304 [0m27.680 ms - -[0m
+[0mGET /api/topics?where=%7B%22subject_id%22%3A27%7D [36m304 [0m10.423 ms - -[0m
+[0mGET /api/videos?where=%7B%22course_id%22%3A%22MwMC8vcZkyf%22%7D&order=%5B%7B%22column%22%3A%22rank%22%2C%22order%22%3A%22desc%22%7D%5D [36m304 [0m270.253 ms - -[0m
+[0mGET /videos/published/PyRBdyDk0qg/thumb.jpg [36m304 [0m1.688 ms - -[0m
+[0mGET /videos/published/JFdPfPujECY/thumb.jpg [36m304 [0m1.535 ms - -[0m
+[0mGET /videos/published/N-S9-A1KEyG/thumb.jpg [36m304 [0m1.560 ms - -[0m
+[0mGET /videos/published/FLRxHHdYkXx/thumb.jpg [36m304 [0m1.837 ms - -[0m
+[0mGET /videos/published/NXsClqP20m7/thumb.jpg [36m304 [0m0.799 ms - -[0m
+[0mGET /videos/published/D0TDEFaWUaa/thumb.jpg [36m304 [0m0.536 ms - -[0m
+[0mGET /videos/published/FN_Olrs-0wr/thumb.jpg [36m304 [0m16.228 ms - -[0m
+[0mGET /videos/published/LazI0yCikN5/thumb.jpg [36m304 [0m3.808 ms - -[0m
+[0mGET /videos/published/MrhJVjxzE2T/thumb.jpg [36m304 [0m4.317 ms - -[0m
+[0mGET /videos/published/JSZ5OHPSUml/thumb.jpg [36m304 [0m4.537 ms - -[0m
+[0mGET /videos/published/FZGSgtKpEf4/thumb.jpg [36m304 [0m4.367 ms - -[0m
+[0mGET /videos/published/JLytFlzvU8O/thumb.jpg [36m304 [0m3.685 ms - -[0m
+[0mGET /videos/published/P4hdIPJEkX0/thumb.jpg [36m304 [0m0.433 ms - -[0m
+[0mGET /videos/published/FmG3K0fUU-r/thumb.jpg [36m304 [0m2.370 ms - -[0m
+[0mGET /videos/published/C6nmjAkK06a/thumb.jpg [36m304 [0m2.791 ms - -[0m
+[0mGET /videos/published/OFdYaqhL0LU/thumb.jpg [36m304 [0m3.249 ms - -[0m
+[0mGET /videos/published/G3WnnuAtES_/thumb.jpg [36m304 [0m3.705 ms - -[0m
+[0mGET /videos/published/NpU6baJGUnB/thumb.jpg [36m304 [0m4.824 ms - -[0m
+[0mGET /videos/published/NuhhCZ2wkl-/thumb.jpg [36m304 [0m0.618 ms - -[0m
+[0mGET /videos/published/MBX9yT5bkCG/thumb.jpg [36m304 [0m0.448 ms - -[0m
+[0mGET /videos/published/K74Z2W27UqC/thumb.jpg [36m304 [0m4.566 ms - -[0m
+[0mGET /videos/published/MpNYYwfXEWy/thumb.jpg [36m304 [0m3.600 ms - -[0m
+[0mGET /videos/published/EsVPcDKxUCS/thumb.jpg [36m304 [0m0.634 ms - -[0m
+[0mGET /videos/published/NbMxgPWEDD/thumb.jpg [36m304 [0m0.646 ms - -[0m
+{}
+IncomingMessage {
+  _readableState: 
+   ReadableState {
+     objectMode: false,
+     highWaterMark: 16384,
+     buffer: BufferList { head: [Object], tail: [Object], length: 1 },
+     length: 40,
+     pipes: null,
+     pipesCount: 0,
+     flowing: null,
+     ended: true,
+     endEmitted: false,
+     reading: false,
+     sync: true,
+     needReadable: false,
+     emittedReadable: true,
+     readableListening: false,
+     resumeScheduled: false,
+     defaultEncoding: 'utf8',
+     ranOut: false,
+     awaitDrain: 0,
+     readingMore: true,
+     decoder: null,
+     encoding: null },
+  readable: true,
+  domain: null,
+  _events: {},
+  _eventsCount: 0,
+  _maxListeners: undefined,
+  socket: 
+   Socket {
+     connecting: false,
+     _hadError: false,
+     _handle: 
+      TCP {
+        bytesRead: 15068,
+        _externalStream: {},
+        fd: 13,
+        reading: true,
+        owner: [Circular],
+        onread: [Function: onread],
+        onconnection: null,
+        writeQueueSize: 0 },
+     _parent: null,
+     _host: null,
+     _readableState: 
+      ReadableState {
+        objectMode: false,
+        highWaterMark: 16384,
+        buffer: [Object],
+        length: 0,
+        pipes: null,
+        pipesCount: 0,
+        flowing: true,
+        ended: false,
+        endEmitted: false,
+        reading: true,
+        sync: false,
+        needReadable: true,
+        emittedReadable: false,
+        readableListening: false,
+        resumeScheduled: false,
+        defaultEncoding: 'utf8',
+        ranOut: false,
+        awaitDrain: 0,
+        readingMore: false,
+        decoder: null,
+        encoding: null },
+     readable: true,
+     domain: null,
+     _events: 
+      { end: [Object],
+        finish: [Function: onSocketFinish],
+        _socketEnd: [Function: onSocketEnd],
+        drain: [Object],
+        timeout: [Function],
+        error: [Object],
+        close: [Object],
+        data: [Function: socketOnData],
+        resume: [Function: onSocketResume],
+        pause: [Function: onSocketPause] },
+     _eventsCount: 10,
+     _maxListeners: undefined,
+     _writableState: 
+      WritableState {
+        objectMode: false,
+        highWaterMark: 16384,
+        needDrain: false,
+        ending: false,
+        ended: false,
+        finished: false,
+        decodeStrings: false,
+        defaultEncoding: 'utf8',
+        length: 0,
+        writing: false,
+        corked: 0,
+        sync: false,
+        bufferProcessing: false,
+        onwrite: [Function],
+        writecb: null,
+        writelen: 0,
+        bufferedRequest: null,
+        lastBufferedRequest: null,
+        pendingcb: 0,
+        prefinished: false,
+        errorEmitted: false,
+        bufferedRequestCount: 0,
+        corkedRequestsFree: [Object] },
+     writable: true,
+     allowHalfOpen: true,
+     destroyed: false,
+     _bytesDispatched: 9603,
+     _sockname: null,
+     _pendingData: null,
+     _pendingEncoding: '',
+     server: 
+      Server {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 4,
+        _maxListeners: undefined,
+        _connections: 6,
+        _handle: [Object],
+        _usingSlaves: false,
+        _slaves: [],
+        _unref: false,
+        allowHalfOpen: true,
+        pauseOnConnect: false,
+        httpAllowHalfOpen: false,
+        timeout: 120000,
+        _pendingResponseData: 0,
+        _connectionKey: '6::::3000' },
+     _server: 
+      Server {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 4,
+        _maxListeners: undefined,
+        _connections: 6,
+        _handle: [Object],
+        _usingSlaves: false,
+        _slaves: [],
+        _unref: false,
+        allowHalfOpen: true,
+        pauseOnConnect: false,
+        httpAllowHalfOpen: false,
+        timeout: 120000,
+        _pendingResponseData: 0,
+        _connectionKey: '6::::3000' },
+     _idleTimeout: 120000,
+     _idleNext: 
+      Socket {
+        connecting: false,
+        _hadError: false,
+        _handle: [Object],
+        _parent: null,
+        _host: null,
+        _readableState: [Object],
+        readable: true,
+        domain: null,
+        _events: [Object],
+        _eventsCount: 10,
+        _maxListeners: undefined,
+        _writableState: [Object],
+        writable: true,
+        allowHalfOpen: true,
+        destroyed: false,
+        _bytesDispatched: 10280,
+        _sockname: null,
+        _pendingData: null,
+        _pendingEncoding: '',
+        server: [Object],
+        _server: [Object],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Circular],
+        _idleStart: 6208,
+        parser: [Object],
+        on: [Function: socketOnWrap],
+        _paused: false,
+        read: [Function],
+        _consuming: true,
+        _httpMessage: null,
+        _peername: [Object] },
+     _idlePrev: 
+      TimersList {
+        _idleNext: [Circular],
+        _idlePrev: [Object],
+        _timer: [Object],
+        _unrefed: true,
+        msecs: 120000 },
+     _idleStart: 9485,
+     parser: 
+      HTTPParser {
+        '0': [Function: parserOnHeaders],
+        '1': [Function: parserOnHeadersComplete],
+        '2': [Function: parserOnBody],
+        '3': [Function: parserOnMessageComplete],
+        '4': [Function: onParserExecute],
+        _headers: [],
+        _url: '',
+        _consumed: true,
+        socket: [Circular],
+        incoming: [Circular],
+        outgoing: null,
+        maxHeaderPairs: 2000,
+        onIncoming: [Function: parserOnIncoming] },
+     on: [Function: socketOnWrap],
+     _paused: false,
+     read: [Function],
+     _consuming: true,
+     _httpMessage: 
+      ServerResponse {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 2,
+        _maxListeners: undefined,
+        output: [],
+        outputEncodings: [],
+        outputCallbacks: [],
+        outputSize: 0,
+        writable: true,
+        _last: false,
+        chunkedEncoding: false,
+        shouldKeepAlive: true,
+        useChunkedEncodingByDefault: true,
+        sendDate: true,
+        _removedHeader: {},
+        _contentLength: null,
+        _hasBody: true,
+        _trailer: '',
+        finished: false,
+        _headerSent: false,
+        socket: [Circular],
+        connection: [Circular],
+        _header: null,
+        _headers: [Object],
+        _headerNames: [Object],
+        _onPendingData: [Function: updateOutgoingData],
+        req: [Circular],
+        locals: [Object],
+        _startAt: undefined,
+        _startTime: undefined,
+        writeHead: [Function: writeHead],
+        __onFinished: [Object] },
+     _peername: { address: '::ffff:127.0.0.1', family: 'IPv6', port: 52526 } },
+  connection: 
+   Socket {
+     connecting: false,
+     _hadError: false,
+     _handle: 
+      TCP {
+        bytesRead: 15068,
+        _externalStream: {},
+        fd: 13,
+        reading: true,
+        owner: [Circular],
+        onread: [Function: onread],
+        onconnection: null,
+        writeQueueSize: 0 },
+     _parent: null,
+     _host: null,
+     _readableState: 
+      ReadableState {
+        objectMode: false,
+        highWaterMark: 16384,
+        buffer: [Object],
+        length: 0,
+        pipes: null,
+        pipesCount: 0,
+        flowing: true,
+        ended: false,
+        endEmitted: false,
+        reading: true,
+        sync: false,
+        needReadable: true,
+        emittedReadable: false,
+        readableListening: false,
+        resumeScheduled: false,
+        defaultEncoding: 'utf8',
+        ranOut: false,
+        awaitDrain: 0,
+        readingMore: false,
+        decoder: null,
+        encoding: null },
+     readable: true,
+     domain: null,
+     _events: 
+      { end: [Object],
+        finish: [Function: onSocketFinish],
+        _socketEnd: [Function: onSocketEnd],
+        drain: [Object],
+        timeout: [Function],
+        error: [Object],
+        close: [Object],
+        data: [Function: socketOnData],
+        resume: [Function: onSocketResume],
+        pause: [Function: onSocketPause] },
+     _eventsCount: 10,
+     _maxListeners: undefined,
+     _writableState: 
+      WritableState {
+        objectMode: false,
+        highWaterMark: 16384,
+        needDrain: false,
+        ending: false,
+        ended: false,
+        finished: false,
+        decodeStrings: false,
+        defaultEncoding: 'utf8',
+        length: 0,
+        writing: false,
+        corked: 0,
+        sync: false,
+        bufferProcessing: false,
+        onwrite: [Function],
+        writecb: null,
+        writelen: 0,
+        bufferedRequest: null,
+        lastBufferedRequest: null,
+        pendingcb: 0,
+        prefinished: false,
+        errorEmitted: false,
+        bufferedRequestCount: 0,
+        corkedRequestsFree: [Object] },
+     writable: true,
+     allowHalfOpen: true,
+     destroyed: false,
+     _bytesDispatched: 9603,
+     _sockname: null,
+     _pendingData: null,
+     _pendingEncoding: '',
+     server: 
+      Server {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 4,
+        _maxListeners: undefined,
+        _connections: 6,
+        _handle: [Object],
+        _usingSlaves: false,
+        _slaves: [],
+        _unref: false,
+        allowHalfOpen: true,
+        pauseOnConnect: false,
+        httpAllowHalfOpen: false,
+        timeout: 120000,
+        _pendingResponseData: 0,
+        _connectionKey: '6::::3000' },
+     _server: 
+      Server {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 4,
+        _maxListeners: undefined,
+        _connections: 6,
+        _handle: [Object],
+        _usingSlaves: false,
+        _slaves: [],
+        _unref: false,
+        allowHalfOpen: true,
+        pauseOnConnect: false,
+        httpAllowHalfOpen: false,
+        timeout: 120000,
+        _pendingResponseData: 0,
+        _connectionKey: '6::::3000' },
+     _idleTimeout: 120000,
+     _idleNext: 
+      Socket {
+        connecting: false,
+        _hadError: false,
+        _handle: [Object],
+        _parent: null,
+        _host: null,
+        _readableState: [Object],
+        readable: true,
+        domain: null,
+        _events: [Object],
+        _eventsCount: 10,
+        _maxListeners: undefined,
+        _writableState: [Object],
+        writable: true,
+        allowHalfOpen: true,
+        destroyed: false,
+        _bytesDispatched: 10280,
+        _sockname: null,
+        _pendingData: null,
+        _pendingEncoding: '',
+        server: [Object],
+        _server: [Object],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Circular],
+        _idleStart: 6208,
+        parser: [Object],
+        on: [Function: socketOnWrap],
+        _paused: false,
+        read: [Function],
+        _consuming: true,
+        _httpMessage: null,
+        _peername: [Object] },
+     _idlePrev: 
+      TimersList {
+        _idleNext: [Circular],
+        _idlePrev: [Object],
+        _timer: [Object],
+        _unrefed: true,
+        msecs: 120000 },
+     _idleStart: 9485,
+     parser: 
+      HTTPParser {
+        '0': [Function: parserOnHeaders],
+        '1': [Function: parserOnHeadersComplete],
+        '2': [Function: parserOnBody],
+        '3': [Function: parserOnMessageComplete],
+        '4': [Function: onParserExecute],
+        _headers: [],
+        _url: '',
+        _consumed: true,
+        socket: [Circular],
+        incoming: [Circular],
+        outgoing: null,
+        maxHeaderPairs: 2000,
+        onIncoming: [Function: parserOnIncoming] },
+     on: [Function: socketOnWrap],
+     _paused: false,
+     read: [Function],
+     _consuming: true,
+     _httpMessage: 
+      ServerResponse {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 2,
+        _maxListeners: undefined,
+        output: [],
+        outputEncodings: [],
+        outputCallbacks: [],
+        outputSize: 0,
+        writable: true,
+        _last: false,
+        chunkedEncoding: false,
+        shouldKeepAlive: true,
+        useChunkedEncodingByDefault: true,
+        sendDate: true,
+        _removedHeader: {},
+        _contentLength: null,
+        _hasBody: true,
+        _trailer: '',
+        finished: false,
+        _headerSent: false,
+        socket: [Circular],
+        connection: [Circular],
+        _header: null,
+        _headers: [Object],
+        _headerNames: [Object],
+        _onPendingData: [Function: updateOutgoingData],
+        req: [Circular],
+        locals: [Object],
+        _startAt: undefined,
+        _startTime: undefined,
+        writeHead: [Function: writeHead],
+        __onFinished: [Object] },
+     _peername: { address: '::ffff:127.0.0.1', family: 'IPv6', port: 52526 } },
+  httpVersionMajor: 1,
+  httpVersionMinor: 1,
+  httpVersion: '1.1',
+  complete: true,
+  headers: 
+   { host: 'localhost:3000',
+     connection: 'keep-alive',
+     'content-length': '40',
+     'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.92 Safari/537.36',
+     origin: 'http://localhost:3000',
+     authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOiIxNDczNTEwMDA1IiwiZXhwIjoiMTQ3NDExNDgwNSIsInVzZXIiOnsiaWQiOiJNb2hhbW1lZC5IaW50ejY1IiwicHVibGlzaGVyIjp0cnVlLCJhZG1pbiI6dHJ1ZSwiZmlyc3RfbmFtZSI6IkR1bGNlIiwibGFzdF9uYW1lIjoiU2NodXN0ZXIiLCJsYXN0X3Rva2VuX2ludmFsaWRhdGlvbiI6IjIwMTYtMDktMDlUMjE6NTE6NDIuNjc0WiJ9fQ.aP5YS3RogQcv6SpklNCoJ2phW6BzT8ZbhSTRlvDSeJw',
+     'content-type': 'text/plain;charset=UTF-8',
+     accept: '*/*',
+     referer: 'http://localhost:3000/edit/Mohammed.Hintz65/courses/MwMC8vcZkyf',
+     'accept-encoding': 'gzip, deflate, sdch',
+     'accept-language': 'en-US,en;q=0.8' },
+  rawHeaders: 
+   [ 'Host',
+     'localhost:3000',
+     'Connection',
+     'keep-alive',
+     'Content-Length',
+     '40',
+     'User-Agent',
+     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.92 Safari/537.36',
+     'Origin',
+     'http://localhost:3000',
+     'authorization',
+     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOiIxNDczNTEwMDA1IiwiZXhwIjoiMTQ3NDExNDgwNSIsInVzZXIiOnsiaWQiOiJNb2hhbW1lZC5IaW50ejY1IiwicHVibGlzaGVyIjp0cnVlLCJhZG1pbiI6dHJ1ZSwiZmlyc3RfbmFtZSI6IkR1bGNlIiwibGFzdF9uYW1lIjoiU2NodXN0ZXIiLCJsYXN0X3Rva2VuX2ludmFsaWRhdGlvbiI6IjIwMTYtMDktMDlUMjE6NTE6NDIuNjc0WiJ9fQ.aP5YS3RogQcv6SpklNCoJ2phW6BzT8ZbhSTRlvDSeJw',
+     'Content-Type',
+     'text/plain;charset=UTF-8',
+     'Accept',
+     '*/*',
+     'Referer',
+     'http://localhost:3000/edit/Mohammed.Hintz65/courses/MwMC8vcZkyf',
+     'Accept-Encoding',
+     'gzip, deflate, sdch',
+     'Accept-Language',
+     'en-US,en;q=0.8' ],
+  trailers: {},
+  rawTrailers: [],
+  upgrade: false,
+  url: '/api/courses/MwMC8vcZkyf/videos?action=%22reorder%22',
+  method: 'PATCH',
+  statusCode: null,
+  statusMessage: null,
+  client: 
+   Socket {
+     connecting: false,
+     _hadError: false,
+     _handle: 
+      TCP {
+        bytesRead: 15068,
+        _externalStream: {},
+        fd: 13,
+        reading: true,
+        owner: [Circular],
+        onread: [Function: onread],
+        onconnection: null,
+        writeQueueSize: 0 },
+     _parent: null,
+     _host: null,
+     _readableState: 
+      ReadableState {
+        objectMode: false,
+        highWaterMark: 16384,
+        buffer: [Object],
+        length: 0,
+        pipes: null,
+        pipesCount: 0,
+        flowing: true,
+        ended: false,
+        endEmitted: false,
+        reading: true,
+        sync: false,
+        needReadable: true,
+        emittedReadable: false,
+        readableListening: false,
+        resumeScheduled: false,
+        defaultEncoding: 'utf8',
+        ranOut: false,
+        awaitDrain: 0,
+        readingMore: false,
+        decoder: null,
+        encoding: null },
+     readable: true,
+     domain: null,
+     _events: 
+      { end: [Object],
+        finish: [Function: onSocketFinish],
+        _socketEnd: [Function: onSocketEnd],
+        drain: [Object],
+        timeout: [Function],
+        error: [Object],
+        close: [Object],
+        data: [Function: socketOnData],
+        resume: [Function: onSocketResume],
+        pause: [Function: onSocketPause] },
+     _eventsCount: 10,
+     _maxListeners: undefined,
+     _writableState: 
+      WritableState {
+        objectMode: false,
+        highWaterMark: 16384,
+        needDrain: false,
+        ending: false,
+        ended: false,
+        finished: false,
+        decodeStrings: false,
+        defaultEncoding: 'utf8',
+        length: 0,
+        writing: false,
+        corked: 0,
+        sync: false,
+        bufferProcessing: false,
+        onwrite: [Function],
+        writecb: null,
+        writelen: 0,
+        bufferedRequest: null,
+        lastBufferedRequest: null,
+        pendingcb: 0,
+        prefinished: false,
+        errorEmitted: false,
+        bufferedRequestCount: 0,
+        corkedRequestsFree: [Object] },
+     writable: true,
+     allowHalfOpen: true,
+     destroyed: false,
+     _bytesDispatched: 9603,
+     _sockname: null,
+     _pendingData: null,
+     _pendingEncoding: '',
+     server: 
+      Server {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 4,
+        _maxListeners: undefined,
+        _connections: 6,
+        _handle: [Object],
+        _usingSlaves: false,
+        _slaves: [],
+        _unref: false,
+        allowHalfOpen: true,
+        pauseOnConnect: false,
+        httpAllowHalfOpen: false,
+        timeout: 120000,
+        _pendingResponseData: 0,
+        _connectionKey: '6::::3000' },
+     _server: 
+      Server {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 4,
+        _maxListeners: undefined,
+        _connections: 6,
+        _handle: [Object],
+        _usingSlaves: false,
+        _slaves: [],
+        _unref: false,
+        allowHalfOpen: true,
+        pauseOnConnect: false,
+        httpAllowHalfOpen: false,
+        timeout: 120000,
+        _pendingResponseData: 0,
+        _connectionKey: '6::::3000' },
+     _idleTimeout: 120000,
+     _idleNext: 
+      Socket {
+        connecting: false,
+        _hadError: false,
+        _handle: [Object],
+        _parent: null,
+        _host: null,
+        _readableState: [Object],
+        readable: true,
+        domain: null,
+        _events: [Object],
+        _eventsCount: 10,
+        _maxListeners: undefined,
+        _writableState: [Object],
+        writable: true,
+        allowHalfOpen: true,
+        destroyed: false,
+        _bytesDispatched: 10280,
+        _sockname: null,
+        _pendingData: null,
+        _pendingEncoding: '',
+        server: [Object],
+        _server: [Object],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Circular],
+        _idleStart: 6208,
+        parser: [Object],
+        on: [Function: socketOnWrap],
+        _paused: false,
+        read: [Function],
+        _consuming: true,
+        _httpMessage: null,
+        _peername: [Object] },
+     _idlePrev: 
+      TimersList {
+        _idleNext: [Circular],
+        _idlePrev: [Object],
+        _timer: [Object],
+        _unrefed: true,
+        msecs: 120000 },
+     _idleStart: 9485,
+     parser: 
+      HTTPParser {
+        '0': [Function: parserOnHeaders],
+        '1': [Function: parserOnHeadersComplete],
+        '2': [Function: parserOnBody],
+        '3': [Function: parserOnMessageComplete],
+        '4': [Function: onParserExecute],
+        _headers: [],
+        _url: '',
+        _consumed: true,
+        socket: [Circular],
+        incoming: [Circular],
+        outgoing: null,
+        maxHeaderPairs: 2000,
+        onIncoming: [Function: parserOnIncoming] },
+     on: [Function: socketOnWrap],
+     _paused: false,
+     read: [Function],
+     _consuming: true,
+     _httpMessage: 
+      ServerResponse {
+        domain: null,
+        _events: [Object],
+        _eventsCount: 2,
+        _maxListeners: undefined,
+        output: [],
+        outputEncodings: [],
+        outputCallbacks: [],
+        outputSize: 0,
+        writable: true,
+        _last: false,
+        chunkedEncoding: false,
+        shouldKeepAlive: true,
+        useChunkedEncodingByDefault: true,
+        sendDate: true,
+        _removedHeader: {},
+        _contentLength: null,
+        _hasBody: true,
+        _trailer: '',
+        finished: false,
+        _headerSent: false,
+        socket: [Circular],
+        connection: [Circular],
+        _header: null,
+        _headers: [Object],
+        _headerNames: [Object],
+        _onPendingData: [Function: updateOutgoingData],
+        req: [Circular],
+        locals: [Object],
+        _startAt: undefined,
+        _startTime: undefined,
+        writeHead: [Function: writeHead],
+        __onFinished: [Object] },
+     _peername: { address: '::ffff:127.0.0.1', family: 'IPv6', port: 52526 } },
+  _consuming: false,
+  _dumped: false,
+  next: [Function: next],
+  baseUrl: '',
+  originalUrl: '/api/courses/MwMC8vcZkyf/videos?action=%22reorder%22',
+  _parsedUrl: 
+   Url {
+     protocol: null,
+     slashes: null,
+     auth: null,
+     host: null,
+     port: null,
+     hostname: null,
+     hash: null,
+     search: '?action=%22reorder%22',
+     query: 'action=%22reorder%22',
+     pathname: '/api/courses/MwMC8vcZkyf/videos',
+     path: '/api/courses/MwMC8vcZkyf/videos?action=%22reorder%22',
+     href: '/api/courses/MwMC8vcZkyf/videos?action=%22reorder%22',
+     _raw: '/api/courses/MwMC8vcZkyf/videos?action=%22reorder%22' },
+  params: { id: 'MwMC8vcZkyf' },
+  query: { action: 'reorder' },
+  res: 
+   ServerResponse {
+     domain: null,
+     _events: { finish: [Object], end: [Function: onevent] },
+     _eventsCount: 2,
+     _maxListeners: undefined,
+     output: [],
+     outputEncodings: [],
+     outputCallbacks: [],
+     outputSize: 0,
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     sendDate: true,
+     _removedHeader: {},
+     _contentLength: null,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     _headerSent: false,
+     socket: 
+      Socket {
+        connecting: false,
+        _hadError: false,
+        _handle: [Object],
+        _parent: null,
+        _host: null,
+        _readableState: [Object],
+        readable: true,
+        domain: null,
+        _events: [Object],
+        _eventsCount: 10,
+        _maxListeners: undefined,
+        _writableState: [Object],
+        writable: true,
+        allowHalfOpen: true,
+        destroyed: false,
+        _bytesDispatched: 9603,
+        _sockname: null,
+        _pendingData: null,
+        _pendingEncoding: '',
+        server: [Object],
+        _server: [Object],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: 9485,
+        parser: [Object],
+        on: [Function: socketOnWrap],
+        _paused: false,
+        read: [Function],
+        _consuming: true,
+        _httpMessage: [Circular],
+        _peername: [Object] },
+     connection: 
+      Socket {
+        connecting: false,
+        _hadError: false,
+        _handle: [Object],
+        _parent: null,
+        _host: null,
+        _readableState: [Object],
+        readable: true,
+        domain: null,
+        _events: [Object],
+        _eventsCount: 10,
+        _maxListeners: undefined,
+        _writableState: [Object],
+        writable: true,
+        allowHalfOpen: true,
+        destroyed: false,
+        _bytesDispatched: 9603,
+        _sockname: null,
+        _pendingData: null,
+        _pendingEncoding: '',
+        server: [Object],
+        _server: [Object],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: 9485,
+        parser: [Object],
+        on: [Function: socketOnWrap],
+        _paused: false,
+        read: [Function],
+        _consuming: true,
+        _httpMessage: [Circular],
+        _peername: [Object] },
+     _header: null,
+     _headers: 
+      { 'x-content-type-options': 'nosniff',
+        'x-frame-options': 'SAMEORIGIN',
+        'x-download-options': 'noopen',
+        'x-xss-protection': '1; mode=block' },
+     _headerNames: 
+      { 'x-content-type-options': 'X-Content-Type-Options',
+        'x-frame-options': 'X-Frame-Options',
+        'x-download-options': 'X-Download-Options',
+        'x-xss-protection': 'X-XSS-Protection' },
+     _onPendingData: [Function: updateOutgoingData],
+     req: [Circular],
+     locals: { token: [Object], person: [Object] },
+     _startAt: undefined,
+     _startTime: undefined,
+     writeHead: [Function: writeHead],
+     __onFinished: { [Function: listener] queue: [Object] } },
+  _startAt: [ 484204, 612790318 ],
+  _startTime: 2016-09-10T21:04:41.791Z,
+  _remoteAddress: '::ffff:127.0.0.1',
+  body: {},
+  secret: undefined,
+  cookies: {},
+  signedCookies: {},
+  route: 
+   Route {
+     path: '/api/courses/:id/videos',
+     stack: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ],
+     methods: { patch: true } } }
+{ course_id: 'MwMC8vcZkyf',
+  video_id: undefined,
+  new_rank: undefined }
+[0mPATCH /api/courses/MwMC8vcZkyf/videos?action=%22reorder%22 [32m200 [0m80.302 ms - 2[0m

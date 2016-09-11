@@ -30,6 +30,31 @@ var get_videos = function (req, res, next) {
 	});;
 };
 
+
+
+
+var confirm_reorder_action = function (req, res, next) {
+	if (req.query.action == 'reorder') next();
+	else next('route');
+}
+
+
+
+var reorder_course_videos = function (req, res, next) {
+	videos.reorder({
+		course_id: req.params.id,
+		video_id: req.body.video_id,
+		new_rank: req.body.new_rank
+	}).then(function (result) {
+		res.status(200).json({
+			message: 'Re-ranked video' + req.body.video_id + ' to ' + req.body.new_rank,
+			data: {}
+		});
+	});
+}
+
+
+
 module.exports = function (router) {
 
 	/**
@@ -99,7 +124,11 @@ module.exports = function (router) {
 	);
 
 
-	router.get('/api/courses/:id/videos', token.auth(), get_videos);
+	router.patch('/api/courses/:id/videos', 
+		token.auth(),
+		confirm_reorder_action,
+		reorder_course_videos
+	);
 
 
 	/*router.post('/api/courses', create);*/

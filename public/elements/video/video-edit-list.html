@@ -4,6 +4,8 @@
 <link rel="import" href="/elements/video/video-edit-card.html"/>
 <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/loading-overlay/loading-overlay.html">
+
 <dom-module id="video-edit-list">
 	<template>
 		<style>
@@ -16,6 +18,7 @@
 				border-top: 1px solid rgba(0,0,0,0.1);
 				border-top: 1px solid rgba(0,0,0,0.1);
 				width: 100%;
+				position: relative;
 			}
 			.drag_handle {
 				background: #fbfbfb;
@@ -40,11 +43,15 @@
 			iron-icon {
 				color: rgba(0,0,0,0.4);
 			}
+			loading-overlay {
+				background: white;
+				opacity: 0.6;
+			}
 		</style>
-		
-		<sortable-js id="sortable" handle=".drag_handle" on-update="sync">
-			<template is="dom-repeat" items="[[videos]]">
+		<sortable-js disabled="[[loading]]" id="sortable"  handle=".drag_handle" on-update="sync">
+			<template id="repeater" is="dom-repeat" items="[[videos]]">
 				<div class="drag_container">
+					<loading-overlay></loading-overlay>
 					<div class="drag_handle">
 						<iron-icon icon="more-vert"></iron-icon>
 					</div>
@@ -64,11 +71,28 @@
 				}
 			},
 			sync: function(event, detail) {
-				//please see: https://github.com/SortableJS/polymer-sortablejs/issues/16
-				if (!event.detail) return;
-				console.log(this.$.sortable.toArray());
-				console.log(detail);
-				console.log(event);
+				if (!detail) return; //see: https://github.com/SortableJS/polymer-sortablejs/issues/16
+
+				var video = this.$.repeater.modelForElement(detail.item).get('item');
+				var new_rank = video.rank - (detail.newIndex - detail.oldIndex);
+				var loader = detail.item.querySelector('loading-overlay');
+				loader.active = true;
+				this.loading = true;
+				this.fire('api-request', {
+					verb: 'PATCH',
+					headers: {'Content-Type': 'application/json'},
+					resource: ['courses', this.course.id, 'videos'],
+					query: {action: 'reorder'},
+					body: {
+						video_id: video.id,
+						new_rank: new_rank
+					},
+					callback_scope: this,
+					callback: function (result) {
+						loader.active = false;
+						this._get_new_data(this.course);
+					}
+				})
 			},
 			_get_new_data: function (new_course, old_course) {
 				this.loading = true;
