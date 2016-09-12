@@ -1,7 +1,6 @@
 require('dotenv').config()
 require('./config/scripts/load-jwt-secret');
 var express = require('express');
-var swagger_spec = require('./swagger.js');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -31,10 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(query_parser);
 app.use('/', controllers);
 
-//swagger
-app.get('/swagger.json', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(swagger_spec);
+app.get('/api/docs', function (req, res) {
+  res.sendFile('api-docs/index.html', {root: path.join(__dirname, 'public')});
 });
 
 

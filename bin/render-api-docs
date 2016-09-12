@@ -1,0 +1,9 @@
+#!/bin/bash
+# Author: Lucas Parzych
+#
+# This script runs aglio to generate the HTML for the API docs. 
+#
+# Note:
+#   Run from project root.
+
+aglio --theme-template triple  -i public/api-docs/markdown/main.md -o public/api-docs/index.html
