@@ -57,53 +57,6 @@ var reorder_course_videos = function (req, res, next) {
 
 module.exports = function (router) {
 
-	/**
-	 * @swagger
-	 * definition:
-	 *   Course:
-	 *     properties:
-	 *       id:
-	 *         type: string
-	 *       topic_id:
-	 *         type: string
-	 *       semester_id:
-	 *         type: integer
-	 *       year:
-	 *         type: string
-	 *       section:
-	 *         type: string
-	 *       person_id:
-	 *         type: string
-	 */
-
-
-
-
-
-
-
-	/**
-	 * @swagger	
-   * /api/courses:
-   *   get:
-   *     tags:
-   *       - Courses
-   *     description: Returns a set of courses
-   *     produces:
-   *       - application/json
-   *     responses:
-   *       200:
-   *         description: An array of courses
-   *         schema:
-   *           $ref: '#/definitions/Course'
-   *     parameters:
-   *       - name: where
-   *         description: JSON object whose keys are model attributes and values are the filter values. 
-   *           There is an implied AND between the individual keys/value pairs.
-   *         type: string
-   *         required: false
-   *         in: query
-   */
 	router.get('/api/courses', 
 		token.auth(), 
 		controller_factory.retrieve({
