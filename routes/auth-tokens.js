@@ -1,5 +1,5 @@
-var people = require('../models/people');
-var token = require('../helpers/token');
+var people = require('../domain_objects/person');
+var token = require('../helpers/token-factory');
 
 var authenticate = function (req, res, next) {
 	var creds = {user: req.body.user, password: req.body.password};

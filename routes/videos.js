@@ -1,12 +1,12 @@
-var videos             = require('../models/videos');
-var upload_tokens      = require('../models/upload-tokens');
+var videos             = require('../domain_objects/videos');
+var upload_tokens      = require('../domain_objects/upload-tokens');
 var generate_uuid      = require('../helpers/uuid');
 var input_binding      = require('../helpers/flow_binder')
 var _                  = require('lodash');
 var path               = require('path');
 var fs                 = require('fs');
 var multer             = require('multer');
-var token              = require('../helpers/token');
+var authenticator      = require('../middleware/authenticator');
 var controller_factory = require('../helpers/controller-factory');
 
 
@@ -109,7 +109,7 @@ module.exports = function (router) {
 
 
 	router.get('/api/videos', 
-		token.auth(), 
+		authenticator.authenticate_token(), 
 		controller_factory.retrieve({
 			inflection: 'many',
 			message: 'Retrieved zero or more videos',
@@ -119,7 +119,7 @@ module.exports = function (router) {
 
 
 	router.get('/api/videos/:id', 
-		token.auth(), 
+		authenticator.authenticate_token(), 
 		controller_factory.retrieve({
 			inflection: 'one',
 			message: 'Retrieved zero or one videos.',

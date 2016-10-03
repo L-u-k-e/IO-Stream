@@ -1,4 +1,4 @@
-var courses = require('./courses');
+var courses = require('./course');
 var Promise = require('bluebird');
 var db      = require('../config/db_config');
 var orm     = require('../helpers/orm');

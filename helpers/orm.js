@@ -115,12 +115,12 @@ var remove = function (args) {
 
 
 module.exports = {
-	equals:    equals,
-	list_names:      list_names,
-	insert:    insert,
-	select:    select,
-	update:    update,
-	remove:    remove
+	equals:     equals,
+	list_names: list_names,
+	insert:     insert,
+	select:     select,
+	update:     update,
+	remove:     remove
 };
 
 

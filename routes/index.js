@@ -3,14 +3,14 @@ var router = express.Router();
 
 
 require('./courses')(router);
-require('./topics')(router);
+//require('./topics')(router);
 //require('subscriptions.js')(router);
-require('./videos')(router);
-require('./video-chunks')(router);
-require('./upload-tokens')(router);
+//require('./videos')(router);
+//require('./video-chunks')(router);
+//require('./upload-tokens')(router);
 require('./auth-tokens')(router);
-require('./semesters')(router);
-require('./subjects')(router);
+//require('./semesters')(router);
+//require('./subjects')(router);
 
 //require('favorites.js')(router);
 

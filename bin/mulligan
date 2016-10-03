@@ -13,13 +13,15 @@
 
 
 if [ "$1" != "-f" ] ; then
+	echo "   Run with -f to force execution (BE CAREFUL)"
 	exit 0;
 fi
 
 psql -h localhost -U postgres -d io_stream -a -f config/scripts/create-tables.sql
 psql -h localhost -U postgres -d io_stream -a -f config/scripts/grant-privs.sql
 psql -h localhost -U postgres -d io_stream -a -f config/scripts/seed-tables.sql
-node -r dotenv/config config/scripts/init-jwt-secret.js
+
+node -r dotenv/config helpers/jwt-key-manager.js init
 
 if [ "$2" = "--fuzz" ] ; then
 	node -r dotenv/config config/scripts/fuzz-tables.js

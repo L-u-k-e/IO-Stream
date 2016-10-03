@@ -4,4 +4,4 @@ var _             = require('lodash');
 var model_factory = require('../helpers/model-factory');
 
 var table = 'semester';
-exports.get = model_factory.retrieve({table: table});
+//exports.get = model_factory.retrieve({table: table});

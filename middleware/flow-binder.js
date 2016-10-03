@@ -3,7 +3,7 @@
  * Email:  parzycl1@sunyit.edu
  * 
  * Description:
- *  A client side library named "flow" is used to faucilitate the video 
+ *  A client side library named "flow" is used to facilitate the video 
  *  "chunking" for the resumable uploads. Depending on the nature of the
  *  request, the book keeping information that it sends may be in either 
  *  the body or the query string parameters. 

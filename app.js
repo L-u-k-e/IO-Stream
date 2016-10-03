@@ -1,5 +1,4 @@
-require('dotenv').config()
-require('./config/scripts/load-jwt-secret');
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,9 +7,11 @@ var cookie_parser = require('cookie-parser');
 var body_parser = require('body-parser');
 var helmet = require('helmet');
 
-var query_parser = require('./helpers/query_parser');
-var controllers = require('./controllers/index');
+var key_manager = require('./helpers/jwt-key-manager');
+key_manager.load_key();
 
+var query_parser = require('./middleware/query-parser');
+var routes = require('./routes/index');
 
 var app = express();
 
@@ -28,7 +29,7 @@ app.use(cookie_parser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(query_parser);
-app.use('/', controllers);
+app.use('/', routes);
 
 app.get('/api/docs', function (req, res) {
   res.sendFile('api-docs/index.html', {root: path.join(__dirname, 'public')});

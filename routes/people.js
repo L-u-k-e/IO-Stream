@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var token   = require('../helpers/token');
+var authenticator = require('../middleware/authenticator');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
